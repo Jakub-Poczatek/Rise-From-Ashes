@@ -22,6 +22,9 @@ public class PlacementManager : MonoBehaviour
     public void CreateBuilding(Vector3 gridPosition, GridStructure grid)
     {
         GameObject newStructure = Instantiate(buildingPrefab, ground.position + gridPosition, Quaternion.identity);
-        grid.PlaceStructureOnTheGrid(newStructure, gridPosition);
+        if (grid.CheckIfStructureFits(newStructure, gridPosition) && !grid.CheckIfStructureExists(newStructure, gridPosition))
+            grid.PlaceStructureOnTheGrid(newStructure, gridPosition);
+        else
+            Destroy(newStructure);
     }
 }

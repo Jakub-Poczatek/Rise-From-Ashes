@@ -343,8 +343,16 @@ PrefabInstance:
       value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 2254241604295238091, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2254241604295238091, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
+      propertyPath: near clip plane
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2254241604295238091, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
       propertyPath: orthographic size
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2254241604295238092, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
       propertyPath: m_RootOrder
@@ -352,15 +360,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2254241604295238092, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2254241604295238092, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2254241604295238092, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2254241604295238092, guid: 6789af531671b1e43a3db08a647d7e86, type: 3}
       propertyPath: m_LocalRotation.w
@@ -925,7 +933,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29198
+  m_Name: pb_Mesh30092
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

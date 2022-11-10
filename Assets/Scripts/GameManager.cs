@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private void HandleInput(Vector3 position)
     {
         Vector3 gridPosition = grid.CalculateGridPosition(position);
+        Debug.Log(gridPosition);
         if (grid.IsCellTaken(gridPosition)==false)
         {
             placementManager.CreateBuilding(gridPosition, grid);
