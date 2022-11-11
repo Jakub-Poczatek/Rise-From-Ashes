@@ -8,8 +8,8 @@ public class CellTests
 {
     Cell cell;
 
-    [OneTimeSetUp]
-    public void Init()
+    [SetUp]
+    public void SetUp()
     {
         cell = new();
     }
@@ -17,7 +17,7 @@ public class CellTests
     #region SetContructionTests
 
     [Test]
-    public void CellSetGameObjectPass()
+    public void SetContructionPass()
     {
         // Act
         cell.SetContruction(new GameObject());
@@ -27,7 +27,7 @@ public class CellTests
     }
 
     [Test]
-    public void CellSetGameObjectNullFail()
+    public void SetContructionNullFail()
     {
         // Act
         cell.SetContruction(null);

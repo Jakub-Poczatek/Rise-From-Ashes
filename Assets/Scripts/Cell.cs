@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Cell
 {
-    GameObject structureModel = null;
-    bool isTaken = false;
+    private bool isTaken = false;
+    private GameObject structureModel;
 
     public bool IsTaken { get => isTaken; }
 

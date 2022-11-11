@@ -113,7 +113,6 @@ public class GridStructure
             float z = gridPosition.z + direction.z;
             while (CheckIfIndexInRange(new(x, z), new(strPosition.x, strPosition.z), new(strSize.x, strSize.z)))
             {
-                Debug.Log(x + " .. " + z);
                 // Check if the cell is already taken
                 if (IsCellTaken(new(x, gridPosition.y, z)))
                 {

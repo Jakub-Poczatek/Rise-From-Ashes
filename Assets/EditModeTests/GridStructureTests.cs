@@ -29,10 +29,10 @@ public class GridStructureTests
     }
 
     [Test]
-    public void CalculateGridPositionFloatsPass()
+    public void CalculateGridPositionMaxPass()
     {
         // Setup
-        Vector3 position = new(0.9f, 0, 0.1f);
+        Vector3 position = new(0.9f, 0, 0.9f);
         Vector3 returnPosition = grid.CalculateGridPosition(position);
 
         // Assert
@@ -43,7 +43,7 @@ public class GridStructureTests
     public void CalculateGridPositionFail()
     {
         // Setup
-        Vector3 position = new(1.1f, 0, 0);
+        Vector3 position = new(1.1f, 0, 1.1f);
         Vector3 returnPosition = grid.CalculateGridPosition(position);
 
         // Assert
@@ -51,16 +51,40 @@ public class GridStructureTests
     }
     #endregion
 
-    #region PlaceStructureAndIsCellTakenTests
+    #region IsCellTakenTests
+
+    [Test]
+    public void CheckIsTakenOverMaxFail()
+    {
+        // Setup
+        Vector3 position = new(100, 0, 100);
+
+        // Assert
+        Assert.Throws<IndexOutOfRangeException>(() => grid.IsCellTaken(position));
+    }
+
+    [Test]
+    public void CheckIsTakenUnderMinFail()
+    {
+        // Setup
+        Vector3 position = new(-1, 0, -1);
+
+        // Assert
+        Assert.Throws<IndexOutOfRangeException>(() => grid.IsCellTaken(position));
+    }
+
+    #endregion
+
+    #region PlaceStructureTests
 
     [Test]
     public void PlaceStructure101AndCheckIsTakenPass()
     {
         // Setup
-        Vector3 position = new(1, 0, 1);
-        GameObject gameObject = new("gameObject");
-        gameObject.AddComponent<MeshRenderer>();
-        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        Vector3 position = new(50, 0, 50);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(1, 0, 1));
+        gameObject.transform.position = position;
         grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
@@ -73,9 +97,9 @@ public class GridStructureTests
     {
         // Setup
         Vector3 position = new(0, 0, 0);
-        GameObject gameObject = new("gameObject");
-        gameObject.AddComponent<MeshRenderer>();
-        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(1, 0, 1));
+        gameObject.transform.position = position;
         grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
@@ -87,9 +111,9 @@ public class GridStructureTests
     {
         // Setup
         Vector3 position = new(99, 0, 99);
-        GameObject gameObject = new("gameObject");
-        gameObject.AddComponent<MeshRenderer>();
-        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(1, 0, 1));
+        gameObject.transform.position = position;
         grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
@@ -108,113 +132,59 @@ public class GridStructureTests
     }
 
     [Test]
-    public void PlaceStructureAndCheckIsTakenIndexOutOfBoundsFail()
+    public void PlaceStructureAndCheckIsTakenMaxPass()
     {
         // Setup
-        Vector3 position = new(100, 0, 100);
+        Vector3 position = new(50, 0, 50);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.Throws<IndexOutOfRangeException>(() => grid.IsCellTaken(position));
+        Assert.IsTrue(grid.IsCellTaken(position + new Vector3(1, 0, 1)));
     }
 
     [Test]
-    public void PlaceStructureAndCheckIsTakenNegativeIndexOutOfBoundsFail()
+    public void PlaceStructureAndCheckIsTakenMinPass()
     {
         // Setup
-        Vector3 position = new(-1, 0, -1);
+        Vector3 position = new(50, 0, 50);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.Throws<IndexOutOfRangeException>(() => grid.IsCellTaken(position));
+        Assert.IsTrue(grid.IsCellTaken(position - new Vector3(1, 0, 1)));
     }
 
     [Test]
-    public void PlaceStructureAndCheckIsTakenMaxXTilePass()
+    public void PlaceStructureAndCheckIsTakenOverMaxFail()
     {
         // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject multiTileGameObject = new("multiTileGameObject");
-        multiTileGameObject.transform.position = position;
-        multiTileGameObject.AddComponent<MeshRenderer>();
-        multiTileGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(multiTileGameObject, position);
+        Vector3 position = new(50, 0, 50);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.IsTrue(grid.IsCellTaken(new(4, position.y, position.z)));
+        Assert.IsFalse(grid.IsCellTaken(position + new Vector3(2, 0, 2)));
     }
 
     [Test]
-    public void PlaceStructureAndCheckIsTakenMaxZTilePass()
+    public void PlaceStructureAndCheckIsTakenUnderMinFail()
     {
         // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject multiTileGameObject = new("multiTileGameObject");
-        multiTileGameObject.transform.position = position;
-        multiTileGameObject.AddComponent<MeshRenderer>();
-        multiTileGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(multiTileGameObject, position);
+        Vector3 position = new(50, 0, 50);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.IsTrue(grid.IsCellTaken(new(position.x, position.y, 4)));
-    }
-
-    [Test]
-    public void PlaceStructureAndCheckIsTakenMinXTilePass()
-    {
-        // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject multiTileGameObject = new("multiTileGameObject");
-        multiTileGameObject.transform.position = position;
-        multiTileGameObject.AddComponent<MeshRenderer>();
-        multiTileGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(multiTileGameObject, position);
-
-        // Assert
-        Assert.IsTrue(grid.IsCellTaken(new(0, position.y, position.z)));
-    }
-
-    [Test]
-    public void PlaceStructureAndCheckIsTakenMinZTilePass()
-    {
-        // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject multiTileGameObject = new("multiTileGameObject");
-        multiTileGameObject.transform.position = position;
-        multiTileGameObject.AddComponent<MeshRenderer>();
-        multiTileGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(multiTileGameObject, position);
-
-        // Assert
-        Assert.IsTrue(grid.IsCellTaken(new(position.x, position.y, 0)));
-    }
-
-    [Test]
-    public void PlaceStructureAndCheckIsTakenOutOfRangeXTileFail()
-    {
-        // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject multiTileGameObject = new("multiTileGameObject");
-        multiTileGameObject.transform.position = position;
-        multiTileGameObject.AddComponent<MeshRenderer>();
-        multiTileGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(multiTileGameObject, position);
-
-        // Assert
-        Assert.IsFalse(grid.IsCellTaken(new(5, position.y, position.z)));
-    }
-
-    [Test]
-    public void PlaceStructureAndCheckIsTakenOutOfRangeZTileFail()
-    {
-        // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject multiTileGameObject = new("multiTileGameObject");
-        multiTileGameObject.transform.position = position;
-        multiTileGameObject.AddComponent<MeshRenderer>();
-        multiTileGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(multiTileGameObject, position);
-
-        // Assert
-        Assert.IsFalse(grid.IsCellTaken(new(position.x, position.y, 5)));
+        Assert.IsFalse(grid.IsCellTaken(position - new Vector3(2, 0, 2)));
     }
     #endregion
 
@@ -224,70 +194,65 @@ public class GridStructureTests
     public void CheckIfStructureFitsPass()
     {
         // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        Vector3 position = new(50, 0, 50);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsTrue(grid.CheckIfStructureFits(testGameObject, position)); 
+        Assert.IsTrue(grid.CheckIfStructureFits(gameObject, position)); 
     }
 
     [Test]
     public void CheckIfStructureFitsMinPass()
     {
         // Setup
-        Vector3 position = new(2, 0, 2);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        Vector3 position = new(1, 0, 1);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsTrue(grid.CheckIfStructureFits(testGameObject, position));
+        Assert.IsTrue(grid.CheckIfStructureFits(gameObject, position));
     }
 
     [Test]
     public void CheckIfStructureFitsMaxPass()
     {
         // Setup
-        Vector3 position = new(97, 0, 97);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        Vector3 position = new(98, 0, 98);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsTrue(grid.CheckIfStructureFits(testGameObject, position));
+        Assert.IsTrue(grid.CheckIfStructureFits(gameObject, position));
     }
 
     [Test]
     public void CheckIfStructureFitsUnderMinFail()
     {
         // Setup
-        Vector3 position = new(1, 0, 1);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        Vector3 position = new(0, 0, 0);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsFalse(grid.CheckIfStructureFits(testGameObject, position));
+        Assert.IsFalse(grid.CheckIfStructureFits(gameObject, position));
     }
 
     [Test]
     public void CheckIfStructureFitsOverMaxFail()
     {
         // Setup
-        Vector3 position = new(98, 0, 98);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
+        Vector3 position = new(99, 0, 99);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsFalse(grid.CheckIfStructureFits(testGameObject, position));
+        Assert.IsFalse(grid.CheckIfStructureFits(gameObject, position));
     }
     #endregion
 
@@ -298,14 +263,13 @@ public class GridStructureTests
     {
         // Setup
         Vector3 position = new(50, 0, 50);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(testGameObject, position);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.IsTrue(grid.CheckIfStructureExists(testGameObject, position));
+        Assert.IsTrue(grid.CheckIfStructureExists(gameObject, position));
     }
 
     [Test]
@@ -313,15 +277,15 @@ public class GridStructureTests
     {
         // Setup
         Vector3 position = new(50, 0, 50);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(testGameObject, position);
-        testGameObject.transform.position = new(54, 0, 54);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
+        position += new Vector3(2, 0, 2);
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsTrue(grid.CheckIfStructureExists(testGameObject, new(54, 0, 54)));
+        Assert.IsTrue(grid.CheckIfStructureExists(gameObject, position));
     }
 
     [Test]
@@ -329,15 +293,15 @@ public class GridStructureTests
     {
         // Setup
         Vector3 position = new(50, 0, 50);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(6, 6, 6));
-        grid.PlaceStructureOnTheGrid(testGameObject, position);
-        testGameObject.transform.position = new(46, 0, 46);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
+        position -= new Vector3(2, 0, 2);
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsTrue(grid.CheckIfStructureExists(testGameObject, new(46, 0, 46)));
+        Assert.IsTrue(grid.CheckIfStructureExists(gameObject, position));
     }
 
     [Test]
@@ -345,15 +309,15 @@ public class GridStructureTests
     {
         // Setup
         Vector3 position = new(50, 0, 50);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(4, 4, 4));
-        grid.PlaceStructureOnTheGrid(testGameObject, position);
-        testGameObject.transform.position = new(55, 0, 55);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
+        position += new Vector3(3, 0, 3);
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsFalse(grid.CheckIfStructureExists(testGameObject, new(55, 0, 55)));
+        Assert.IsFalse(grid.CheckIfStructureExists(gameObject, position));
     }
 
     [Test]
@@ -361,17 +325,16 @@ public class GridStructureTests
     {
         // Setup
         Vector3 position = new(50, 0, 50);
-        GameObject testGameObject = new("testGameObject");
-        testGameObject.transform.position = position;
-        testGameObject.AddComponent<MeshRenderer>();
-        testGameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(6, 6, 6));
-        grid.PlaceStructureOnTheGrid(testGameObject, position);
-        testGameObject.transform.position = new(43, 0, 43);
+        GameObject gameObject = new("gameObject", typeof(MeshRenderer));
+        gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
+        gameObject.transform.position = position;
+        grid.PlaceStructureOnTheGrid(gameObject, position);
+        position -= new Vector3(3, 0, 3);
+        gameObject.transform.position = position;
 
         // Assert
-        Assert.IsFalse(grid.CheckIfStructureExists(testGameObject, new(43, 0, 43))); 
+        Assert.IsFalse(grid.CheckIfStructureExists(gameObject, position)); 
     }
-
 
     #endregion
 }

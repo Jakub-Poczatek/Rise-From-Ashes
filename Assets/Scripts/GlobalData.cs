@@ -14,8 +14,7 @@ namespace GlobalData
     }
     public class Direction
     {
-        public float x;
-        public float z;
+        public float x, z;
 
         public Direction(int x, int z)
         {

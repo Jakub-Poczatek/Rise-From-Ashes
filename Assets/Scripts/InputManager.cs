@@ -19,11 +19,10 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, mouseInputMask))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, mouseInputMask))
             {
-                Vector3 position = hit.point-transform.position;
+                Vector3 position = hit.point - transform.position;
                 OnPointerDownHandler?.Invoke(position);
             }
         }
