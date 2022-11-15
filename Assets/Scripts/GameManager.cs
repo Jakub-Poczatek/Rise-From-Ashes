@@ -11,16 +11,33 @@ public class GameManager : MonoBehaviour
     private GridStructure grid;
     public int width, length;
     public IInputManager inputManager;
+    public CameraMovement cameraMovement;
     public PlacementManager placementManager;
     public UIController uiController;
 
     void Start()
     {
+        cameraMovement.SetCameraBounds(0, width, 0, length);
         inputManager = FindObjectsOfType<MonoBehaviour>().OfType<IInputManager>().FirstOrDefault();
         grid = new GridStructure(cellSize, width, length);
         inputManager.AddListenerOnPointerDownEvent(HandleInput);
+        inputManager.AddListenerOnPointerSecondDownEvent(HandleInputCameraPan);
+        inputManager.AddListenerOnPointerSecondUpEvent(HandleInptuCameraPanStop);
         uiController.AddListenerOnBuildAreaEvent(EnableBuildingMode);
         uiController.AddListenerOnCancelActionEvent(DisableBuildingMode);
+    }
+
+    private void HandleInptuCameraPanStop()
+    {
+        cameraMovement.StopCameraMovement();
+    }
+
+    private void HandleInputCameraPan(Vector3 position)
+    {
+        if (!buildingModeIsActive)
+        {
+            cameraMovement.MoveCamera(position);
+        }
     }
 
     private void HandleInput(Vector3 position)
