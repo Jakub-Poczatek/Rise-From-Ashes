@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManager : MonoBehaviour
+public class InputManager : MonoBehaviour, IInputManager
 {
     private Action<Vector3> OnPointerDownHandler;
     public LayerMask mouseInputMask;
@@ -15,7 +15,7 @@ public class InputManager : MonoBehaviour
         GetInput();
     }
 
-    public void GetInput()
+    private void GetInput()
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
