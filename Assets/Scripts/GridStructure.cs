@@ -76,6 +76,18 @@ public class GridStructure
         }
     }
 
+    public GameObject GetStructureFromTheGrid(Vector3 gridPosition)
+    {
+        var cellIndex = CalculateGridIndex(gridPosition);
+        return grid[cellIndex.y, cellIndex.x].GetStructure();
+    }
+
+    public void removeStructureFromTheGrid(Vector3 gridPosition)
+    {
+        var cellIndex = CalculateGridIndex(gridPosition);
+        grid[cellIndex.y, cellIndex.x].RemoveStructure();
+    }
+
     public bool CheckIfStructureFits(GameObject structure, Vector3 gridPosition)
     {
         InitialiseStructure(structure);

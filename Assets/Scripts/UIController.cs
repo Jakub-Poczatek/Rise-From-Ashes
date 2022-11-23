@@ -8,17 +8,36 @@ public class UIController : MonoBehaviour
 {
     private Action OnBuildAreaHandler;
     private Action OnCancelActionHandler;
+    private Action OnDemolishActionHandler;
 
     public Button buildResidentialAreaBtn;
     public Button cancelActionBtn;
+    public Button openBuildMenuBtn;
+    public Button demolishBtn;
     public GameObject cancelActionPnl;
+    public GameObject buildingMenuPnl;
 
     // Start is called before the first frame update
     void Start()
     {
         cancelActionPnl.SetActive(false);
+        buildingMenuPnl.SetActive(false);
         buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
+        openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
+        demolishBtn.onClick.AddListener(OnDemolishHandler);
+    }
+
+    private void OnDemolishHandler()
+    {
+        OnDemolishActionHandler?.Invoke();
+        cancelActionPnl.SetActive(true);
+        buildingMenuPnl.SetActive(false);
+    }
+
+    private void OnOpenBuildMenu()
+    {
+        buildingMenuPnl.SetActive(true);
     }
 
     // Update is called once per frame
@@ -30,6 +49,7 @@ public class UIController : MonoBehaviour
     private void OnBuildAreaCallback()
     {
         cancelActionPnl.SetActive(true);
+        buildingMenuPnl.SetActive(false);
         OnBuildAreaHandler?.Invoke();
     }
 
@@ -57,5 +77,15 @@ public class UIController : MonoBehaviour
     public void RemoveListenerOnCancelActionEvent(Action listener)
     {
         OnCancelActionHandler -= listener;
+    }
+
+    public void AddListenerOnDemolishActionEvent(Action listener)
+    {
+        OnDemolishActionHandler += listener;
+    }
+
+    public void RemoveListenerOnDemolishActionEvent(Action listener)
+    {
+        OnDemolishActionHandler -= listener;
     }
 }

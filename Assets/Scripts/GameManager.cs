@@ -9,14 +9,17 @@ public class GameManager : MonoBehaviour
     private int cellSize = 1;
     private bool buildingModeIsActive = false;
     private GridStructure gridStructure;
+    private BuildingManager buildingManager;
     private PlayerState playerState;
     public int width, length;
     public IInputManager inputManager;
+    public LayerMask mouseInputMask;
     public CameraMovement cameraMovement;
     public PlacementManager placementManager;
     public UIController uiController;
     public PlayerSelectionState playerSelectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
+    public PlayerRemoveBuildingState playerRemoveBuildingState;
 
     public PlayerState PlayerState 
     { 
@@ -25,23 +28,47 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        gridStructure = new GridStructure(cellSize, width, length);
+        buildingManager = new BuildingManager(placementManager, cellSize, width, length);
         playerSelectionState = new PlayerSelectionState(this, cameraMovement);
-        buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, placementManager, gridStructure);
+        playerRemoveBuildingState = new PlayerRemoveBuildingState(this, buildingManager);
+        buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
         playerState = playerSelectionState;
+        #if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
+        inputManager = gameObject.AddComponent<InputManager>();
+        #endif
     }
 
     void Start()
     {
+        PrepareGameComponents();
+        AssignInputListener();
+        AssignUiControllerListeners();
+    }
+
+    private void PrepareGameComponents()
+    {
+        inputManager.MouseInputMask = mouseInputMask;
         cameraMovement.SetCameraBounds(0, width, 0, length);
-        inputManager = FindObjectsOfType<MonoBehaviour>().OfType<IInputManager>().FirstOrDefault();
-        
+    }
+
+    private void AssignUiControllerListeners()
+    {
+        uiController.AddListenerOnBuildAreaEvent(ChangeToBuildingSingleStructureState);
+        uiController.AddListenerOnCancelActionEvent(CancelState);
+        uiController.AddListenerOnDemolishActionEvent(ChangeToRemoveBuildingState);
+    }
+
+    private void AssignInputListener()
+    {
         inputManager.AddListenerOnPointerDownEvent(HandleInput);
         inputManager.AddListenerOnPointerSecondChangeEvent(HandleInputCameraPan);
         inputManager.AddListenerOnPointerSecondUpEvent(HandleInptuCameraPanStop);
         inputManager.AddListenerOnPointerChangeEvent(HandlePointerChange);
-        uiController.AddListenerOnBuildAreaEvent(ChangeToBuildingSingleStructureState);
-        uiController.AddListenerOnCancelActionEvent(CancelState);
+    }
+
+    private void ChangeToRemoveBuildingState()
+    {
+        TransitionToState(playerRemoveBuildingState);
     }
 
     private void HandlePointerChange(Vector3 position)
