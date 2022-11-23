@@ -66,7 +66,6 @@ public class GridStructure
                 // Check if cell exists
                 if (CheckIndexValidity(cellIndex))
                 {
-                    //Debug.Log(x + " .. " + z);
                     grid[cellIndex.y, cellIndex.x].SetContruction(structure);
                 }
                 // If yes, then add structure and check next cell

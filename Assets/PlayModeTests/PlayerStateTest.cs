@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Tests
 {
@@ -35,6 +36,10 @@ namespace Tests
             gameManager = gameManagerObject.AddComponent<GameManager>();
             gameManager.cameraMovement = cameraMovementComponent;
             gameManager.uiController = uiController;
+
+            GameObject goldAmountTxt = new GameObject();
+            goldAmountTxt.AddComponent<TextMeshPro>();
+            uiController.goldAmountTxt = goldAmountTxt.GetComponent<TMP_Text>();
         }
 
         [UnityTest]

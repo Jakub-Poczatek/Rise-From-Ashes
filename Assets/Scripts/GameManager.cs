@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public CameraMovement cameraMovement;
     public PlacementManager placementManager;
     public UIController uiController;
+    public ResourceManager resourceManager;
     public PlayerSelectionState playerSelectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
     public PlayerRemoveBuildingState playerRemoveBuildingState;
@@ -28,11 +29,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        buildingManager = new BuildingManager(placementManager, cellSize, width, length);
+        buildingManager = new BuildingManager(placementManager, resourceManager, cellSize, width, length);
         playerSelectionState = new PlayerSelectionState(this, cameraMovement);
         playerRemoveBuildingState = new PlayerRemoveBuildingState(this, buildingManager);
         buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
         playerState = playerSelectionState;
+
+
         #if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
         inputManager = gameObject.AddComponent<InputManager>();
         #endif
@@ -43,6 +46,11 @@ public class GameManager : MonoBehaviour
         PrepareGameComponents();
         AssignInputListener();
         AssignUiControllerListeners();
+    }
+
+    private void Update()
+    {
+        uiController.goldAmountTxt.text = resourceManager.GoldAmount.ToString();
     }
 
     private void PrepareGameComponents()

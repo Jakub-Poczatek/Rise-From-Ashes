@@ -706,9 +706,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Build
-
-'
+  m_text: Cancel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -785,6 +783,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588339917}
   m_CullTransparentMesh: 1
+--- !u!1 &863207272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 863207273}
+  - component: {fileID: 863207274}
+  m_Layer: 0
+  m_Name: ResourceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &863207273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863207272}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 332.9202, y: 69.9715, z: 239.58438}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &863207274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863207272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046acd466ce178644b2133cbee94e2da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &893140084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,6 +1333,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 188426230}
   m_SourcePrefab: {fileID: 100100000, guid: 9b03c036a9b2c9f4ba74ce60bf80b085, type: 3}
+--- !u!114 &995786917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2813640690927523306, guid: 9b03c036a9b2c9f4ba74ce60bf80b085, type: 3}
+  m_PrefabInstance: {fileID: 995786916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1014517006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,6 +2216,7 @@ MonoBehaviour:
   demolishBtn: {fileID: 1213927658}
   cancelActionPnl: {fileID: 2127078599}
   buildingMenuPnl: {fileID: 188426225}
+  goldAmountTxt: {fileID: 995786917}
 --- !u!4 &1938490061
 Transform:
   m_ObjectHideFlags: 0
@@ -2334,6 +2388,7 @@ MonoBehaviour:
   cameraMovement: {fileID: 1523867444}
   placementManager: {fileID: 286151422}
   uiController: {fileID: 1938490060}
+  resourceManager: {fileID: 863207274}
 --- !u!4 &2142264299
 Transform:
   m_ObjectHideFlags: 0

@@ -8,12 +8,18 @@ public class PlacementManager : MonoBehaviour
     public GameObject buildingPrefab;
     public Transform ground;
 
-    public void CreateBuilding(Vector3 gridPosition, GridStructure grid)
+    public void CreateBuilding(Vector3 gridPosition, GridStructure grid, ResourceManager resourceManager)
     {
+        Structure structure = buildingPrefab.GetComponent<Structure>();
+        if(structure.goldCost > resourceManager.GoldAmount) { return; }
+
         GameObject newStructure = Instantiate(buildingPrefab, ground.position + gridPosition, Quaternion.identity);
         if (grid.CheckIfStructureFits(newStructure, gridPosition) && !grid.CheckIfStructureExists(newStructure, gridPosition))
+        {
+            resourceManager.GoldAmount -= structure.goldCost;
+            resourceManager.GoldAmountChange += structure.goldGenerationAmount;
             grid.PlaceStructureOnTheGrid(newStructure, gridPosition);
-        else
+        } else
             Destroy(newStructure);
     }
 

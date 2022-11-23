@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,9 @@ public class UIController : MonoBehaviour
     public Button demolishBtn;
     public GameObject cancelActionPnl;
     public GameObject buildingMenuPnl;
+    public TMP_Text goldAmountTxt;
+    //[SerializeField] Text woodAmountTxt;
+    //[SerializeField] Text foodAmountTxt;
 
     // Start is called before the first frame update
     void Start()
