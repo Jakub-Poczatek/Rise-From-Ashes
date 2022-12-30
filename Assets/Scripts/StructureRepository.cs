@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StructureRepository : MonoBehaviour
@@ -16,5 +17,15 @@ public class StructureRepository : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public List<string> GetResourceGenStructNames()
+    {
+        return modelDataPool.resourceGenStructs.Select(rgStruct => rgStruct.structureName).ToList();
+    }
+
+    public string GetRoadStructName()
+    {
+        return modelDataPool.RoadStruct.structureName;
     }
 }

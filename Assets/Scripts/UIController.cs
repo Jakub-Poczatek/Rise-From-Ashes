@@ -22,6 +22,8 @@ public class UIController : MonoBehaviour
     public GameObject roadStructsPnl;
     public GameObject structureButtonPrefab;
     public TMP_Text goldAmountTxt;
+
+    public StructureRepository structureRepository;
     //[SerializeField] Text woodAmountTxt;
     //[SerializeField] Text foodAmountTxt;
 
@@ -57,20 +59,38 @@ public class UIController : MonoBehaviour
 
     private void prepareBuildMenu()
     {
-        CreateButtonsInPanel(resourceGenStructsPnl.transform);
-        CreateButtonsInPanel(roadStructsPnl.transform);
+        CreateButtonsInPanel(resourceGenStructsPnl.transform, structureRepository.GetResourceGenStructNames());
+        CreateButtonsInPanel(roadStructsPnl.transform, new List<string>() { structureRepository.GetRoadStructName() });
     }
 
-    private void CreateButtonsInPanel(Transform panelTransform)
+    private void CreateButtonsInPanel(Transform panelTransform, List<string> dataToShow)
     {
-        foreach (Transform t in panelTransform)
+        if (dataToShow.Count > panelTransform.childCount)
         {
-            var button = t.GetComponent<Button>();
-            if(button != null)
+            int diff = dataToShow.Count - panelTransform.childCount;
+            for (int i = 0; i < diff; i++)
             {
+                Instantiate(structureButtonPrefab, panelTransform);
+            }
+        }
+        for (int i = 0; i < panelTransform.childCount; i++)
+        {
+            var button = panelTransform.GetChild(i).GetComponent<Button>();
+            if (button != null)
+            {
+                button.GetComponentInChildren<TextMeshProUGUI>().text = dataToShow[i];
                 button.onClick.AddListener(OnBuildAreaCallback);
             }
         }
+        /*foreach (Transform t in panelTransform)
+        {
+            var button = t.GetComponent<Button>();
+            if (button != null)
+            {
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(OnBuildAreaCallback);
+            }
+        }*/
     }
 
     // Update is called once per frame

@@ -6,5 +6,5 @@ using UnityEngine;
 public class StructPool : ScriptableObject
 {
     public RoadStruct RoadStruct;
-    public List<ResourceGenStructs> resourceGenStructs;
+    public List<ResourceGenStruct> resourceGenStructs;
 }

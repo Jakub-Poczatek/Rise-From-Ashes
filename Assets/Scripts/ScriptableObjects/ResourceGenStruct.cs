@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Resource Generating Structure", menuName = "StructureManagement/Data/ResourceGenStruct")]
-public class ResourceGenStructs : StructureBase
+public class ResourceGenStruct : StructureBase
 {
     public float resourceGenAmount;
     public ResourceType resourceType;
