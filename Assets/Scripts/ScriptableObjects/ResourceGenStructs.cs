@@ -14,8 +14,9 @@ public class ResourceGenStructs : StructureBase
 [System.Serializable]
 public struct UpgradeType
 {
-    public Cost newCost;
-    public int newResourceGenAmount;
+    public GameObject prefab;
+    public Cost cost;
+    public int resourceGenAmount;
 }
 
 public enum ResourceType

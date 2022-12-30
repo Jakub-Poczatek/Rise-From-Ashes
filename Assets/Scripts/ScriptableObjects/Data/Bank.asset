@@ -13,12 +13,18 @@ MonoBehaviour:
   m_Name: Bank
   m_EditorClassIdentifier: 
   structureName: Bank
-  prefab: {fileID: 0}
+  prefab: {fileID: 5044072459351066130, guid: 347768c8844747845b2495c04c95f861, type: 3}
   buildCost:
-    gold: 0
-    wood: 0
-    stone: 0
-  resourceGenAmount: 0
+    gold: 25
+    wood: 10
+    stone: 5
+  resourceGenAmount: 5
   resourceType: 0
-  upgradable: 0
-  availableUpgrades: []
+  upgradable: 1
+  availableUpgrades:
+  - prefab: {fileID: 2244612804670639158, guid: 11d93bcd6783d5149a731bb1e64fded5, type: 3}
+    cost:
+      gold: 50
+      wood: 20
+      stone: 10
+    resourceGenAmount: 10

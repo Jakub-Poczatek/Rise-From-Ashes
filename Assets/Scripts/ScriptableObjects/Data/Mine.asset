@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77ca10fa2731ae45a0fdc4de872b98e, type: 3}
   m_Name: Mine
   m_EditorClassIdentifier: 
-  structureName: 
-  prefab: {fileID: 0}
+  structureName: Mine
+  prefab: {fileID: 4179493713652239928, guid: fd9c88922dd569740b36fcb085a64816, type: 3}
   buildCost:
-    gold: 0
-    wood: 0
-    stone: 0
-  resourceGenAmount: 0
-  resourceType: 0
-  upgradable: 0
-  availableUpgrades: []
+    gold: 10
+    wood: 5
+    stone: 20
+  resourceGenAmount: 10
+  resourceType: 2
+  upgradable: 1
+  availableUpgrades:
+  - prefab: {fileID: 5756552127257151425, guid: 87fd61aab84827f4aaa7a2180284d798, type: 3}
+    cost:
+      gold: 20
+      wood: 10
+      stone: 40
+    resourceGenAmount: 20
