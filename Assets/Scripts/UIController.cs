@@ -15,8 +15,12 @@ public class UIController : MonoBehaviour
     public Button cancelActionBtn;
     public Button openBuildMenuBtn;
     public Button demolishBtn;
+    public Button closeBuildMenuBtn;
     public GameObject cancelActionPnl;
     public GameObject buildingMenuPnl;
+    public GameObject resourceGenStructsPnl;
+    public GameObject roadStructsPnl;
+    public GameObject structureButtonPrefab;
     public TMP_Text goldAmountTxt;
     //[SerializeField] Text woodAmountTxt;
     //[SerializeField] Text foodAmountTxt;
@@ -26,22 +30,47 @@ public class UIController : MonoBehaviour
     {
         cancelActionPnl.SetActive(false);
         buildingMenuPnl.SetActive(false);
-        buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
+        //buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
         openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
         demolishBtn.onClick.AddListener(OnDemolishHandler);
+        closeBuildMenuBtn.onClick.AddListener(OnCloseMenuHandler);
+    }
+
+    private void OnCloseMenuHandler()
+    {
+        buildingMenuPnl.SetActive(false);
     }
 
     private void OnDemolishHandler()
     {
         OnDemolishActionHandler?.Invoke();
         cancelActionPnl.SetActive(true);
-        buildingMenuPnl.SetActive(false);
+        OnCloseMenuHandler();
     }
 
     private void OnOpenBuildMenu()
     {
         buildingMenuPnl.SetActive(true);
+        prepareBuildMenu();
+    }
+
+    private void prepareBuildMenu()
+    {
+        CreateButtonsInPanel(resourceGenStructsPnl.transform);
+        CreateButtonsInPanel(roadStructsPnl.transform);
+    }
+
+    private void CreateButtonsInPanel(Transform panelTransform)
+    {
+        foreach (Transform t in panelTransform)
+        {
+            var button = t.GetComponent<Button>();
+            if(button != null)
+            {
+                button.onClick.AddListener(OnBuildAreaCallback);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -53,7 +82,7 @@ public class UIController : MonoBehaviour
     private void OnBuildAreaCallback()
     {
         cancelActionPnl.SetActive(true);
-        buildingMenuPnl.SetActive(false);
+        OnCloseMenuHandler();
         OnBuildAreaHandler?.Invoke();
     }
 

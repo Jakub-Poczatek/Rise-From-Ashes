@@ -6,8 +6,12 @@ public class Cell
 {
     private bool isTaken = false;
     private GameObject structureModel;
+    private Cell previous = null;
+    private Cell next = null;
 
     public bool IsTaken { get => isTaken; }
+    public Cell Previous { get => previous; set => previous = value; }
+    public Cell Next { get => next; set => next = value; }
 
     public void SetContruction(GameObject structureModel)
     {

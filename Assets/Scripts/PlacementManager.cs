@@ -14,6 +14,12 @@ public class PlacementManager : MonoBehaviour
         if(structure.goldCost > resourceManager.GoldAmount) { return; }
 
         GameObject newStructure = Instantiate(buildingPrefab, ground.position + gridPosition, Quaternion.identity);
+
+        Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
+        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.x));
+        newStructure.transform.position += diff;
+        gridPosition += diff;
+
         if (grid.CheckIfStructureFits(newStructure, gridPosition) && !grid.CheckIfStructureExists(newStructure, gridPosition))
         {
             resourceManager.GoldAmount -= structure.goldCost;
@@ -31,5 +37,10 @@ public class PlacementManager : MonoBehaviour
             Destroy(structure);
             gridStructure.removeStructureFromTheGrid(gridPosition);
         }
+    }
+
+    private float calculateOffset(float vector)
+    {
+        return ((vector % 2f) / 2) + (1 - ((vector % 2f) / 2));
     }
 }

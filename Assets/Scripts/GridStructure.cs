@@ -40,17 +40,20 @@ public class GridStructure
     {
         var cellIndex = CalculateGridIndex(gridPosition);
         if (CheckIndexValidity(cellIndex))
-            return grid[cellIndex.y, cellIndex.x].IsTaken;
+            return grid[(int) cellIndex.y, (int) cellIndex.x].IsTaken;
 
         throw new IndexOutOfRangeException("No index " + cellIndex + " in grid");
     }
 
     public void PlaceStructureOnTheGrid(GameObject structure, Vector3 gridPosition)
     {
+        Cell previousCell = null;
         var cellIndex = CalculateGridIndex(gridPosition);
+
         if (CheckIndexValidity(cellIndex))
         {
-            grid[cellIndex.y, cellIndex.x].SetContruction(structure);
+            grid[(int) cellIndex.y, (int) cellIndex.x].SetContruction(structure);
+            previousCell = grid[(int)cellIndex.y, (int)cellIndex.x];
         }
 
         InitialiseStructure(structure);
@@ -66,7 +69,11 @@ public class GridStructure
                 // Check if cell exists
                 if (CheckIndexValidity(cellIndex))
                 {
-                    grid[cellIndex.y, cellIndex.x].SetContruction(structure);
+                    grid[(int) cellIndex.y, (int) cellIndex.x].SetContruction(structure);
+                    
+                    previousCell.Next = grid[(int)cellIndex.y, (int)cellIndex.x];
+                    grid[(int)cellIndex.y, (int)cellIndex.x].Previous = previousCell;
+                    previousCell = grid[(int)cellIndex.y, (int)cellIndex.x];
                 }
                 // If yes, then add structure and check next cell
                 x += direction.x;
@@ -78,13 +85,56 @@ public class GridStructure
     public GameObject GetStructureFromTheGrid(Vector3 gridPosition)
     {
         var cellIndex = CalculateGridIndex(gridPosition);
-        return grid[cellIndex.y, cellIndex.x].GetStructure();
+        return grid[(int) cellIndex.y, (int) cellIndex.x].GetStructure();
     }
 
     public void removeStructureFromTheGrid(Vector3 gridPosition)
     {
         var cellIndex = CalculateGridIndex(gridPosition);
-        grid[cellIndex.y, cellIndex.x].RemoveStructure();
+        Cell cell = grid[(int)cellIndex.y, (int)cellIndex.x];
+        Cell tempCell = cell;
+
+        cell.RemoveStructure();
+        if (cell.Previous != null)
+        {
+            do
+            {
+                cell = cell.Previous;
+
+                tempCell.Previous = null;
+                tempCell = cell;
+                tempCell.Next = null;
+
+                cell.RemoveStructure();
+            } while (cell.Previous != null);
+        }
+
+        cell = grid[(int)cellIndex.y, (int)cellIndex.x];
+        tempCell = cell;
+
+        if (cell.Next != null)
+        {
+            do
+            {
+                cell = cell.Next;
+
+                tempCell.Next = null;
+                tempCell.Previous = null;
+                tempCell = cell;
+
+                cell.RemoveStructure();
+            } while (cell.Next != null);
+        }
+
+        tempCell.Previous = null;
+
+        /*foreach (Cell c in grid)
+        {
+            if (c.Previous != null)
+                Debug.Log("Previous isn't equal to null");
+            if (c.Next != null)
+                Debug.Log("Next isn't equal to null");
+        }*/
     }
 
     public bool CheckIfStructureFits(GameObject structure, Vector3 gridPosition)
@@ -137,12 +187,12 @@ public class GridStructure
         return false;
     }
 
-    private Vector2Int CalculateGridIndex(Vector3 gridPosition)
+    private Vector2 CalculateGridIndex(Vector3 gridPosition)
     {
-        return new Vector2Int((int)(gridPosition.x / cellSize), (int)(gridPosition.z / cellSize));
+        return new Vector2(gridPosition.x / cellSize, gridPosition.z / cellSize);
     }
 
-    private bool CheckIndexValidity(Vector2Int cellIndex)
+    private bool CheckIndexValidity(Vector2 cellIndex)
     {
         // Check if cellIndex is within grid bounds
         if (cellIndex.x >= 0 && cellIndex.x < grid.GetLength(1)
@@ -163,6 +213,11 @@ public class GridStructure
     private void InitialiseStructure(GameObject structure)
     {
         strSize = structure.GetComponentInChildren<MeshRenderer>().bounds.size;
+        strSize = new Vector3(
+            (Mathf.Ceil(strSize.x) % 2 != 0) ? Mathf.Ceil(strSize.x) + 1 : Mathf.Ceil(strSize.x),
+            (Mathf.Ceil(strSize.y) % 2 != 0) ? Mathf.Ceil(strSize.y) + 1 : Mathf.Ceil(strSize.y),
+            (Mathf.Ceil(strSize.z) % 2 != 0) ? Mathf.Ceil(strSize.z) + 1 : Mathf.Ceil(strSize.z)
+            );
         strPosition = structure.GetComponentInChildren<Transform>().position;
     }
 }
