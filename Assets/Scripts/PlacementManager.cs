@@ -5,25 +5,26 @@ using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
 {
-    public GameObject buildingPrefab;
     public Transform ground;
 
-    public void CreateBuilding(Vector3 gridPosition, GridStructure grid, ResourceManager resourceManager)
+    public void CreateBuilding(Vector3 gridPosition, GridStructure grid, ResourceManager resourceManager, GameObject buildingPrefab)
     {
-        Structure structure = buildingPrefab.GetComponent<Structure>();
-        if(structure.goldCost > resourceManager.GoldAmount) { return; }
+        //Structure structure = buildingPrefab.GetComponent<Structure>();
+        //if(structure.goldCost > resourceManager.GoldAmount) { return; }
 
         GameObject newStructure = Instantiate(buildingPrefab, ground.position + gridPosition, Quaternion.identity);
 
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
+        Debug.Log(size);
+
         Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.x));
         newStructure.transform.position += diff;
         gridPosition += diff;
 
         if (grid.CheckIfStructureFits(newStructure, gridPosition) && !grid.CheckIfStructureExists(newStructure, gridPosition))
         {
-            resourceManager.GoldAmount -= structure.goldCost;
-            resourceManager.GoldAmountChange += structure.goldGenerationAmount;
+            //resourceManager.GoldAmount -= structure.goldCost;
+            //resourceManager.GoldAmountChange += structure.goldGenerationAmount;
             grid.PlaceStructureOnTheGrid(newStructure, gridPosition);
         } else
             Destroy(newStructure);
@@ -41,6 +42,8 @@ public class PlacementManager : MonoBehaviour
 
     private float calculateOffset(float vector)
     {
-        return ((vector % 2f) / 2) + (1 - ((vector % 2f) / 2));
+        if(vector != 1)
+            return ((vector % 2f) / 2) + (1 - ((vector % 2f) / 2));
+        return (vector % 2) / 2;
     }
 }

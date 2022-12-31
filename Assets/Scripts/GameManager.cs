@@ -18,8 +18,11 @@ public class GameManager : MonoBehaviour
     public PlacementManager placementManager;
     public UIController uiController;
     public ResourceManager resourceManager;
+    public StructureRepository structureRepository;
+
     public PlayerSelectionState playerSelectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
+    public PlayerBuildingRoadState buildingRoadState;
     public PlayerRemoveBuildingState playerRemoveBuildingState;
 
     public PlayerState PlayerState 
@@ -29,16 +32,22 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        buildingManager = new BuildingManager(placementManager, resourceManager, cellSize, width, length);
-        playerSelectionState = new PlayerSelectionState(this, cameraMovement);
-        playerRemoveBuildingState = new PlayerRemoveBuildingState(this, buildingManager);
-        buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
-        playerState = playerSelectionState;
+        PrepareStates();
 
 
         #if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
-        inputManager = gameObject.AddComponent<InputManager>();
+                inputManager = gameObject.AddComponent<InputManager>();
         #endif
+    }
+
+    private void PrepareStates()
+    {
+        buildingManager = new BuildingManager(placementManager, resourceManager, structureRepository, cellSize, width, length);
+        playerSelectionState = new PlayerSelectionState(this, cameraMovement);
+        playerRemoveBuildingState = new PlayerRemoveBuildingState(this, buildingManager);
+        buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
+        buildingRoadState = new PlayerBuildingRoadState(this, buildingManager);
+        playerState = playerSelectionState;
     }
 
     void Start()
@@ -61,57 +70,24 @@ public class GameManager : MonoBehaviour
 
     private void AssignUiControllerListeners()
     {
-        uiController.AddListenerOnBuildAreaEvent(ChangeToBuildingSingleStructureState);
-        uiController.AddListenerOnCancelActionEvent(CancelState);
-        uiController.AddListenerOnDemolishActionEvent(ChangeToRemoveBuildingState);
+        uiController.AddListenerOnBuildSingleStructureEvent((structureName) => playerState.OnBuildSingleStructure(structureName));
+        uiController.AddListenerOnBuildRoadEvent((structureName) => playerState.OnBuildRoad(structureName));
+        //uiController.AddListenerOnBuildAreaEvent(ChangeToBuildingSingleStructureState);
+        uiController.AddListenerOnCancelActionEvent(() => playerState.OnCancel());
+        uiController.AddListenerOnDemolishActionEvent(() => playerState.OnDemolish());
     }
 
     private void AssignInputListener()
     {
-        inputManager.AddListenerOnPointerDownEvent(HandleInput);
-        inputManager.AddListenerOnPointerSecondChangeEvent(HandleInputCameraPan);
-        inputManager.AddListenerOnPointerSecondUpEvent(HandleInptuCameraPanStop);
-        inputManager.AddListenerOnPointerChangeEvent(HandlePointerChange);
+        inputManager.AddListenerOnPointerDownEvent((position) => playerState.OnInputPointerDown(position));
+        inputManager.AddListenerOnPointerSecondChangeEvent((position) => playerState.OnInputPanChange(position));
+        inputManager.AddListenerOnPointerSecondUpEvent(() => playerState.OnInputPanUp());
+        inputManager.AddListenerOnPointerChangeEvent((position) => playerState.OnInputPointerChange(position));
     }
 
-    private void ChangeToRemoveBuildingState()
-    {
-        TransitionToState(playerRemoveBuildingState);
-    }
-
-    private void HandlePointerChange(Vector3 position)
-    {
-        playerState.OnInputPointerChange(position);
-    }
-
-    private void HandleInptuCameraPanStop()
-    {
-        playerState.OnInputPanUp();
-    }
-
-    private void HandleInputCameraPan(Vector3 position)
-    {
-        playerState.OnInputPanChange(position);
-    }
-
-    private void HandleInput(Vector3 position)
-    {
-        playerState.OnInputPointerDown(position);
-    }
-
-    private void ChangeToBuildingSingleStructureState()
-    {
-        TransitionToState(buildingSingleStructureState);
-    }
-
-    private void CancelState()
-    {
-        playerState.OnCancel();
-    }
-
-    public void TransitionToState(PlayerState newState)
+    public void TransitionToState(PlayerState newState, string structureName)
     {
         this.playerState = newState;
-        this.playerState.EnterState();
+        this.playerState.EnterState(structureName);
     }
 }

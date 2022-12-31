@@ -214,9 +214,9 @@ public class GridStructure
     {
         strSize = structure.GetComponentInChildren<MeshRenderer>().bounds.size;
         strSize = new Vector3(
-            (Mathf.Ceil(strSize.x) % 2 != 0) ? Mathf.Ceil(strSize.x) + 1 : Mathf.Ceil(strSize.x),
-            (Mathf.Ceil(strSize.y) % 2 != 0) ? Mathf.Ceil(strSize.y) + 1 : Mathf.Ceil(strSize.y),
-            (Mathf.Ceil(strSize.z) % 2 != 0) ? Mathf.Ceil(strSize.z) + 1 : Mathf.Ceil(strSize.z)
+            (Mathf.Ceil(strSize.x) % 2 != 0 && strSize.x != 1) ? Mathf.Ceil(strSize.x) + 1 : Mathf.Ceil(strSize.x),
+            (Mathf.Ceil(strSize.y) % 2 != 0 && strSize.y != 1) ? Mathf.Ceil(strSize.y) + 1 : Mathf.Ceil(strSize.y),
+            (Mathf.Ceil(strSize.z) % 2 != 0 && strSize.z != 1) ? Mathf.Ceil(strSize.z) + 1 : Mathf.Ceil(strSize.z)
             );
         strPosition = structure.GetComponentInChildren<Transform>().position;
     }
