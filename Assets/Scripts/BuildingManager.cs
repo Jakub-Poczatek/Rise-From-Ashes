@@ -21,11 +21,18 @@ public class BuildingManager
 
     public void PlaceStructureAt(Vector3 position, string structureName, StructureType structureType)
     {
-        GameObject structurePrefab = this.structureRepository.GetStructurePrefabByName(structureName, structureType);
+
+        StructureBase structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
+
+        if (!resourceManager.isAffordable(structureBase))
+        {
+            return;
+        }
+
         if (!gridStructure.IsCellTaken(gridPosition))
         {
-            placementManager.CreateBuilding(gridPosition, gridStructure, resourceManager, structurePrefab);
+            placementManager.CreateBuilding(gridPosition, gridStructure, structureBase, resourceManager);
         }
     }
 
