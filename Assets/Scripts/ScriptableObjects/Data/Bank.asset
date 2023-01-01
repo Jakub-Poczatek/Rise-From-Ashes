@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e77ca10fa2731ae45a0fdc4de872b98e, type: 3}
+  m_Name: Bank
+  m_EditorClassIdentifier: 
+  structureName: Bank
+  prefab: {fileID: 5044072459351066130, guid: 347768c8844747845b2495c04c95f861, type: 3}
+  buildCost:
+    gold: 25
+    wood: 10
+    stone: 5
+  resourceGenAmount: 5
+  resourceType: 0
+  upgradable: 1
+  availableUpgrades:
+  - prefab: {fileID: 2244612804670639158, guid: 11d93bcd6783d5149a731bb1e64fded5, type: 3}
+    cost:
+      gold: 50
+      wood: 20
+      stone: 10
+    resourceGenAmount: 10
