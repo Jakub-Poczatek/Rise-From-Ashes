@@ -560,6 +560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 863207273}
   - component: {fileID: 863207274}
+  - component: {fileID: 863207275}
   m_Layer: 0
   m_Name: ResourceManager
   m_TagString: Untagged
@@ -594,6 +595,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046acd466ce178644b2133cbee94e2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &863207275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863207272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b97b1214e9ea634787e983727b55781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 1014517006}
+  prefab: {fileID: 3265047681973653937, guid: b0a742a6f1a31764f9fab474709ef227, type: 3}
 --- !u!1001 &995786916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1853,7 +1868,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21464
+  m_Name: pb_Mesh21490
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
