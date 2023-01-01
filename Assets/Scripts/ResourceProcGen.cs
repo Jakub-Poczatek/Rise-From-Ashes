@@ -6,10 +6,13 @@ public class ResourceProcGen : MonoBehaviour
 {
     public GameObject grid;
     public GameObject prefab;
+    private GameObject parent;
 
     // Start is called before the first frame update
     void Start()
     {
+        parent = new GameObject("Resources");
+
         Vector3 gridSize = grid.GetComponentInChildren<MeshRenderer>().bounds.size;
         Vector3 position;
         int resourceAmount = 500;
@@ -25,7 +28,8 @@ public class ResourceProcGen : MonoBehaviour
                 print("Finding position");
             } while (Physics.CheckSphere(position, 1.0f, LayerMask.GetMask("Resources")));
             
-            Instantiate(prefab, position, Quaternion.identity);
+            GameObject r = Instantiate(prefab, position, Quaternion.identity);
+            r.transform.SetParent(parent.transform);
         }    
     }
 }
