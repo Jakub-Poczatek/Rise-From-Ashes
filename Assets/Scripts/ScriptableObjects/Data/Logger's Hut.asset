@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e77ca10fa2731ae45a0fdc4de872b98e, type: 3}
+  m_Name: Logger's Hut
+  m_EditorClassIdentifier: 
+  structureName: Logger's Hut
+  prefab: {fileID: 5165217977655863059, guid: 9cb38882ec89caf4292824f3b2bb7e62, type: 3}
+  buildCost:
+    gold: 10
+    wood: 20
+    stone: 5
+  resourceGenAmount: 10
+  resourceType: 1
+  upgradable: 1
+  availableUpgrades: []

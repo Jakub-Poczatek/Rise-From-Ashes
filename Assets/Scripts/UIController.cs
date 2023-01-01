@@ -22,11 +22,12 @@ public class UIController : MonoBehaviour
     public GameObject resourceGenStructsPnl;
     public GameObject roadStructsPnl;
     public GameObject structureButtonPrefab;
+
     public TMP_Text goldAmountTxt;
+    public TMP_Text woodAmountTxt;
+    public TMP_Text stoneAmountTxt;
 
     public StructureRepository structureRepository;
-    //[SerializeField] Text woodAmountTxt;
-    //[SerializeField] Text foodAmountTxt;
 
     // Start is called before the first frame update
     void Start()

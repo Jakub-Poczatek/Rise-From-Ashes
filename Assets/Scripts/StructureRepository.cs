@@ -30,41 +30,41 @@ public class StructureRepository : MonoBehaviour
         return modelDataPool.RoadStruct.structureName;
     }
 
-    public GameObject GetStructurePrefabByName(string structureName, StructureType structureType)
+    public StructureBase GetStructureByName(string structureName, StructureType structureType)
     {
-        GameObject structurePrefabToReturn = null;
+        StructureBase foundStructure;
         switch (structureType)
         {
             case StructureType.ResourceGenStructure:
-                structurePrefabToReturn = GetResourceGenStructPrefabByName(structureName);
+                foundStructure = GetResourceGenStructByName(structureName);
                 break;
             case StructureType.RoadStructure:
-                structurePrefabToReturn = GetRoadStructPrefab();
+                foundStructure = GetRoadStruct();
                 break;
             default:
-                throw new Exception("No structure of this type implemented: " + structureType);
+                throw new Exception("Invalid Type: " + structureType);
         }
 
-        if (structurePrefabToReturn == null)
+        if (foundStructure == null)
         {
-            throw new Exception("No prefab of this name implemented: " + structureName);
+            throw new Exception("Invalid prefab name: " + structureName);
         }
-        return structurePrefabToReturn;
+        return foundStructure;
     }
 
-    private GameObject GetRoadStructPrefab()
+    private RoadStruct GetRoadStruct()
     {
-        return modelDataPool.RoadStruct.prefab;
+        return modelDataPool.RoadStruct;
     }
 
-    private GameObject GetResourceGenStructPrefabByName(string structureName)
+    private ResourceGenStruct GetResourceGenStructByName(string structureName)
     {
         var structure =  modelDataPool.resourceGenStructs.Where(
                 s => s.structureName == structureName 
                 ).FirstOrDefault();
         if(structure != null)
         {
-            return structure.prefab;
+            return structure;
         }
         return null;
     }
