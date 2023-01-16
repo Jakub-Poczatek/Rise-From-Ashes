@@ -142,7 +142,7 @@ public class GridStructureTests
         grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.IsTrue(grid.IsCellTaken(position + new Vector3(1, 0, 1)));
+        Assert.IsTrue(grid.IsCellTaken(position + new Vector3(2, 0, 2)));
     }
 
     [Test]
@@ -156,7 +156,7 @@ public class GridStructureTests
         grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.IsTrue(grid.IsCellTaken(position - new Vector3(1, 0, 1)));
+        Assert.IsTrue(grid.IsCellTaken(position - new Vector3(2, 0, 2)));
     }
 
     [Test]
@@ -170,7 +170,7 @@ public class GridStructureTests
         grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.IsFalse(grid.IsCellTaken(position + new Vector3(2, 0, 2)));
+        Assert.IsFalse(grid.IsCellTaken(position + new Vector3(3, 0, 3)));
     }
 
     [Test]
@@ -184,7 +184,7 @@ public class GridStructureTests
         grid.PlaceStructureOnTheGrid(gameObject, position);
 
         // Assert
-        Assert.IsFalse(grid.IsCellTaken(position - new Vector3(2, 0, 2)));
+        Assert.IsFalse(grid.IsCellTaken(position - new Vector3(3, 0, 3)));
     }
     #endregion
 
@@ -207,7 +207,7 @@ public class GridStructureTests
     public void CheckIfStructureFitsMinPass()
     {
         // Setup
-        Vector3 position = new(1, 0, 1);
+        Vector3 position = new(2, 0, 2);
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
@@ -220,7 +220,7 @@ public class GridStructureTests
     public void CheckIfStructureFitsMaxPass()
     {
         // Setup
-        Vector3 position = new(98, 0, 98);
+        Vector3 position = new(97, 0, 97);
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
@@ -233,7 +233,7 @@ public class GridStructureTests
     public void CheckIfStructureFitsUnderMinFail()
     {
         // Setup
-        Vector3 position = new(0, 0, 0);
+        Vector3 position = new(1, 0, 1);
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
@@ -246,7 +246,7 @@ public class GridStructureTests
     public void CheckIfStructureFitsOverMaxFail()
     {
         // Setup
-        Vector3 position = new(99, 0, 99);
+        Vector3 position = new(98, 0, 98);
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
@@ -281,7 +281,7 @@ public class GridStructureTests
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
         grid.PlaceStructureOnTheGrid(gameObject, position);
-        position += new Vector3(2, 0, 2);
+        position += new Vector3(4, 0, 4);
         gameObject.transform.position = position;
 
         // Assert
@@ -297,7 +297,7 @@ public class GridStructureTests
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
         grid.PlaceStructureOnTheGrid(gameObject, position);
-        position -= new Vector3(2, 0, 2);
+        position -= new Vector3(4, 0, 4);
         gameObject.transform.position = position;
 
         // Assert
@@ -313,7 +313,7 @@ public class GridStructureTests
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
         grid.PlaceStructureOnTheGrid(gameObject, position);
-        position += new Vector3(3, 0, 3);
+        position += new Vector3(5, 0, 5);
         gameObject.transform.position = position;
 
         // Assert
@@ -329,7 +329,7 @@ public class GridStructureTests
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
         grid.PlaceStructureOnTheGrid(gameObject, position);
-        position -= new Vector3(3, 0, 3);
+        position -= new Vector3(5, 0, 5);
         gameObject.transform.position = position;
 
         // Assert
