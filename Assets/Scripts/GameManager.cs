@@ -59,9 +59,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        uiController.goldAmountTxt.text = resourceManager.GoldAmount.ToString();
-        uiController.woodAmountTxt.text = resourceManager.WoodAmount.ToString();
-        uiController.stoneAmountTxt.text = resourceManager.StoneAmount.ToString();
+        //uiController.goldAmountTxt.text = resourceManager.GoldAmount.ToString();
+        //uiController.woodAmountTxt.text = resourceManager.WoodAmount.ToString();
+        //uiController.stoneAmountTxt.text = resourceManager.StoneAmount.ToString();
     }
 
     private void PrepareGameComponents()
