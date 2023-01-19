@@ -15,8 +15,8 @@ public class StructureRepositoryEditModeTests
     {
         structureRepository = Substitute.For<StructureRepository>();
         StructPool structPool = ScriptableObject.CreateInstance<StructPool>();
-        roadPrefab = new GameObject();
-        resourceGeneratingStructurePrefab = new GameObject();
+        roadPrefab = new();
+        resourceGeneratingStructurePrefab = new();
 
         var road = ScriptableObject.CreateInstance<RoadStruct>();
         road.structureName = "Road";
@@ -30,7 +30,7 @@ public class StructureRepositoryEditModeTests
         {
             bank
         };
-        GameObject gameObject = new GameObject();
+        GameObject gameObject = new();
         structureRepository = gameObject.AddComponent<StructureRepository>();
         structureRepository.modelDataPool = structPool;
     }

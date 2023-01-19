@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ground: {fileID: 1014517007}
+  gridOutline: {fileID: 1736988877116911495, guid: 76f00980f050edc449216f9ceb4ca832, type: 3}
 --- !u!4 &286151423
 Transform:
   m_ObjectHideFlags: 0
@@ -1868,7 +1869,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21490
+  m_Name: pb_Mesh21500
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

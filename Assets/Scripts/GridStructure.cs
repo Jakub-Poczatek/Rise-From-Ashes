@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GlobalData;
+using System.Linq;
 
 public class GridStructure
 {
@@ -45,15 +46,19 @@ public class GridStructure
         throw new IndexOutOfRangeException("No index " + cellIndex + " in grid");
     }
 
-    public void PlaceStructureOnTheGrid(GameObject structure, Vector3 gridPosition)
+    public void PlaceStructureOnTheGrid(GameObject structure, Vector3 gridPosition, GameObject gridOutline = null)
     {
         Cell previousCell = null;
         var cellIndex = CalculateGridIndex(gridPosition);
 
+        List<Vector2> takenCells = new();
+
         if (CheckIndexValidity(cellIndex))
         {
-            grid[(int) cellIndex.y, (int) cellIndex.x].SetContruction(structure);
-            previousCell = grid[(int)cellIndex.y, (int)cellIndex.x];
+            //grid[(int) cellIndex.y, (int) cellIndex.x].SetContruction(structure);
+            //previousCell = grid[(int)cellIndex.y, (int)cellIndex.x];
+
+            takenCells.Add(new(cellIndex.x, cellIndex.y));
         }
 
         InitialiseStructure(structure);
@@ -69,15 +74,46 @@ public class GridStructure
                 // Check if cell exists
                 if (CheckIndexValidity(cellIndex))
                 {
-                    grid[(int) cellIndex.y, (int) cellIndex.x].SetContruction(structure);
-                    
-                    previousCell.Next = grid[(int)cellIndex.y, (int)cellIndex.x];
-                    grid[(int)cellIndex.y, (int)cellIndex.x].Previous = previousCell;
-                    previousCell = grid[(int)cellIndex.y, (int)cellIndex.x];
+                    takenCells.Add(new(cellIndex.x, cellIndex.y));
                 }
                 // If yes, then add structure and check next cell
                 x += direction.x;
                 z += direction.z;
+            }
+        }
+
+        Debug.Log(takenCells.Count());
+        //foreach (Vector2 c in takenCells) Debug.Log(c);
+        Debug.Log(takenCells.Min(d => d.x));
+        Debug.Log(takenCells.Max(d => d.y));
+        Vector2 topLeft = new(takenCells.Min(c => c.x), takenCells.Max(c => c.y));
+        Vector2 bottomLeft = new(takenCells.Min(c => c.x), takenCells.Min(c => c.y));
+        Vector2 topRight = new(takenCells.Max(c => c.x), takenCells.Max(c => c.y));
+        Vector2 bottomRight = new(takenCells.Max(c => c.x), takenCells.Min(c => c.y));
+        //var topLeft = takenCells.Where(c => c.x == takenCells.Min(d => d.x) && c.y == takenCells.Max(d => d.y)).First();
+        //var bottomLeft = takenCells.Where(c => c.x == takenCells.Min(d => d.x) && c.y == takenCells.Min(d => d.y)).First();
+        //var topRight = takenCells.Where(c => c.x == takenCells.Max(d => d.x) && c.y == takenCells.Max(d => d.y)).First();
+        //var bottomRight = takenCells.Where(c => c.x == takenCells.Max(d => d.x) && c.y == takenCells.Min(d => d.y)).First();
+        Debug.Log("Printing 4 corners");
+        Debug.Log(topLeft); Debug.Log(topRight); Debug.Log(bottomLeft); Debug.Log(bottomRight);
+
+        Debug.Log("Printing Points");
+        for(float i = takenCells.Min(cI => cI.x); i <= takenCells.Max(dI => dI.x); i++)
+        {
+            for(float j = takenCells.Min(cJ => cJ.y); j <= takenCells.Max(dJ => dJ.y); j++)
+            {
+                grid[(int) j, (int) i].SetContruction(structure);
+
+                if(previousCell != null) previousCell.Next = grid[(int) j, (int) i];
+                grid[(int) j, (int) i].Previous = previousCell;
+                previousCell = grid[(int) j, (int) i];
+
+                // Debugging
+                if (gridOutline != null)
+                {
+                    GameObject newGridOutline = MonoBehaviour.Instantiate(gridOutline, new(i, 0, j), Quaternion.identity);
+                    newGridOutline.transform.parent = structure.transform;
+                }
             }
         }
     }

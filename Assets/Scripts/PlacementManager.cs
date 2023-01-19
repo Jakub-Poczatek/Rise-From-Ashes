@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlacementManager : MonoBehaviour
 {
     public Transform ground;
+    public GameObject gridOutline;
 
     public void CreateBuilding(Vector3 gridPosition, GridStructure grid, StructureBase structure, ResourceManager resourceManager)
     {
@@ -21,7 +22,7 @@ public class PlacementManager : MonoBehaviour
             resourceManager.buyStructure(structure);
             if (structure is ResourceGenStruct)
                 resourceManager.adjustResourceGain((ResourceGenStruct) structure);
-            grid.PlaceStructureOnTheGrid(newStructure, gridPosition);
+            grid.PlaceStructureOnTheGrid(newStructure, gridPosition, gridOutline);
         } else
             Destroy(newStructure);
     }
