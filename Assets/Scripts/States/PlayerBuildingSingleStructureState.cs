@@ -19,7 +19,7 @@ public class PlayerBuildingSingleStructureState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
-        this.buildingManager.PlaceStructureAt(position, structureName, StructureType.ResourceGenStructure);
+        this.buildingManager.PrepareStructureForPlacement(position, structureName, StructureType.ResourceGenStructure);
     }
 
     public override void OnInputPointerUp()
@@ -27,9 +27,16 @@ public class PlayerBuildingSingleStructureState : PlayerState
         return;
     }
 
+    public override void OnBuildRoad(string structureName)
+    {
+        this.buildingManager.CancelPlacement();
+        base.OnBuildRoad(structureName);
+    }
+
     public override void OnConfirmAction()
     {
         this.buildingManager.ConfirmPlacement();
+        base.OnConfirmAction();
     }
     public override void OnCancel()
     {

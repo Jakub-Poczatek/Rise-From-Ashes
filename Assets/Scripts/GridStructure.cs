@@ -124,7 +124,7 @@ public class GridStructure
         return grid[(int) cellIndex.y, (int) cellIndex.x].GetStructure();
     }
 
-    public void removeStructureFromTheGrid(Vector3 gridPosition)
+    public void RemoveStructureFromTheGrid(Vector3 gridPosition)
     {
         var cellIndex = CalculateGridIndex(gridPosition);
         Cell cell = grid[(int)cellIndex.y, (int)cellIndex.x];

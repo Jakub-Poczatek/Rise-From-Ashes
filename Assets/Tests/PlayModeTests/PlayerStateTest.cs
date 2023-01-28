@@ -50,7 +50,7 @@ public class PlayerStateTest
         yield return new WaitForEndOfFrame();
         gameManager.PlayerState.OnDemolish();
         yield return new WaitForEndOfFrame();
-        Assert.IsTrue(gameManager.PlayerState is PlayerRemoveBuildingState);
+        Assert.IsTrue(gameManager.PlayerState is PlayerDemolishingState);
     }
 
     [UnityTest]

@@ -12,8 +12,21 @@ public class PlayerBuildingRoadState : PlayerState
         this.buildingManager = buildingManager;
     }
 
+    public override void OnBuildSingleStructure(string structureName)
+    {
+        this.buildingManager.CancelPlacement();
+        base.OnBuildSingleStructure(structureName);
+    }
+
+    public override void OnConfirmAction()
+    {
+        this.buildingManager.ConfirmPlacement();
+        base.OnConfirmAction();
+    }
+
     public override void OnCancel()
     {
+        this.buildingManager.CancelPlacement();
         this.gameManager.TransitionToState(this.gameManager.playerSelectionState, null);
     }
 
@@ -24,6 +37,6 @@ public class PlayerBuildingRoadState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
-        this.buildingManager.PlaceStructureAt(position, structureName, StructureType.RoadStructure);
+        this.buildingManager.PrepareStructureForPlacement(position, structureName, StructureType.RoadStructure);
     }
 }

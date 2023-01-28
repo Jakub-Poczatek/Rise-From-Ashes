@@ -35,6 +35,13 @@ public class PlacementManager : MonoBehaviour
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
+        Color colourToSet = Color.green;
+        ChangeStructureMaterial(newStructure, colourToSet);
+        return newStructure;
+    }
+
+    private void ChangeStructureMaterial(GameObject newStructure, Color colourToSet)
+    {
         foreach (Transform child in newStructure.transform)
         {
             MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
@@ -47,30 +54,34 @@ public class PlacementManager : MonoBehaviour
             for (int i = 0; i < materialsToSet.Length; i++)
             {
                 materialsToSet[i] = transparentMaterial;
-                materialsToSet[i].color = Color.green;
+                materialsToSet[i].color = colourToSet;
             }
             meshRenderer.materials = materialsToSet;
         }
-        return newStructure;
     }
 
-    public void ConfirmPlacement(IEnumerable<GameObject> structureCollection)
+    public void DisplayStructureOnMap(IEnumerable<GameObject> structureCollection)
     {
         foreach (GameObject structure in structureCollection)
         {
-            foreach (Transform child in structure.transform)
-            {
-                MeshRenderer meshRenderer= child.GetComponent<MeshRenderer>();
-                if (originalMaterials.ContainsKey(child.gameObject))
-                {
-                    meshRenderer.materials = originalMaterials[child.gameObject];
-                }
-            }
+            ResetBuildingMaterial(structure);
         }
         originalMaterials.Clear();
     }
 
-    public void CancelPlacement(IEnumerable<GameObject> structureCollection)
+    public void ResetBuildingMaterial(GameObject structure)
+    {
+        foreach (Transform child in structure.transform)
+        {
+            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+            if (originalMaterials.ContainsKey(child.gameObject))
+            {
+                meshRenderer.materials = originalMaterials[child.gameObject];
+            }
+        }
+    }
+
+    public void DestroyDisplayedStructures(IEnumerable<GameObject> structureCollection)
     {
         foreach (GameObject structure in structureCollection)
         {
@@ -79,7 +90,13 @@ public class PlacementManager : MonoBehaviour
         originalMaterials.Clear();
     }
 
-    public void RemoveBuilding(Vector3 gridPosition, GridStructure gridStructure)
+    public void SetBuildingForDemolishing(GameObject structureToDemolish)
+    {
+        Color colourToSet = Color.red;
+        ChangeStructureMaterial(structureToDemolish, colourToSet);
+    }
+
+    /*public void RemoveBuilding(Vector3 gridPosition, GridStructure gridStructure)
     {
         var structure = gridStructure.GetStructureFromTheGrid(gridPosition);
         if (structure != null)
@@ -87,11 +104,11 @@ public class PlacementManager : MonoBehaviour
             Destroy(structure);
             gridStructure.removeStructureFromTheGrid(gridPosition);
         }
-    }
+    }*/
 
     private float calculateOffset(float vector)
     {
-        if(vector != 1)
+        if (vector != 1)
             return ((vector % 2f) / 2) + (1 - ((vector % 2f) / 2));
         return (vector % 2) / 2;
     }

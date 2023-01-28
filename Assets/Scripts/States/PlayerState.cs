@@ -43,7 +43,10 @@ public abstract class PlayerState
 
     public abstract void OnCancel();
 
-    public virtual void OnConfirmAction() { }
+    public virtual void OnConfirmAction()
+    {
+        this.gameManager.TransitionToState(this.gameManager.playerSelectionState, null);
+    }
 
     public virtual void OnBuildSingleStructure(string structureName)
     {
