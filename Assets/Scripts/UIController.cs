@@ -11,11 +11,13 @@ public class UIController : MonoBehaviour
     private Action<string> OnBuildRoadHandler;
     private Action OnCancelActionHandler;
     private Action OnDemolishActionHandler;
+    private Action OnConfirmActionHandler;
 
     public Button buildResidentialAreaBtn;
     public Button cancelActionBtn;
     public Button openBuildMenuBtn;
     public Button demolishBtn;
+    public Button confirmActionBtn;
     public Button closeBuildMenuBtn;
     public GameObject cancelActionPnl;
     public GameObject buildingMenuPnl;
@@ -36,6 +38,7 @@ public class UIController : MonoBehaviour
         buildingMenuPnl.SetActive(false);
         //buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
+        confirmActionBtn.onClick.AddListener(OnConfirmActionCallback);
         openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
         demolishBtn.onClick.AddListener(OnDemolishHandler);
         closeBuildMenuBtn.onClick.AddListener(OnCloseMenuHandler);
@@ -87,12 +90,6 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnBuildSingleStructureCallback(string structureName)
     {
         PrepareUIForBuilding();
@@ -109,6 +106,12 @@ public class UIController : MonoBehaviour
     {
         cancelActionPnl.SetActive(true);
         OnCloseMenuHandler();
+    }
+
+    private void OnConfirmActionCallback()
+    {
+        cancelActionPnl.SetActive(false);
+        OnConfirmActionHandler?.Invoke();
     }
 
     private void OnCancelActionCallback()
@@ -145,6 +148,16 @@ public class UIController : MonoBehaviour
     public void RemoveListenerOnCancelActionEvent(Action listener)
     {
         OnCancelActionHandler -= listener;
+    }
+
+    public void AddListenerOnConfirmActionEvent(Action listener)
+    {
+        OnConfirmActionHandler += listener;
+    }
+
+    public void RemoveListenerOnConfirmActionEvent(Action listener)
+    {
+        OnConfirmActionHandler -= listener;
     }
 
     public void AddListenerOnDemolishActionEvent(Action listener)

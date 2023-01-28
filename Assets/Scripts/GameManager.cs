@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     private void PrepareStates()
     {
         buildingManager = new BuildingManager(placementManager, resourceManager, structureRepository, cellSize, width, length);
-        playerSelectionState = new PlayerSelectionState(this, cameraMovement);
+        playerSelectionState = new PlayerSelectionState(this);
         playerRemoveBuildingState = new PlayerRemoveBuildingState(this, buildingManager);
         buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
         buildingRoadState = new PlayerBuildingRoadState(this, buildingManager);
@@ -74,9 +74,9 @@ public class GameManager : MonoBehaviour
     {
         uiController.AddListenerOnBuildSingleStructureEvent((structureName) => playerState.OnBuildSingleStructure(structureName));
         uiController.AddListenerOnBuildRoadEvent((structureName) => playerState.OnBuildRoad(structureName));
-        //uiController.AddListenerOnBuildAreaEvent(ChangeToBuildingSingleStructureState);
         uiController.AddListenerOnCancelActionEvent(() => playerState.OnCancel());
         uiController.AddListenerOnDemolishActionEvent(() => playerState.OnDemolish());
+        uiController.AddListenerOnConfirmActionEvent(() => playerState.OnConfirmAction());
     }
 
     private void AssignInputListener()

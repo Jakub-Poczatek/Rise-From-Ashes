@@ -12,16 +12,6 @@ public class PlayerBuildingSingleStructureState : PlayerState
         this.buildingManager = buildingManager;
     }
 
-    public override void OnInputPanChange(Vector3 position)
-    {
-        return;
-    }
-
-    public override void OnInputPanUp()
-    {
-        return;
-    }
-
     public override void OnInputPointerChange(Vector3 position)
     {
         return;
@@ -37,8 +27,13 @@ public class PlayerBuildingSingleStructureState : PlayerState
         return;
     }
 
+    public override void OnConfirmAction()
+    {
+        this.buildingManager.ConfirmPlacement();
+    }
     public override void OnCancel()
     {
+        this.buildingManager.CancelPlacement();
         this.gameManager.TransitionToState(this.gameManager.playerSelectionState, null);
     }
 

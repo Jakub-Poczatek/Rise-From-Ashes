@@ -1,3 +1,4 @@
+using NSubstitute.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +8,10 @@ public class PlacementManager : MonoBehaviour
 {
     public Transform ground;
     public GameObject gridOutline;
+    public Material transparentMaterial;
+    private Dictionary<GameObject, Material[]> originalMaterials = new Dictionary<GameObject, Material[]>();
 
-    public void CreateBuilding(Vector3 gridPosition, GridStructure grid, StructureBase structure, ResourceManager resourceManager)
+    /*public void CreateBuilding(Vector3 gridPosition, GridStructure grid, StructureBase structure, ResourceManager resourceManager)
     {
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
 
@@ -21,10 +24,59 @@ public class PlacementManager : MonoBehaviour
         {
             resourceManager.buyStructure(structure);
             if (structure is ResourceGenStruct)
-                resourceManager.adjustResourceGain((ResourceGenStruct) structure);
+                resourceManager.adjustResourceGain((ResourceGenStruct)structure);
             grid.PlaceStructureOnTheGrid(newStructure, gridPosition, gridOutline);
-        } else
+        }
+        else
             Destroy(newStructure);
+    }*/
+
+    public GameObject CreateGhostStructure(Vector3 gridPosition, StructureBase structure)
+    {
+
+        GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
+        foreach (Transform child in newStructure.transform)
+        {
+            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+            if (originalMaterials.ContainsKey(child.gameObject) == false)
+            {
+                originalMaterials.Add(child.gameObject, meshRenderer.materials);
+            }
+            Material[] materialsToSet = new Material[meshRenderer.materials.Length];
+
+            for (int i = 0; i < materialsToSet.Length; i++)
+            {
+                materialsToSet[i] = transparentMaterial;
+                materialsToSet[i].color = Color.green;
+            }
+            meshRenderer.materials = materialsToSet;
+        }
+        return newStructure;
+    }
+
+    public void ConfirmPlacement(IEnumerable<GameObject> structureCollection)
+    {
+        foreach (GameObject structure in structureCollection)
+        {
+            foreach (Transform child in structure.transform)
+            {
+                MeshRenderer meshRenderer= child.GetComponent<MeshRenderer>();
+                if (originalMaterials.ContainsKey(child.gameObject))
+                {
+                    meshRenderer.materials = originalMaterials[child.gameObject];
+                }
+            }
+        }
+        originalMaterials.Clear();
+    }
+
+    public void CancelPlacement(IEnumerable<GameObject> structureCollection)
+    {
+        foreach (GameObject structure in structureCollection)
+        {
+            Destroy(structure);
+        }
+        originalMaterials.Clear();
     }
 
     public void RemoveBuilding(Vector3 gridPosition, GridStructure gridStructure)
