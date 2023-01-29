@@ -9,108 +9,71 @@ public class BuildingManager
     PlacementManager placementManager;
     ResourceManager resourceManager;
     StructureRepository structureRepository;
-    Dictionary<Vector3Int, GameObject> structuresToBeModified = new Dictionary<Vector3Int, GameObject>(); 
+    SingleStructurePlacementHelper singleStructurePlacementHelper;
+    StructureDemolishingHelper structureDemolishingHelper;
 
-    public BuildingManager(PlacementManager placementManager, ResourceManager resourceManager, 
+    public BuildingManager(PlacementManager placementManager, ResourceManager resourceManager,
                         StructureRepository structureRepository, int cellSize, int width, int length)
     {
         this.gridStructure = new GridStructure(cellSize, width, length);
         this.placementManager = placementManager;
         this.resourceManager = resourceManager;
         this.structureRepository = structureRepository;
+        singleStructurePlacementHelper =
+            new(structureRepository, gridStructure, placementManager, resourceManager);
+        structureDemolishingHelper =
+            new(structureRepository, gridStructure, placementManager, resourceManager);
     }
 
     public void PrepareStructureForPlacement(Vector3 position, string structureName, StructureType structureType)
     {
-        Time.timeScale = 0;
-        StructureBase structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
-        Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
-
-        if (!resourceManager.isAffordable(structureBase))
-        {
-            return;
-        }
-
-        Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
-        if (!gridStructure.IsCellTaken(gridPosition))
-        {
-            if (structuresToBeModified.ContainsKey(gridPositionInt))
-            {
-                // Remove preview structure
-                GameObject structure = structuresToBeModified[gridPositionInt];
-                MonoBehaviour.Destroy(structure);
-                structuresToBeModified.Remove(gridPositionInt);
-            }
-            else
-            {
-                // Add preview structure
-                (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostStructure(gridPosition, structureBase, gridStructure, resourceManager);
-                if (ghostReturn != null)
-                {
-                    structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
-                    gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, ghostReturn.Value.Item3);
-                }
-            }
-        }
+        singleStructurePlacementHelper.PrepareStructureForPlacement(position, structureName, structureType);
     }
 
     public void ConfirmPlacement()
     {
-        placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
-        structuresToBeModified.Clear();
-        resourceManager.SyncResourceGains();
-        Time.timeScale = 1;
+        singleStructurePlacementHelper.ConfirmPlacement();
     }
 
     public void CancelPlacement()
     {
-        placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
-        foreach (var keyValuePair in structuresToBeModified)
-        {
-            //gridStructure.PlaceStructureOnTheGrid(keyValuePair.Value, keyValuePair.Key);
-            gridStructure.RemoveStructureFromTheGrid(keyValuePair.Key);
-        }
-        structuresToBeModified.Clear();
-        resourceManager.ClearTempResourceGain();
-        Time.timeScale = 1;
+        singleStructurePlacementHelper.CancelPlacement();
     }
 
     public void PrepareStructureForDemolishing(Vector3 position)
     {
-        Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
-        if (gridStructure.IsCellTaken(gridPosition))
-        {
-            Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
-            GameObject structure = gridStructure.GetStructureFromTheGrid(gridPosition);
-            if (structuresToBeModified.ContainsKey(gridPositionInt))
-            {
-                // Cancel structure demolish
-                placementManager.ResetBuildingMaterial(structure);
-                structuresToBeModified.Remove(gridPositionInt);
-            } else
-            {
-                // Add structure to demolish list
-                structuresToBeModified.Add(gridPositionInt, structure);
-                placementManager.SetBuildingForDemolishing(structure);
-                //placementManager.RemoveBuilding(gridPosition, gridStructure);
-            }
-
-        }
+        structureDemolishingHelper.PrepareStructureForDemolishing(position);
     }
     
     public void CancelDemolishing()
     {
-        this.placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
-        structuresToBeModified.Clear();
+        structureDemolishingHelper.CancelDemolishing();
     }
 
     public void ConfirmDemolishing()
     {
-        foreach (Vector3 pos in structuresToBeModified.Keys)
+        structureDemolishingHelper.ConfirmDemolishing();
+    }
+
+    public GameObject GetStructureFromGrid(Vector3 position)
+    {
+        Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
+        if(gridStructure.IsCellTaken(gridPosition))
         {
-            gridStructure.RemoveStructureFromTheGrid(pos);
+            return gridStructure.GetStructureFromTheGrid(gridPosition);
         }
-        this.placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
-        structuresToBeModified.Clear();
+        return null;
+    }
+
+    public GameObject GetStructureToBeModified(Vector3 position)
+    {
+        Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
+        GameObject structureToReturn = singleStructurePlacementHelper.GetStructureToBeModified(gridPosition);
+        if(structureToReturn != null)
+        {
+            return structureToReturn;
+        }
+        structureToReturn = structureDemolishingHelper.GetStructureToBeModified(gridPosition);
+        return structureToReturn;
     }
 }

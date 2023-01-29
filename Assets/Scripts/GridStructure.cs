@@ -82,22 +82,11 @@ public class GridStructure
             }
         }
 
-        Debug.Log(takenCells.Count());
-        //foreach (Vector2 c in takenCells) Debug.Log(c);
-        Debug.Log(takenCells.Min(d => d.x));
-        Debug.Log(takenCells.Max(d => d.y));
         Vector2 topLeft = new(takenCells.Min(c => c.x), takenCells.Max(c => c.y));
         Vector2 bottomLeft = new(takenCells.Min(c => c.x), takenCells.Min(c => c.y));
         Vector2 topRight = new(takenCells.Max(c => c.x), takenCells.Max(c => c.y));
         Vector2 bottomRight = new(takenCells.Max(c => c.x), takenCells.Min(c => c.y));
-        //var topLeft = takenCells.Where(c => c.x == takenCells.Min(d => d.x) && c.y == takenCells.Max(d => d.y)).First();
-        //var bottomLeft = takenCells.Where(c => c.x == takenCells.Min(d => d.x) && c.y == takenCells.Min(d => d.y)).First();
-        //var topRight = takenCells.Where(c => c.x == takenCells.Max(d => d.x) && c.y == takenCells.Max(d => d.y)).First();
-        //var bottomRight = takenCells.Where(c => c.x == takenCells.Max(d => d.x) && c.y == takenCells.Min(d => d.y)).First();
-        Debug.Log("Printing 4 corners");
-        Debug.Log(topLeft); Debug.Log(topRight); Debug.Log(bottomLeft); Debug.Log(bottomRight);
 
-        Debug.Log("Printing Points");
         for(float i = takenCells.Min(cI => cI.x); i <= takenCells.Max(dI => dI.x); i++)
         {
             for(float j = takenCells.Min(cJ => cJ.y); j <= takenCells.Max(dJ => dJ.y); j++)
@@ -110,7 +99,7 @@ public class GridStructure
 
                 // Debugging
                 if (gridOutline != null)
-                {
+                {   
                     GameObject newGridOutline = MonoBehaviour.Instantiate(gridOutline, new(i, 0, j), Quaternion.identity);
                     newGridOutline.transform.parent = structure.transform;
                 }
@@ -163,14 +152,6 @@ public class GridStructure
         }
 
         tempCell.Previous = null;
-
-        /*foreach (Cell c in grid)
-        {
-            if (c.Previous != null)
-                Debug.Log("Previous isn't equal to null");
-            if (c.Next != null)
-                Debug.Log("Next isn't equal to null");
-        }*/
     }
 
     public bool CheckIfStructureFits(GameObject structure, Vector3 gridPosition)

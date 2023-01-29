@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cell
 {
     private bool isTaken = false;
-    private GameObject structureModel;
+    private GameObject structureModel = null;
     private Cell previous = null;
     private Cell next = null;
 

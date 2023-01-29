@@ -6,9 +6,9 @@ public class ResourceManager : MonoBehaviour
 {
     private float timer;
     private float oneSecond = 1;
-    private float goldAmount = 100;
-    private float woodAmount = 100;
-    private float stoneAmount = 100;
+    private float goldAmount = 9999999;
+    private float woodAmount = 9999999;
+    private float stoneAmount = 9999999;
     private float goldGain = 0;
     private float woodGain = 0;
     private float stoneGain = 0;

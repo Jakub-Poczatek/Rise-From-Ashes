@@ -25,7 +25,7 @@ public class StructureRepositoryEditModeTests
         bank.structureName = "Bank";
         bank.prefab = resourceGeneratingStructurePrefab;
 
-        structPool.RoadStruct = road;
+        structPool.roadStruct = road;
         structPool.resourceGenStructs = new List<ResourceGenStruct>
         {
             bank
