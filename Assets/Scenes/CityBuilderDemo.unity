@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ground: {fileID: 1014517007}
   gridOutline: {fileID: 1736988877116911495, guid: 76f00980f050edc449216f9ceb4ca832, type: 3}
-  transparentMaterial: {fileID: 2100000, guid: f45ee1df1318cff43aeee1d335fddd27, type: 2}
+  transparentMaterial: {fileID: 2100000, guid: 8fdc2eb0e11e4764e9ebd6a145794985, type: 2}
 --- !u!4 &286151423
 Transform:
   m_ObjectHideFlags: 0
@@ -1873,7 +1873,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21502
+  m_Name: pb_Mesh21504
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

@@ -12,6 +12,9 @@ public class ResourceManager : MonoBehaviour
     private float goldGain = 0;
     private float woodGain = 0;
     private float stoneGain = 0;
+    private float tempGoldGain = 0;
+    private float tempWoodGain = 0;
+    private float tempStoneGain = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +67,39 @@ public class ResourceManager : MonoBehaviour
             default:
                 throw new System.Exception("Invalid resource gain type: " + structure.resourceType);
         }
+    }
+
+    public void adjustTempResourceGain(ResourceGenStruct structure)
+    {
+        switch (structure.resourceType)
+        {
+            case ResourceType.Gold:
+                tempGoldGain += structure.resourceGenAmount;
+                break;
+            case ResourceType.Wood:
+                tempWoodGain += structure.resourceGenAmount;
+                break;
+            case ResourceType.Stone:
+                tempStoneGain += structure.resourceGenAmount;
+                break;
+            default:
+                throw new System.Exception("Invalid resource gain type: " + structure.resourceType);
+        }
+    }
+
+    public void SyncResourceGains()
+    {
+        goldGain += tempGoldGain;
+        woodGain += tempWoodGain;
+        stoneGain += tempStoneGain;
+        ClearTempResourceGain();
+    }
+
+    public void ClearTempResourceGain()
+    {
+        tempGoldGain = 0;
+        tempWoodGain = 0;
+        tempStoneGain = 0;
     }
 
     public float GoldAmount { get => goldAmount;}

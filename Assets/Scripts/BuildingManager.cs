@@ -22,7 +22,7 @@ public class BuildingManager
 
     public void PrepareStructureForPlacement(Vector3 position, string structureName, StructureType structureType)
     {
-
+        Time.timeScale = 0;
         StructureBase structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
 
@@ -36,14 +36,20 @@ public class BuildingManager
         {
             if (structuresToBeModified.ContainsKey(gridPositionInt))
             {
+                // Remove preview structure
                 GameObject structure = structuresToBeModified[gridPositionInt];
                 MonoBehaviour.Destroy(structure);
                 structuresToBeModified.Remove(gridPositionInt);
             }
             else
             {
-                //placementManager.CreateBuilding(gridPosition, gridStructure, structureBase, resourceManager);
-                structuresToBeModified.Add(gridPositionInt, placementManager.CreateGhostStructure(gridPosition, structureBase));
+                // Add preview structure
+                (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostStructure(gridPosition, structureBase, gridStructure, resourceManager);
+                if (ghostReturn != null)
+                {
+                    structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
+                    gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, ghostReturn.Value.Item3);
+                }
             }
         }
     }
@@ -51,17 +57,22 @@ public class BuildingManager
     public void ConfirmPlacement()
     {
         placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
-        foreach (var keyValuePair in structuresToBeModified)
-        {
-            gridStructure.PlaceStructureOnTheGrid(keyValuePair.Value, keyValuePair.Key);
-        }
         structuresToBeModified.Clear();
+        resourceManager.SyncResourceGains();
+        Time.timeScale = 1;
     }
 
     public void CancelPlacement()
     {
         placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
+        foreach (var keyValuePair in structuresToBeModified)
+        {
+            //gridStructure.PlaceStructureOnTheGrid(keyValuePair.Value, keyValuePair.Key);
+            gridStructure.RemoveStructureFromTheGrid(keyValuePair.Key);
+        }
         structuresToBeModified.Clear();
+        resourceManager.ClearTempResourceGain();
+        Time.timeScale = 1;
     }
 
     public void PrepareStructureForDemolishing(Vector3 position)

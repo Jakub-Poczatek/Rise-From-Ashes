@@ -11,7 +11,8 @@ public class PlacementManager : MonoBehaviour
     public Material transparentMaterial;
     private Dictionary<GameObject, Material[]> originalMaterials = new Dictionary<GameObject, Material[]>();
 
-    /*public void CreateBuilding(Vector3 gridPosition, GridStructure grid, StructureBase structure, ResourceManager resourceManager)
+    public void CreateBuilding(Vector3 gridPosition, GridStructure grid, 
+        StructureBase structure, ResourceManager resourceManager)
     {
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
 
@@ -29,34 +30,52 @@ public class PlacementManager : MonoBehaviour
         }
         else
             Destroy(newStructure);
-    }*/
+    }
 
-    public GameObject CreateGhostStructure(Vector3 gridPosition, StructureBase structure)
+    public (GameObject, Vector3, GameObject)? CreateGhostStructure(Vector3 gridPosition, StructureBase structure, 
+        GridStructure grid, ResourceManager resourceManager)
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
-        Color colourToSet = Color.green;
-        ChangeStructureMaterial(newStructure, colourToSet);
-        return newStructure;
+
+        Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
+        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.x));
+        newStructure.transform.position += diff;
+        gridPosition += diff;
+
+        if (grid.CheckIfStructureFits(newStructure, gridPosition) && !grid.CheckIfStructureExists(newStructure, gridPosition)){
+            resourceManager.buyStructure(structure);
+            if (structure is ResourceGenStruct)
+                resourceManager.adjustTempResourceGain((ResourceGenStruct)structure);
+            Color colourToSet = Color.green;
+            ChangeStructureMaterial(newStructure, colourToSet);
+            return (newStructure, gridPosition, gridOutline);
+        } else {
+            Destroy(newStructure);
+            return null;
+        }
     }
 
     private void ChangeStructureMaterial(GameObject newStructure, Color colourToSet)
     {
         foreach (Transform child in newStructure.transform)
         {
-            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
-            if (originalMaterials.ContainsKey(child.gameObject) == false)
+            if (child.GetComponent<MeshRenderer>() != null)
             {
-                originalMaterials.Add(child.gameObject, meshRenderer.materials);
-            }
-            Material[] materialsToSet = new Material[meshRenderer.materials.Length];
+                MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+                if (originalMaterials.ContainsKey(child.gameObject) == false)
+                {
+                    originalMaterials.Add(child.gameObject, meshRenderer.materials);
+                }
+                Material[] materialsToSet = new Material[meshRenderer.materials.Length];
 
-            for (int i = 0; i < materialsToSet.Length; i++)
-            {
-                materialsToSet[i] = transparentMaterial;
-                materialsToSet[i].color = colourToSet;
+                for (int i = 0; i < materialsToSet.Length; i++)
+                {
+                    materialsToSet[i] = transparentMaterial;
+                    materialsToSet[i].color = colourToSet;
+                }
+                meshRenderer.materials = materialsToSet;
             }
-            meshRenderer.materials = materialsToSet;
         }
     }
 
