@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StructureDemolishingHelper : StructureModificationHelper
 {
-    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, PlacementManager placementManager,
+    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager,
         ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager) { }
     public override void CancelModifications()
     {

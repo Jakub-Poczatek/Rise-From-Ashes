@@ -4,14 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlacementManager : MonoBehaviour
+public class PlacementManager : MonoBehaviour, IPlacementManager
 {
     public Transform ground;
     public GameObject gridOutline;
     public Material transparentMaterial;
     private Dictionary<GameObject, Material[]> originalMaterials = new Dictionary<GameObject, Material[]>();
 
-    public void CreateBuilding(Vector3 gridPosition, GridStructure grid, 
+    public void CreateBuilding(Vector3 gridPosition, GridStructure gridStructure,
         StructureBase structure, ResourceManager resourceManager)
     {
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
@@ -21,19 +21,19 @@ public class PlacementManager : MonoBehaviour
         newStructure.transform.position += diff;
         gridPosition += diff;
 
-        if (grid.CheckIfStructureFits(newStructure, gridPosition) && !grid.CheckIfStructureExists(newStructure, gridPosition))
+        if (gridStructure.CheckIfStructureFits(newStructure, gridPosition) && !gridStructure.CheckIfStructureExists(newStructure, gridPosition))
         {
             resourceManager.buyStructure(structure);
             if (structure is ResourceGenStruct)
                 resourceManager.adjustResourceGain((ResourceGenStruct)structure);
-            grid.PlaceStructureOnTheGrid(newStructure, gridPosition, gridOutline);
+            gridStructure.PlaceStructureOnTheGrid(newStructure, gridPosition, gridOutline);
         }
         else
             Destroy(newStructure);
     }
 
-    public (GameObject, Vector3, GameObject)? CreateGhostStructure(Vector3 gridPosition, StructureBase structure, 
-        GridStructure grid, ResourceManager resourceManager)
+    public (GameObject, Vector3, GameObject)? CreateGhostStructure(Vector3 gridPosition, StructureBase structure,
+        GridStructure gridStructure, ResourceManager resourceManager)
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
@@ -43,14 +43,17 @@ public class PlacementManager : MonoBehaviour
         newStructure.transform.position += diff;
         gridPosition += diff;
 
-        if (grid.CheckIfStructureFits(newStructure, gridPosition) && !grid.CheckIfStructureExists(newStructure, gridPosition)){
+        if (gridStructure.CheckIfStructureFits(newStructure, gridPosition) && !gridStructure.CheckIfStructureExists(newStructure, gridPosition))
+        {
             resourceManager.buyStructure(structure);
             if (structure is ResourceGenStruct)
                 resourceManager.adjustTempResourceGain((ResourceGenStruct)structure);
             Color colourToSet = Color.green;
             ChangeStructureMaterial(newStructure, colourToSet);
             return (newStructure, gridPosition, gridOutline);
-        } else {
+        }
+        else
+        {
             Destroy(newStructure);
             return null;
         }

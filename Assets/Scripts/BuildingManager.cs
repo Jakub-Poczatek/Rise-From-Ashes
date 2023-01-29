@@ -6,53 +6,45 @@ using UnityEngine;
 public class BuildingManager
 {
     GridStructure gridStructure;
-    PlacementManager placementManager;
+    IPlacementManager placementManager;
     ResourceManager resourceManager;
     StructureRepository structureRepository;
-    StructureModificationHelper singleStructurePlacementHelper;
-    StructureModificationHelper structureDemolishingHelper;
+    StructureModificationFactory helperFactory;
+    StructureModificationHelper helper;
 
-    public BuildingManager(PlacementManager placementManager, ResourceManager resourceManager,
+    public BuildingManager(IPlacementManager placementManager, ResourceManager resourceManager,
                         StructureRepository structureRepository, int cellSize, int width, int length)
     {
         this.gridStructure = new GridStructure(cellSize, width, length);
         this.placementManager = placementManager;
         this.resourceManager = resourceManager;
         this.structureRepository = structureRepository;
-        singleStructurePlacementHelper =
-            new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager, resourceManager);
-        structureDemolishingHelper =
-            new StructureDemolishingHelper(structureRepository, gridStructure, placementManager, resourceManager);
+        this.helperFactory = new StructureModificationFactory(structureRepository, gridStructure, placementManager, resourceManager);
     }
 
-    public void PrepareStructureForPlacement(Vector3 position, string structureName, StructureType structureType)
+    public void PrepareBuildingManager(Type classType)
     {
-        singleStructurePlacementHelper.PrepareStructureForModification(position, structureName, structureType);
+        helper = helperFactory.GetHelper(classType);
     }
 
-    public void ConfirmPlacement()
+    public void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
-        singleStructurePlacementHelper.ConfirmModifications();
+        helper.PrepareStructureForModification(position, structureName, structureType);
     }
 
-    public void CancelPlacement()
+    public void ConfirmModification()
     {
-        singleStructurePlacementHelper.CancelModifications();
+        helper.ConfirmModifications();
+    }
+
+    public void CancelModification()
+    {
+        helper.CancelModifications();
     }
 
     public void PrepareStructureForDemolishing(Vector3 position)
     {
-        structureDemolishingHelper.PrepareStructureForModification(position);
-    }
-    
-    public void CancelDemolishing()
-    {
-        structureDemolishingHelper.CancelModifications();
-    }
-
-    public void ConfirmDemolishing()
-    {
-        structureDemolishingHelper.ConfirmModifications();
+        helper.PrepareStructureForModification(position);
     }
 
     public GameObject GetStructureFromGrid(Vector3 position)
@@ -68,12 +60,12 @@ public class BuildingManager
     public GameObject GetStructureToBeModified(Vector3 position)
     {
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
-        GameObject structureToReturn = singleStructurePlacementHelper.GetStructureToBeModified(gridPosition);
+        GameObject structureToReturn = helper.GetStructureToBeModified(gridPosition);
         if(structureToReturn != null)
         {
             return structureToReturn;
         }
-        structureToReturn = structureDemolishingHelper.GetStructureToBeModified(gridPosition);
+        structureToReturn = helper.GetStructureToBeModified(gridPosition);
         return structureToReturn;
     }
 }

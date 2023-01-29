@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public IInputManager inputManager;
     public LayerMask mouseInputMask;
     public CameraMovement cameraMovement;
-    public PlacementManager placementManager;
+    public GameObject placementManagerGameObject;
     public UIController uiController;
     public ResourceManager resourceManager;
     public StructureRepository structureRepository;
@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public PlayerBuildingRoadState buildingRoadState;
     public PlayerDemolishingState playerRemoveBuildingState;
 
+    private IPlacementManager placementManager;
+
     public PlayerState PlayerState 
     { 
         get => playerState;
@@ -32,9 +34,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        PrepareStates();
-
-
         #if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
                 inputManager = gameObject.AddComponent<InputManager>();
         #endif
@@ -52,6 +51,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        placementManager = placementManagerGameObject.GetComponent<IPlacementManager>();
+
+        PrepareStates();
         PrepareGameComponents();
         AssignInputListener();
         AssignUiControllerListeners();

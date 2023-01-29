@@ -40,7 +40,7 @@ public class BuildingManagerTest
     public IEnumerator PlacementConfirmationPassTest()
     {
         Vector3 position = PreparePlacement();
-        buildingManager.ConfirmPlacement();
+        buildingManager.ConfirmModification();
         yield return new WaitForEndOfFrame();
         position = position + new Vector3(1, 0, 1);
         Assert.IsNotNull(buildingManager.GetStructureFromGrid(position));
@@ -50,7 +50,7 @@ public class BuildingManagerTest
     public IEnumerator PlacementCancelTest()
     {
         Vector3 position = PreparePlacement();
-        buildingManager.CancelPlacement();
+        buildingManager.CancelModification();
         yield return new WaitForEndOfFrame();
         position = position + new Vector3(1, 0, 1);
         Assert.IsNull(buildingManager.GetStructureFromGrid(position));
@@ -62,7 +62,7 @@ public class BuildingManagerTest
         Vector3 position = PreparePlacement();
         position = position + new Vector3(1, 0, 1);
         PrepareDemolition(position);
-        buildingManager.ConfirmDemolishing();
+        buildingManager.ConfirmModification();
         yield return new WaitForEndOfFrame();
         Assert.IsNull(buildingManager.GetStructureFromGrid(position));
     }
@@ -86,7 +86,7 @@ public class BuildingManagerTest
         Vector3 position = PreparePlacement();
         position = position + new Vector3(1, 0, 1);
         PrepareDemolition(position);
-        buildingManager.CancelDemolishing();
+        buildingManager.CancelModification();
         yield return new WaitForEndOfFrame();
         Assert.IsNotNull(buildingManager.GetStructureFromGrid(position));
 
@@ -108,7 +108,7 @@ public class BuildingManagerTest
     {
         Vector3 position = PreparePlacement();
         position = position + new Vector3(1, 0, 1);
-        buildingManager.ConfirmPlacement();
+        buildingManager.ConfirmModification();
         Material material = GetMaterial(position, () => buildingManager.GetStructureFromGrid(position));
         yield return new WaitForEndOfFrame();
         Assert.AreEqual(material.color, Color.blue);
@@ -131,7 +131,7 @@ public class BuildingManagerTest
         Vector3 position = PreparePlacement();
         position = position + new Vector3(1, 0, 1);
         PrepareDemolition(position);
-        buildingManager.CancelDemolishing();
+        buildingManager.CancelModification();
         Material material = GetMaterial(position, () => buildingManager.GetStructureFromGrid(position));
         yield return new WaitForEndOfFrame();
         Assert.AreEqual(material.color, Color.blue);
@@ -148,13 +148,15 @@ public class BuildingManagerTest
     {
         Vector3 position = new(5, 0, 5);
         string structureName = "Road";
-        buildingManager.PrepareStructureForPlacement(position, structureName, StructureType.RoadStructure);
+        buildingManager.PrepareBuildingManager(typeof(PlayerBuildingRoadState));
+        buildingManager.PrepareStructureForModification(position, structureName, StructureType.RoadStructure);
         return position;
     }
 
     private void PrepareDemolition(Vector3 position)
     {
-        buildingManager.ConfirmPlacement();
+        buildingManager.ConfirmModification();
+        buildingManager.PrepareBuildingManager(typeof(PlayerDemolishingState));
         buildingManager.PrepareStructureForDemolishing(position);
     }
 }

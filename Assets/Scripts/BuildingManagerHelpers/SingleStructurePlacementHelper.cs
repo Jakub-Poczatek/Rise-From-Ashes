@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SingleStructurePlacementHelper : StructureModificationHelper
 {
-    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, PlacementManager placementManager, 
+    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, 
         ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager) { }
 
     public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
