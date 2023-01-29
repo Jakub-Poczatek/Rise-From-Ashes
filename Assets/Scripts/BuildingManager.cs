@@ -9,8 +9,8 @@ public class BuildingManager
     PlacementManager placementManager;
     ResourceManager resourceManager;
     StructureRepository structureRepository;
-    SingleStructurePlacementHelper singleStructurePlacementHelper;
-    StructureDemolishingHelper structureDemolishingHelper;
+    StructureModificationHelper singleStructurePlacementHelper;
+    StructureModificationHelper structureDemolishingHelper;
 
     public BuildingManager(PlacementManager placementManager, ResourceManager resourceManager,
                         StructureRepository structureRepository, int cellSize, int width, int length)
@@ -20,39 +20,39 @@ public class BuildingManager
         this.resourceManager = resourceManager;
         this.structureRepository = structureRepository;
         singleStructurePlacementHelper =
-            new(structureRepository, gridStructure, placementManager, resourceManager);
+            new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager, resourceManager);
         structureDemolishingHelper =
-            new(structureRepository, gridStructure, placementManager, resourceManager);
+            new StructureDemolishingHelper(structureRepository, gridStructure, placementManager, resourceManager);
     }
 
     public void PrepareStructureForPlacement(Vector3 position, string structureName, StructureType structureType)
     {
-        singleStructurePlacementHelper.PrepareStructureForPlacement(position, structureName, structureType);
+        singleStructurePlacementHelper.PrepareStructureForModification(position, structureName, structureType);
     }
 
     public void ConfirmPlacement()
     {
-        singleStructurePlacementHelper.ConfirmPlacement();
+        singleStructurePlacementHelper.ConfirmModifications();
     }
 
     public void CancelPlacement()
     {
-        singleStructurePlacementHelper.CancelPlacement();
+        singleStructurePlacementHelper.CancelModifications();
     }
 
     public void PrepareStructureForDemolishing(Vector3 position)
     {
-        structureDemolishingHelper.PrepareStructureForDemolishing(position);
+        structureDemolishingHelper.PrepareStructureForModification(position);
     }
     
     public void CancelDemolishing()
     {
-        structureDemolishingHelper.CancelDemolishing();
+        structureDemolishingHelper.CancelModifications();
     }
 
     public void ConfirmDemolishing()
     {
-        structureDemolishingHelper.ConfirmDemolishing();
+        structureDemolishingHelper.ConfirmModifications();
     }
 
     public GameObject GetStructureFromGrid(Vector3 position)

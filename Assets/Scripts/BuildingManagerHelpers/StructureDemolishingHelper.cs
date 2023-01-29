@@ -2,24 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StructureDemolishingHelper
+public class StructureDemolishingHelper : StructureModificationHelper
 {
-    Dictionary<Vector3Int, GameObject> structuresToBeModified = new Dictionary<Vector3Int, GameObject>();
-    private StructureRepository structureRepository;
-    private GridStructure gridStructure;
-    private PlacementManager placementManager;
-    private ResourceManager resourceManager;
-
-    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure,
-        PlacementManager placementManager, ResourceManager resourceManager)
+    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, PlacementManager placementManager,
+        ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager) { }
+    public override void CancelModifications()
     {
-        this.structureRepository = structureRepository;
-        this.gridStructure = gridStructure;
-        this.placementManager = placementManager;
-        this.resourceManager = resourceManager;
+        this.placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
+        structuresToBeModified.Clear();
     }
 
-    public void PrepareStructureForDemolishing(Vector3 position)
+    public override void ConfirmModifications()
+    {
+        foreach (Vector3 pos in structuresToBeModified.Keys)
+        {
+            gridStructure.RemoveStructureFromTheGrid(pos);
+        }
+        this.placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
+        structuresToBeModified.Clear();
+    }
+
+    public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         if (gridStructure.IsCellTaken(gridPosition))
@@ -41,31 +44,5 @@ public class StructureDemolishingHelper
             }
 
         }
-    }
-
-    public void CancelDemolishing()
-    {
-        this.placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
-        structuresToBeModified.Clear();
-    }
-
-    public void ConfirmDemolishing()
-    {
-        foreach (Vector3 pos in structuresToBeModified.Keys)
-        {
-            gridStructure.RemoveStructureFromTheGrid(pos);
-        }
-        this.placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
-        structuresToBeModified.Clear();
-    }
-
-    public GameObject GetStructureToBeModified(Vector3 gridPosition)
-    {
-        Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
-        if (structuresToBeModified.ContainsKey(gridPositionInt))
-        {
-            return structuresToBeModified[gridPositionInt];
-        }
-        return null;
     }
 }

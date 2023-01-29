@@ -2,24 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SingleStructurePlacementHelper
+public class SingleStructurePlacementHelper : StructureModificationHelper
 {
-    Dictionary<Vector3Int, GameObject> structuresToBeModified = new Dictionary<Vector3Int, GameObject>();
-    private StructureRepository structureRepository;
-    private GridStructure gridStructure;
-    private PlacementManager placementManager;
-    private ResourceManager resourceManager;
+    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, PlacementManager placementManager, 
+        ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager) { }
 
-    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure,
-        PlacementManager placementManager, ResourceManager resourceManager)
-    {
-        this.structureRepository = structureRepository;
-        this.gridStructure = gridStructure;
-        this.placementManager = placementManager;
-        this.resourceManager = resourceManager;
-    }
-
-    public void PrepareStructureForPlacement(Vector3 position, string structureName, StructureType structureType)
+    public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
         Time.timeScale = 0;
         StructureBase structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
@@ -53,7 +41,7 @@ public class SingleStructurePlacementHelper
         }
     }
 
-    public void ConfirmPlacement()
+    public override void ConfirmModifications()
     {
         placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
         structuresToBeModified.Clear();
@@ -61,7 +49,7 @@ public class SingleStructurePlacementHelper
         Time.timeScale = 1;
     }
 
-    public void CancelPlacement()
+    public override void CancelModifications()
     {
         placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
         foreach (var keyValuePair in structuresToBeModified)
@@ -73,13 +61,4 @@ public class SingleStructurePlacementHelper
         Time.timeScale = 1;
     }
 
-    public GameObject GetStructureToBeModified(Vector3 gridPosition)
-    {
-        Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
-        if (structuresToBeModified.ContainsKey(gridPositionInt))
-        {
-            return structuresToBeModified[gridPositionInt];
-        }
-        return null;
-    }
 }
