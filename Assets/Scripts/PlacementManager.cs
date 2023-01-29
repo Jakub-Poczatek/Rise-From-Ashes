@@ -112,7 +112,7 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
         originalMaterials.Clear();
     }
 
-    public void SetBuildingForDemolishing(GameObject structureToDemolish)
+    public void SetStructureForDemolishing(GameObject structureToDemolish)
     {
         Color colourToSet = Color.red;
         ChangeStructureMaterial(structureToDemolish, colourToSet);

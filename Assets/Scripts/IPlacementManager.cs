@@ -8,5 +8,5 @@ public interface IPlacementManager
     void DestroyDisplayedStructures(IEnumerable<GameObject> structureCollection);
     void DisplayStructureOnMap(IEnumerable<GameObject> structureCollection);
     void ResetBuildingMaterial(GameObject structure);
-    void SetBuildingForDemolishing(GameObject structureToDemolish);
+    void SetStructureForDemolishing(GameObject structureToDemolish);
 }

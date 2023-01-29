@@ -11,6 +11,7 @@ public class PlayerStateTest
 {
     UIController uiController;
     GameManager gameManager;
+    GameObject placementManagerGameObject;
 
     [SetUp]
     public void Init()
@@ -23,6 +24,9 @@ public class PlayerStateTest
         gameManager = gameManagerObject.AddComponent<GameManager>();
         gameManager.cameraMovement = cameraMovementComponent;
         gameManager.uiController = uiController;
+
+        placementManagerGameObject = new();
+        gameManager.placementManagerGameObject = placementManagerGameObject;
     }
 
     [UnityTest]

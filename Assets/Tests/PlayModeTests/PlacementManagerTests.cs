@@ -47,4 +47,31 @@ public class PlacementManagerTests
             Assert.AreEqual(renderer.material.color, Color.green);
         }
     }
+
+    [UnityTest]
+    public IEnumerator DisplayStructureOnMapMaterialPasses()
+    {
+        (GameObject, Vector3, GameObject)? ghostReturn =
+            placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure, resourceManager);
+        placementManager.DisplayStructureOnMap(new List<GameObject>() { ghostReturn.Value.Item1 });
+        yield return new WaitForEndOfFrame();
+        foreach (MeshRenderer renderer in ghostReturn.Value.Item1.GetComponentsInChildren<MeshRenderer>())
+        {
+            Assert.AreEqual(renderer.material.color, Color.blue);
+        }
+
+    }
+
+    [UnityTest]
+    public IEnumerator PlacementManagerDestroyStructurePasses()
+    {
+        placementManager.SetStructureForDemolishing(testGameObject);
+        yield return new WaitForEndOfFrame();
+        foreach (MeshRenderer renderer in testGameObject.GetComponentsInChildren<MeshRenderer>())
+        {
+            Assert.AreEqual(renderer.material.color, Color.red);
+        }
+
+
+    }
 }

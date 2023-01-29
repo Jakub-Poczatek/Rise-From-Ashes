@@ -39,7 +39,7 @@ public class StructureDemolishingHelper : StructureModificationHelper
             {
                 // Add structure to demolish list
                 structuresToBeModified.Add(gridPositionInt, structure);
-                placementManager.SetBuildingForDemolishing(structure);
+                placementManager.SetStructureForDemolishing(structure);
                 //placementManager.RemoveBuilding(gridPosition, gridStructure);
             }
 
