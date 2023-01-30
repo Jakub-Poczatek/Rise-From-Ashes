@@ -2766,7 +2766,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   cameraMovement: {fileID: 1523867444}
-  placementManager: {fileID: 286151422}
+  placementManagerGameObject: {fileID: 286151421}
   uiController: {fileID: 1938490060}
   resourceManager: {fileID: 863207274}
   structureRepository: {fileID: 1043946001}

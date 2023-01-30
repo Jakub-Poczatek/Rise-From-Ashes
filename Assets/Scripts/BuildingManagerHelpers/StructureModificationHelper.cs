@@ -30,7 +30,25 @@ public abstract class StructureModificationHelper
         return null;
     }
 
-    public abstract void CancelModifications();
-    public abstract void ConfirmModifications();
+    public virtual void ConfirmModifications()
+    {
+        placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
+        structuresToBeModified.Clear();
+        resourceManager.SyncResourceGains();
+        Time.timeScale = 1;
+    }
+
+    public virtual void CancelModifications()
+    {
+        placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
+        foreach (var keyValuePair in structuresToBeModified)
+        {
+            gridStructure.RemoveStructureFromTheGrid(keyValuePair.Key);
+        }
+        structuresToBeModified.Clear();
+        resourceManager.ClearTempResourceGain();
+        Time.timeScale = 1;
+    }
+
     public abstract void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None);
 }

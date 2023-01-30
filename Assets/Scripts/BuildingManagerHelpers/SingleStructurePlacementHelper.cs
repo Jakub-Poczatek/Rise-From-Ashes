@@ -36,29 +36,11 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
             {
                 gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
                 structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
-                gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, ghostReturn.Value.Item3);
+                gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, structureBase, ghostReturn.Value.Item3);
             }
         }
     }
 
-    public override void ConfirmModifications()
-    {
-        placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
-        structuresToBeModified.Clear();
-        resourceManager.SyncResourceGains();
-        Time.timeScale = 1;
-    }
-
-    public override void CancelModifications()
-    {
-        placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
-        foreach (var keyValuePair in structuresToBeModified)
-        {
-            gridStructure.RemoveStructureFromTheGrid(keyValuePair.Key);
-        }
-        structuresToBeModified.Clear();
-        resourceManager.ClearTempResourceGain();
-        Time.timeScale = 1;
-    }
+    
 
 }

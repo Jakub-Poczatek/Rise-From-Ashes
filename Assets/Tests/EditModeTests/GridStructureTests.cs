@@ -85,7 +85,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(1, 0, 1));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsTrue(grid.IsCellTaken(position));
@@ -100,7 +100,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(1, 0, 1));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsTrue(grid.IsCellTaken(position));
@@ -114,7 +114,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(1, 0, 1));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsTrue(grid.IsCellTaken(position));
@@ -128,7 +128,7 @@ public class GridStructureTests
         GameObject nullGameObject = null;
 
         // Assert
-        Assert.Throws<NullReferenceException>(() => grid.PlaceStructureOnTheGrid(nullGameObject, position));
+        Assert.Throws<NullReferenceException>(() => grid.PlaceStructureOnTheGrid(nullGameObject, position, null));
     }
 
     [Test]
@@ -139,7 +139,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsTrue(grid.IsCellTaken(position + new Vector3(2, 0, 2)));
@@ -153,7 +153,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsTrue(grid.IsCellTaken(position - new Vector3(2, 0, 2)));
@@ -167,7 +167,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsFalse(grid.IsCellTaken(position + new Vector3(3, 0, 3)));
@@ -181,7 +181,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsFalse(grid.IsCellTaken(position - new Vector3(3, 0, 3)));
@@ -266,7 +266,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
 
         // Assert
         Assert.IsTrue(grid.CheckIfStructureExists(gameObject, position));
@@ -280,7 +280,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
         position += new Vector3(4, 0, 4);
         gameObject.transform.position = position;
 
@@ -296,7 +296,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
         position -= new Vector3(4, 0, 4);
         gameObject.transform.position = position;
 
@@ -312,7 +312,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
         position += new Vector3(5, 0, 5);
         gameObject.transform.position = position;
 
@@ -328,7 +328,7 @@ public class GridStructureTests
         GameObject gameObject = new("gameObject", typeof(MeshRenderer));
         gameObject.GetComponent<MeshRenderer>().bounds = new Bounds(Vector3.zero, new(3, 0, 3));
         gameObject.transform.position = position;
-        grid.PlaceStructureOnTheGrid(gameObject, position);
+        grid.PlaceStructureOnTheGrid(gameObject, position, null);
         position -= new Vector3(5, 0, 5);
         gameObject.transform.position = position;
 

@@ -20,7 +20,7 @@ public class CellTests
     public void SetContructionPass()
     {
         // Act
-        cell.SetContruction(new GameObject());
+        cell.SetContruction(new GameObject(), null);
 
         // Assert
         Assert.IsTrue(cell.IsTaken);
@@ -30,7 +30,7 @@ public class CellTests
     public void SetContructionNullFail()
     {
         // Act
-        cell.SetContruction(null);
+        cell.SetContruction(null, null);
 
         // Assert
         Assert.IsFalse(cell.IsTaken);

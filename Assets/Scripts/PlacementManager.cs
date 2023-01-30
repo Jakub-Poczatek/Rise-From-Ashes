@@ -11,7 +11,7 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     public Material transparentMaterial;
     private Dictionary<GameObject, Material[]> originalMaterials = new Dictionary<GameObject, Material[]>();
 
-    public void CreateBuilding(Vector3 gridPosition, GridStructure gridStructure,
+    /*public void CreateBuilding(Vector3 gridPosition, GridStructure gridStructure,
         StructureBase structure, ResourceManager resourceManager)
     {
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
@@ -30,7 +30,7 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
         }
         else
             Destroy(newStructure);
-    }
+    }*/
 
     public (GameObject, Vector3, GameObject)? CreateGhostStructure(Vector3 gridPosition, StructureBase structure,
         GridStructure gridStructure, ResourceManager resourceManager)

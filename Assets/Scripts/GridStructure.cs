@@ -46,7 +46,7 @@ public class GridStructure
         throw new IndexOutOfRangeException("No index " + cellIndex + " in grid");
     }
 
-    public void PlaceStructureOnTheGrid(GameObject structure, Vector3 gridPosition, GameObject gridOutline = null)
+    public void PlaceStructureOnTheGrid(GameObject structure, Vector3 gridPosition, StructureBase structureBase, GameObject gridOutline = null)
     {
         Cell previousCell = null;
         var cellIndex = CalculateGridIndex(gridPosition);
@@ -91,7 +91,7 @@ public class GridStructure
         {
             for(float j = takenCells.Min(cJ => cJ.y); j <= takenCells.Max(dJ => dJ.y); j++)
             {
-                grid[(int) j, (int) i].SetContruction(structure);
+                grid[(int) j, (int) i].SetContruction(structure, structureBase);
 
                 if(previousCell != null) previousCell.Next = grid[(int) j, (int) i];
                 grid[(int) j, (int) i].Previous = previousCell;
@@ -105,6 +105,12 @@ public class GridStructure
                 }
             }
         }
+    }
+    
+    public StructureBase GetStructureDataFromGrid(Vector3 gridPosition)
+    {
+        var cellIndex = CalculateGridIndex(gridPosition);
+        return grid[(int)cellIndex.y, (int)cellIndex.x].GetStructureBase();
     }
 
     public GameObject GetStructureFromTheGrid(Vector3 gridPosition)
@@ -237,4 +243,35 @@ public class GridStructure
             );
         strPosition = structure.GetComponentInChildren<Transform>().position;
     }
+
+    public Vector3Int? GetNeighbourPositionNullable(Vector3 gridPosition, NeighbourDirection direction)
+    {
+        Vector3Int? neightbourPosition = Vector3Int.FloorToInt(gridPosition);
+        switch (direction)
+        {
+            case NeighbourDirection.Up:
+                neightbourPosition += new Vector3Int(0, 0, cellSize);
+                break;
+            case NeighbourDirection.Right:
+                neightbourPosition += new Vector3Int(cellSize, 0, 0);
+                break;
+            case NeighbourDirection.Down:
+                neightbourPosition += new Vector3Int(0, 0, -cellSize);
+                break;
+            case NeighbourDirection.Left:
+                neightbourPosition += new Vector3Int(-cellSize, 0, 0);
+                break;
+        }
+        var index = CalculateGridIndex(neightbourPosition.Value);
+        if (!CheckIndexValidity(index)) return null;
+        return neightbourPosition;
+    }
+}
+
+public enum NeighbourDirection
+{
+    Up = 1,
+    Right = 2,
+    Down = 4,
+    Left = 8,
 }
