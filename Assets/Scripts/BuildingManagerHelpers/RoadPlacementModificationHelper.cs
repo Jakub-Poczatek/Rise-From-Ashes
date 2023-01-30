@@ -5,19 +5,29 @@ using UnityEngine;
 
 public class RoadPlacementModificationHelper : StructureModificationHelper
 {
+    StructureBase structureBase;
+
     public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, 
         ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager)
     {
 
     }
 
-    public override void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None)
+    public override void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None, StructureBase structureBase = null)
     {
+        this.structureBase = structureBase;
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
-        if (gridStructure.IsCellTaken(gridPosition)) 
+        if (gridStructure.IsCellTaken(gridPosition))
         {
             Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
             RoadStructureHelper road = GetCorrectRoadPrefab(gridPosition);
+            if (structuresToBeModified.ContainsKey(gridPositionInt))
+            {
+                
+            } else
+            {
+
+            }
         }
     }
 
@@ -25,22 +35,22 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
     {
         int neighboursStatus = RoadManager.GetRoadNeighboursStatus(position, gridStructure);
         RoadStructureHelper roadToReturn = null;
-        roadToReturn = RoadManager.IfStraightRoadFits(neighboursStatus, roadToReturn);
+        roadToReturn = RoadManager.IfStraightRoadFits(neighboursStatus, roadToReturn, structureBase);
         if(roadToReturn != null)
         {
             return roadToReturn;
         }
-        roadToReturn = RoadManager.IfCornerRoadFirst(neighboursStatus, roadToReturn);
+        roadToReturn = RoadManager.IfCornerRoadFits(neighboursStatus, roadToReturn, structureBase);
         if (roadToReturn != null)
         {
             return roadToReturn;
         }
-        roadToReturn = RoadManager.IfThreeWayFits(neighboursStatus, roadToReturn);
+        roadToReturn = RoadManager.IfThreeWayFits(neighboursStatus, roadToReturn, structureBase);
         if (roadToReturn != null)
         {
             return roadToReturn;
         }
-        roadToReturn = RoadManager.IfFourWayFits(neighboursStatus, roadToReturn);
+        roadToReturn = RoadManager.IfFourWayFits(neighboursStatus, roadToReturn, structureBase);
         return roadToReturn;
     }
 

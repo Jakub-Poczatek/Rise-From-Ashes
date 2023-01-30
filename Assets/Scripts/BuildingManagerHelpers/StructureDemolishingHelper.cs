@@ -22,7 +22,7 @@ public class StructureDemolishingHelper : StructureModificationHelper
         structuresToBeModified.Clear();
     }
 
-    public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
+    public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType, StructureBase structureBase = null)
     {
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         if (gridStructure.IsCellTaken(gridPosition))

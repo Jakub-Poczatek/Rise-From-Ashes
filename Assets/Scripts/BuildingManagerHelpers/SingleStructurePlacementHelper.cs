@@ -7,13 +7,13 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
     public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, 
         ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager) { }
 
-    public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
+    public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType, StructureBase structureBase = null)
     {
         Time.timeScale = 0;
-        StructureBase structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
+        StructureBase myStructureBase = this.structureRepository.GetStructureByName(structureName, structureType);
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
 
-        if (!resourceManager.isAffordable(structureBase))
+        if (!resourceManager.isAffordable(myStructureBase))
         {
             return;
         }
@@ -31,12 +31,12 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
         {
             // Add preview structure
             // ghostReturn = (structure, position, gridOutline)
-            (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostStructure(gridPosition, structureBase, gridStructure, resourceManager);
+            (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostStructure(gridPosition, myStructureBase, gridStructure, resourceManager);
             if (ghostReturn != null)
             {
                 gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
                 structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
-                gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, structureBase, ghostReturn.Value.Item3);
+                gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, myStructureBase, ghostReturn.Value.Item3);
             }
         }
     }
