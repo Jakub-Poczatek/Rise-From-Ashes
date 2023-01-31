@@ -50,7 +50,7 @@ public abstract class StructureModificationHelper
         Time.timeScale = 1;
     }
 
-    public virtual void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None, StructureBase structureBase = null)
+    public virtual void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None)
     {
 
     }

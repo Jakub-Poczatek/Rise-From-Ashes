@@ -11,27 +11,6 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     public Material transparentMaterial;
     private Dictionary<GameObject, Material[]> originalMaterials = new Dictionary<GameObject, Material[]>();
 
-    /*public void CreateBuilding(Vector3 gridPosition, GridStructure gridStructure,
-        StructureBase structure, ResourceManager resourceManager)
-    {
-        GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
-
-        Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
-        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.x));
-        newStructure.transform.position += diff;
-        gridPosition += diff;
-
-        if (gridStructure.CheckIfStructureFits(newStructure, gridPosition) && !gridStructure.CheckIfStructureExists(newStructure, gridPosition))
-        {
-            resourceManager.buyStructure(structure);
-            if (structure is ResourceGenStruct)
-                resourceManager.adjustResourceGain((ResourceGenStruct)structure);
-            gridStructure.PlaceStructureOnTheGrid(newStructure, gridPosition, gridOutline);
-        }
-        else
-            Destroy(newStructure);
-    }*/
-
     public (GameObject, Vector3, GameObject)? CreateGhostStructure(Vector3 gridPosition, StructureBase structure,
         GridStructure gridStructure, ResourceManager resourceManager)
     {
@@ -39,7 +18,9 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
 
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
-        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.x));
+
+        // Maybe change size.z to size.x
+        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.z));
         newStructure.transform.position += diff;
         gridPosition += diff;
 
@@ -57,6 +38,62 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
             Destroy(newStructure);
             return null;
         }
+    }
+
+    public (GameObject, Vector3, GameObject)? CreateGhostRoad(Vector3 gridPosition, GameObject structure,
+        GridStructure gridStructure, RotationValue rotationValue = RotationValue.R0)
+    {
+        GameObject newStructure = InstantiateRoad(gridPosition, structure, rotationValue);
+
+        Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
+
+        // Maybe change size.z to size.x
+        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.z));
+        newStructure.transform.position += diff;
+        gridPosition += diff;
+
+
+        if (!gridStructure.CheckIfStructureFits(newStructure, gridPosition)) Debug.Log("Structure can't fit");
+        if (gridStructure.CheckIfStructureExists(newStructure, gridPosition)) Debug.Log("Structure does exist");
+
+        if (gridStructure.CheckIfStructureFits(newStructure, gridPosition) && !gridStructure.CheckIfStructureExists(newStructure, gridPosition))
+        {
+            Color colourToSet = Color.green;
+            ChangeStructureMaterial(newStructure, colourToSet);
+            return (newStructure, gridPosition, null);
+        }
+        else
+        {
+            Destroy(newStructure);
+            return null;
+        }
+    }
+
+    public GameObject InstantiateRoad(Vector3 gridPosition, GameObject structure, RotationValue rotationValue)
+    {
+        GameObject newStructure = Instantiate(structure, ground.position + gridPosition, Quaternion.identity);
+        Vector3 rotation = Vector3.zero;
+        switch (rotationValue)
+        {
+            case RotationValue.R0:
+                break;
+            case RotationValue.R90:
+                rotation = new Vector3(0, 90, 0);
+                break;
+            case RotationValue.R180:
+                rotation = new Vector3(0, 180, 0);
+                break;
+            case RotationValue.R270:
+                rotation = new Vector3(0, 270, 0);
+                break;
+            default:
+                break;
+        }
+        foreach (Transform child in newStructure.transform)
+        {
+            child.Rotate(rotation, Space.World);
+        }
+        return newStructure;
     }
 
     private void ChangeStructureMaterial(GameObject newStructure, Color colourToSet)
@@ -118,20 +155,12 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
         ChangeStructureMaterial(structureToDemolish, colourToSet);
     }
 
-    /*public void RemoveBuilding(Vector3 gridPosition, GridStructure gridStructure)
-    {
-        var structure = gridStructure.GetStructureFromTheGrid(gridPosition);
-        if (structure != null)
-        {
-            Destroy(structure);
-            gridStructure.removeStructureFromTheGrid(gridPosition);
-        }
-    }*/
-
     private float calculateOffset(float vector)
     {
-        if (vector != 1)
-            return ((vector % 2f) / 2) + (1 - ((vector % 2f) / 2));
-        return (vector % 2) / 2;
+        if (vector > 1)
+        {
+            return ((vector % 2f) / 2f) + (1f - ((vector % 2f) / 2f));
+        }
+        return (vector % 2f) / 2f;
     }
 }

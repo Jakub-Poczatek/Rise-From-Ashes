@@ -5,23 +5,45 @@ using UnityEngine;
 
 public static class RoadManager
 {
-    public static int GetRoadNeighboursStatus(Vector3 position, GridStructure gridStructure)
+    public static int GetRoadNeighboursStatus(Vector3 position, GridStructure gridStructure, Dictionary<Vector3Int, GameObject> structuresToBeModified)
     {
         int roadNeighboursStatus = 0;
 
         foreach (NeighbourDirection neighbourDirection in Enum.GetValues(typeof(NeighbourDirection)))
         {
             var neighbourPosition = gridStructure.GetNeighbourPositionNullable(position, neighbourDirection);
-            if (neighbourPosition.HasValue && gridStructure.IsCellTaken(neighbourPosition.Value))
+            if (neighbourPosition.HasValue) 
             {
-                var neighbourStructureBase = gridStructure.GetStructureDataFromGrid(neighbourPosition.Value);
-                if (neighbourStructureBase != null)
-                {
+                if(CheckIfNeighbourIsRoadOnGrid(gridStructure, neighbourPosition) 
+                    || CheckIfNeighbourIsRoadInDictionary(neighbourPosition, structuresToBeModified)){
                     roadNeighboursStatus += (int)neighbourDirection;
                 }
             }
         }
         return roadNeighboursStatus;
+    }
+
+    public static bool CheckIfNeighbourIsRoadOnGrid(GridStructure gridStructure, Vector3Int? neighbourPosition)
+    {
+        if (gridStructure.IsCellTaken(neighbourPosition.Value))
+        {
+            var neighbourStructure = gridStructure.GetStructureDataFromGrid(neighbourPosition.Value);
+            if (neighbourStructure != null && neighbourStructure.GetType() == typeof(RoadStruct))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool CheckIfNeighbourIsRoadInDictionary(Vector3Int? neighbourPosition, Dictionary<Vector3Int, GameObject> structuresToBeModified)
+    {
+        return CheckForRoadAtNeighbour(neighbourPosition.Value, structuresToBeModified);
+    }
+
+    private static bool CheckForRoadAtNeighbour(Vector3Int value, Dictionary<Vector3Int, GameObject> structuresToBeModified)
+    {
+        return structuresToBeModified.ContainsKey(value);
     }
 
     internal static RoadStructureHelper IfCornerRoadFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)

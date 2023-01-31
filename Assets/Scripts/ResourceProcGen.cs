@@ -25,7 +25,6 @@ public class ResourceProcGen : MonoBehaviour
                 0,
                 Random.Range(grid.transform.position.z, grid.transform.position.z + gridSize.z)
                 );
-                print("Finding position");
             } while (Physics.CheckSphere(position, 1.0f, LayerMask.GetMask("Resources")));
             
             GameObject r = Instantiate(prefab, position, Quaternion.identity);

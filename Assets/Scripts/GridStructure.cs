@@ -197,6 +197,7 @@ public class GridStructure
             float z = gridPosition.z + direction.z;
             while (CheckIfIndexInRange(new(x, z), new(strPosition.x, strPosition.z), new(strSize.x, strSize.z)))
             {
+                //Debug.Log(direction.x + " " + direction.z);
                 // Check if the cell is already taken
                 if (IsCellTaken(new(x, gridPosition.y, z)))
                 {
@@ -228,18 +229,18 @@ public class GridStructure
 
     private bool CheckIfIndexInRange(Vector2 index, Vector2 strPos, Vector2 strSize)
     {
-        // Check if index is withing structure bounds
-        return (index.x >= strPos.x - (strSize.x / 2) && index.x <= strPos.x + (strSize.x / 2) &&
-                    index.y >= strPos.y - (strSize.y / 2) && index.y <= strPos.y + (strSize.y) / 2);
+        // Check if index is within structure bounds
+        return (index.x >= strPos.x - (strSize.x / 2f) && index.x <= strPos.x + (strSize.x / 2f) &&
+                    index.y >= strPos.y - (strSize.y / 2f) && index.y <= strPos.y + (strSize.y) / 2f);
     }
 
     private void InitialiseStructure(GameObject structure)
     {
         strSize = structure.GetComponentInChildren<MeshRenderer>().bounds.size;
         strSize = new Vector3(
-            (Mathf.Ceil(strSize.x) % 2 != 0 && strSize.x != 1) ? Mathf.Ceil(strSize.x) + 1 : Mathf.Ceil(strSize.x),
-            (Mathf.Ceil(strSize.y) % 2 != 0 && strSize.y != 1) ? Mathf.Ceil(strSize.y) + 1 : Mathf.Ceil(strSize.y),
-            (Mathf.Ceil(strSize.z) % 2 != 0 && strSize.z != 1) ? Mathf.Ceil(strSize.z) + 1 : Mathf.Ceil(strSize.z)
+            (Mathf.Ceil(strSize.x) % 2 != 0 && strSize.x > 1) ? Mathf.Ceil(strSize.x) + 1 : Mathf.Ceil(strSize.x),
+            (Mathf.Ceil(strSize.y) % 2 != 0 && strSize.y > 1) ? Mathf.Ceil(strSize.y) + 1 : Mathf.Ceil(strSize.y),
+            (Mathf.Ceil(strSize.z) % 2 != 0 && strSize.z > 1) ? Mathf.Ceil(strSize.z) + 1 : Mathf.Ceil(strSize.z)
             );
         strPosition = structure.GetComponentInChildren<Transform>().position;
     }
