@@ -21,24 +21,60 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
 
         if (structuresToBeModified.ContainsKey(gridPositionInt))
         {
-            GameObject structure = structuresToBeModified[gridPositionInt];
-            MonoBehaviour.Destroy(structure);
-            gridStructure.RemoveStructureFromTheGrid(gridPosition);
-            structuresToBeModified.Remove(gridPositionInt);
+            RevokeRoadPlacement(gridPosition, gridPositionInt);
         }
         else if (!gridStructure.IsCellTaken(gridPosition))
         {
-            //Debug.Log("Cell is not taken");
             RoadStructureHelper road = GetCorrectRoadPrefab(gridPosition);
-            //Debug.Log("This is the road: " + road.ToString());
-            (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostRoad(gridPosition, road.RoadPrefab, gridStructure, road.RoadPrefabRotation);
-            //Debug.Log("This is the ghost return: " + ghostReturn.ToString());
-            if (ghostReturn != null)
+            gridPositionInt = PlaceNewRoad(road, gridPosition, gridPositionInt);
+        }
+        AdjustNeighboursIfAreRoadStructures(gridPosition);
+    }
+
+    private Vector3Int PlaceNewRoad(RoadStructureHelper road, Vector3 gridPosition, Vector3Int gridPositionInt)
+    {
+        (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostRoad(gridPosition, road.RoadPrefab, gridStructure, road.RoadPrefabRotation);
+        if (ghostReturn != null)
+        {
+            //Debug.Log("Ghost return is not null");
+            gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
+            structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
+            gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, structureBase, ghostReturn.Value.Item3);
+        }
+
+        return gridPositionInt;
+    }
+
+    private void RevokeRoadPlacement(Vector3 gridPosition, Vector3Int gridPositionInt)
+    {
+        GameObject structure = structuresToBeModified[gridPositionInt];
+        MonoBehaviour.Destroy(structure);
+        gridStructure.RemoveStructureFromTheGrid(gridPosition);
+        structuresToBeModified.Remove(gridPositionInt);
+    }
+
+    private void AdjustNeighboursIfAreRoadStructures(Vector3 gridPosition)
+    {
+        AdjustNeighboursIfRoad(gridPosition, NeighbourDirection.Up);
+        AdjustNeighboursIfRoad(gridPosition, NeighbourDirection.Down);
+        AdjustNeighboursIfRoad(gridPosition, NeighbourDirection.Right);
+        AdjustNeighboursIfRoad(gridPosition, NeighbourDirection.Left);
+    }
+
+    private void AdjustNeighboursIfRoad(Vector3 gridPosition, NeighbourDirection direction)
+    {
+        Vector3Int? neighbourGridPosition = gridStructure.GetNeighbourPositionNullable(gridPosition, direction);
+        if (neighbourGridPosition.HasValue)
+        {
+            Vector3Int neighbourPositionInt = neighbourGridPosition.Value;
+            if (RoadManager.CheckIfNeighbourIsRoadInDictionary(neighbourPositionInt, structuresToBeModified))
             {
-                //Debug.Log("Ghost return is not null");
-                gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
-                structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
-                gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, structureBase, ghostReturn.Value.Item3);
+                RevokeRoadPlacement(gridPosition, neighbourPositionInt);
+                RoadStructureHelper neighboursStructure = GetCorrectRoadPrefab(neighbourGridPosition.Value);
+                PlaceNewRoad(neighboursStructure, neighbourGridPosition.Value, neighbourPositionInt);
+            } else if(RoadManager.CheckIfNeighbourIsRoadOnGrid(gridStructure, neighbourPositionInt))
+            {
+
             }
         }
     }

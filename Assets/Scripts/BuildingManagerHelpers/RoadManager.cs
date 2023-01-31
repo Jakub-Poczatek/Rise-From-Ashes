@@ -38,12 +38,7 @@ public static class RoadManager
 
     public static bool CheckIfNeighbourIsRoadInDictionary(Vector3Int? neighbourPosition, Dictionary<Vector3Int, GameObject> structuresToBeModified)
     {
-        return CheckForRoadAtNeighbour(neighbourPosition.Value, structuresToBeModified);
-    }
-
-    private static bool CheckForRoadAtNeighbour(Vector3Int value, Dictionary<Vector3Int, GameObject> structuresToBeModified)
-    {
-        return structuresToBeModified.ContainsKey(value);
+        return structuresToBeModified.ContainsKey(neighbourPosition.Value);
     }
 
     internal static RoadStructureHelper IfCornerRoadFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
