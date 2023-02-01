@@ -148,12 +148,18 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
     {
         foreach (KeyValuePair<Vector3Int, GameObject> kvp in neighbours)
         {
-            gridStructure.RemoveStructureFromTheGrid(kvp.Key);
+            if (structuresToBeModified.ContainsKey(kvp.Key)) structuresToBeModified.Remove(kvp.Key);
             MonoBehaviour.Destroy(kvp.Value);
+            gridStructure.RemoveStructureFromTheGrid(kvp.Key);
             RoadStructureHelper roadStruct = GetCorrectRoadPrefab(kvp.Key, structureBase);
-            var structure = placementManager.InstantiateRoad(kvp.Key, roadStruct.RoadPrefab, roadStruct.RoadPrefabRotation);
-            gridStructure.PlaceStructureOnTheGrid(structure, kvp.Key, structureBase);
+            PlaceNewRoad(roadStruct, kvp.Key, kvp.Key);
+            //var structure =
+                //placementManager.InstantiateRoad(kvp.Key, roadStruct.RoadPrefab, roadStruct.RoadPrefabRotation);
+                //placementManager.CreateGhostRoad(kvp.Key, roadStruct.RoadPrefab, gridStructure, roadStruct.RoadPrefabRotation);
+            //gridStructure.PlaceStructureOnTheGrid(structure.Value.Item1, kvp.Key, structureBase);
+            //structuresToBeModified.Add(kvp.Key, gridStructure.GetStructureFromTheGrid(kvp.Key));
         }
+        placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
         neighbours.Clear();
     }
 }
