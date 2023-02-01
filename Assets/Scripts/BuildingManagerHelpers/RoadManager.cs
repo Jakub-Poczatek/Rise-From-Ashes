@@ -101,11 +101,11 @@ public static class RoadManager
         }
         else if (neighboursStatus == ((int)NeighbourDirection.Up | (int)NeighbourDirection.Down | (int)NeighbourDirection.Left))
         {
-            roadToReturn = new RoadStructureHelper(((RoadStruct)structureBase).cornerPrefab, RotationValue.R180);
+            roadToReturn = new RoadStructureHelper(((RoadStruct)structureBase).threeWayPrefab, RotationValue.R180);
         }
         else if (neighboursStatus == ((int)NeighbourDirection.Up | (int)NeighbourDirection.Right | (int)NeighbourDirection.Left))
         {
-            roadToReturn = new RoadStructureHelper(((RoadStruct)structureBase).cornerPrefab, RotationValue.R270);
+            roadToReturn = new RoadStructureHelper(((RoadStruct)structureBase).threeWayPrefab, RotationValue.R270);
         }
         return roadToReturn;
     }

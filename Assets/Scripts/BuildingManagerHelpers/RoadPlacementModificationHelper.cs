@@ -1,11 +1,14 @@
+using NSubstitute.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RoadPlacementModificationHelper : StructureModificationHelper
 {
     StructureBase structureBase;
+    Dictionary<Vector3Int, GameObject> existingRoadStructuresToBeModified = new Dictionary<Vector3Int, GameObject>();
 
     public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, 
         ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager)
@@ -18,6 +21,8 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
         structureBase = structureRepository.GetStructureByName(structureName, structureType);
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
+
+        if (!structuresToBeModified.ContainsKey(gridPositionInt) && gridStructure.IsCellTaken(gridPosition)) return;
 
         if (structuresToBeModified.ContainsKey(gridPositionInt))
         {
@@ -67,14 +72,27 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
         if (neighbourGridPosition.HasValue)
         {
             Vector3Int neighbourPositionInt = neighbourGridPosition.Value;
-            if (RoadManager.CheckIfNeighbourIsRoadInDictionary(neighbourPositionInt, structuresToBeModified))
+            /*if (RoadManager.CheckIfNeighbourIsRoadInDictionary(neighbourPositionInt, structuresToBeModified))
             {
+                Debug.Log("This is the value for neighbour in dictionary: " + direction.ToString() + " " + neighbourGridPosition.ToString());
                 RevokeRoadPlacement(gridPosition, neighbourPositionInt);
-                RoadStructureHelper neighboursStructure = GetCorrectRoadPrefab(neighbourGridPosition.Value);
-                PlaceNewRoad(neighboursStructure, neighbourGridPosition.Value, neighbourPositionInt);
-            } else if(RoadManager.CheckIfNeighbourIsRoadOnGrid(gridStructure, neighbourPositionInt))
+                RoadStructureHelper neighboursStructure = GetCorrectRoadPrefab(neighbourPositionInt);
+                PlaceNewRoad(neighboursStructure, neighbourPositionInt, neighbourPositionInt);
+            }*/
+            if(RoadManager.CheckIfNeighbourIsRoadOnGrid(gridStructure, neighbourPositionInt))
             {
-
+                if (structuresToBeModified.ContainsKey(neighbourPositionInt)) structuresToBeModified.Remove(neighbourPositionInt);
+                GameObject structure = gridStructure.GetStructureFromTheGrid(neighbourPositionInt);
+                MonoBehaviour.Destroy(structure);
+                gridStructure.RemoveStructureFromTheGrid(neighbourPositionInt);
+                //structuresToBeModified.Remove(gridPositionInt);
+                RoadStructureHelper neighboursStructure = GetCorrectRoadPrefab(neighbourPositionInt);
+                PlaceNewRoad(neighboursStructure, neighbourPositionInt, neighbourPositionInt);
+                //StructureBase neighbourStructureData = gridStructure.GetStructureDataFromGrid(neighbourGridPosition.Value);
+                //if (neighbourStructureData != null && neighbourStructureData.GetType() == typeof(RoadStruct) && !existingRoadStructuresToBeModified.ContainsKey(neighbourPositionInt))
+                //{
+                //    existingRoadStructuresToBeModified.Add(neighbourPositionInt, gridStructure.GetStructureFromTheGrid(neighbourGridPosition.Value));
+                //} 
             }
         }
     }
@@ -84,7 +102,7 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
         int neighboursStatus = RoadManager.GetRoadNeighboursStatus(position, gridStructure, structuresToBeModified);
         RoadStructureHelper roadToReturn = null;
         roadToReturn = RoadManager.IfStraightRoadFits(neighboursStatus, roadToReturn, structureBase);
-        if(roadToReturn != null)
+        if (roadToReturn != null)
         {
             return roadToReturn;
         }
@@ -102,5 +120,27 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
         return roadToReturn;
     }
 
-    
+    public override void CancelModifications()
+    {
+        base.CancelModifications();
+        existingRoadStructuresToBeModified.Clear();
+    }
+
+    public override void ConfirmModifications()
+    {
+        /*foreach (KeyValuePair<Vector3Int, GameObject> kvp in existingRoadStructuresToBeModified)
+        {
+            gridStructure.RemoveStructureFromTheGrid(kvp.Key);
+            MonoBehaviour.Destroy(kvp.Value);
+            RoadStructureHelper roadStructure = GetCorrectRoadPrefab(kvp.Key);
+
+            var structure =
+                placementManager.CreateGhostRoad(kvp.Key, roadStructure.RoadPrefab, gridStructure, roadStructure.RoadPrefabRotation);
+            gridStructure.PlaceStructureOnTheGrid(structure.Value.Item1, kvp.Key, structureBase);
+            structuresToBeModified.Add(kvp.Key, gridStructure.GetStructureFromTheGrid(kvp.Key));
+        }*/
+        placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
+        existingRoadStructuresToBeModified.Clear();
+        base.ConfirmModifications();
+    }
 }

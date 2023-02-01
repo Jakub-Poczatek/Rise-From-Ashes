@@ -105,10 +105,11 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
                 MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
                 if (originalMaterials.ContainsKey(child.gameObject) == false)
                 {
+                    Debug.Log("Material Added: ");
                     originalMaterials.Add(child.gameObject, meshRenderer.materials);
                 }
                 Material[] materialsToSet = new Material[meshRenderer.materials.Length];
-
+                colourToSet.a = 0.5f;
                 for (int i = 0; i < materialsToSet.Length; i++)
                 {
                     materialsToSet[i] = transparentMaterial;
@@ -123,6 +124,7 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     {
         foreach (GameObject structure in structureCollection)
         {
+            Debug.Log("Resetting: " + structure.ToString());
             ResetBuildingMaterial(structure);
         }
         originalMaterials.Clear();
@@ -132,9 +134,11 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     {
         foreach (Transform child in structure.transform)
         {
+            Debug.Log("I am a child running, this is the materials lenght: " + originalMaterials.Count);
             MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
             if (originalMaterials.ContainsKey(child.gameObject))
             {
+                Debug.Log("This origina material is: " + originalMaterials[child.gameObject].ToString());
                 meshRenderer.materials = originalMaterials[child.gameObject];
             }
         }
