@@ -109,4 +109,26 @@ public static class RoadManager
         }
         return roadToReturn;
     }
+
+    public static Dictionary<Vector3Int, GameObject> GetRoadNeighboursForPosition(GridStructure gridStructure, Vector3Int position)
+    {
+        Dictionary<Vector3Int, GameObject> dictionaryToReturn = new Dictionary<Vector3Int, GameObject>();
+        List<Vector3Int?> neighbourPossibleLocations = new List<Vector3Int?>();
+        neighbourPossibleLocations.Add(gridStructure.GetNeighbourPositionNullable(position, NeighbourDirection.Up));
+        neighbourPossibleLocations.Add(gridStructure.GetNeighbourPositionNullable(position, NeighbourDirection.Down));
+        neighbourPossibleLocations.Add(gridStructure.GetNeighbourPositionNullable(position, NeighbourDirection.Right));
+        neighbourPossibleLocations.Add(gridStructure.GetNeighbourPositionNullable(position, NeighbourDirection.Left));
+        foreach (Vector3Int? possiblePosition in neighbourPossibleLocations)
+        {
+            if (possiblePosition.HasValue)
+            {
+                if(CheckIfNeighbourIsRoadOnGrid(gridStructure, possiblePosition.Value)
+                    && !dictionaryToReturn.ContainsKey(possiblePosition.Value))
+                {
+                    dictionaryToReturn.Add(possiblePosition.Value, gridStructure.GetStructureFromTheGrid(possiblePosition.Value));
+                }
+            }
+        }
+        return dictionaryToReturn;
+    }
 }

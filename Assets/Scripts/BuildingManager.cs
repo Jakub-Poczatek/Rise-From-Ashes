@@ -9,7 +9,6 @@ public class BuildingManager
     IPlacementManager placementManager;
     ResourceManager resourceManager;
     StructureRepository structureRepository;
-    StructureModificationFactory helperFactory;
     StructureModificationHelper helper;
 
     public BuildingManager(IPlacementManager placementManager, ResourceManager resourceManager,
@@ -19,12 +18,12 @@ public class BuildingManager
         this.placementManager = placementManager;
         this.resourceManager = resourceManager;
         this.structureRepository = structureRepository;
-        this.helperFactory = new StructureModificationFactory(structureRepository, gridStructure, placementManager, resourceManager);
+        StructureModificationFactory.PrepareStructureModificationFactory(structureRepository, gridStructure, placementManager, resourceManager);
     }
 
     public void PrepareBuildingManager(Type classType)
     {
-        helper = helperFactory.GetHelper(classType);
+        helper = StructureModificationFactory.GetHelper(classType);
     }
 
     public void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)

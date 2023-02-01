@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 
-public class StructureModificationFactory
+public static class StructureModificationFactory
 {
-    private readonly StructureModificationHelper singleStructurePlacementHelper;
-    private readonly StructureModificationHelper structureDemolishingHelper;
-    private readonly StructureModificationHelper roadStructurePlacementHelper;
+    private static StructureModificationHelper singleStructurePlacementHelper;
+    private static StructureModificationHelper structureDemolishingHelper;
+    private static StructureModificationHelper roadStructurePlacementHelper;
 
-    public StructureModificationFactory(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager,
+    public static void PrepareStructureModificationFactory(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager,
         ResourceManager resourceManager)
     {
         singleStructurePlacementHelper =
@@ -21,7 +21,7 @@ public class StructureModificationFactory
             new RoadPlacementModificationHelper(structureRepository, gridStructure, placementManager, resourceManager);
     }
 
-    public StructureModificationHelper GetHelper(Type classType)
+    public static StructureModificationHelper GetHelper(Type classType)
     {
         if(classType == typeof(PlayerDemolishingState)) return structureDemolishingHelper;
         else if(classType == typeof(PlayerBuildingRoadState)) return roadStructurePlacementHelper;
