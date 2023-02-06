@@ -65,4 +65,9 @@ public class BuildingManager
         structureToReturn = helper.GetStructureToBeModified(gridPosition);
         return structureToReturn;
     }
+
+    public IEnumerable<StructureBase> GetAllStructures()
+    {
+        return gridStructure.GetAllStructures();
+    }
 }

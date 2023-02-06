@@ -169,4 +169,9 @@ public class UIController : MonoBehaviour
     {
         OnDemolishActionHandler -= listener;
     }
+
+    public void SetGoldValue(int gold)
+    {
+        goldAmountTxt.text = gold.ToString();
+    }
 }

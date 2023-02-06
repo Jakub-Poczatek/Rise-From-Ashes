@@ -7,6 +7,7 @@ public abstract class StructureBase : ScriptableObject
     public string structureName;
     public GameObject prefab;
     public Cost buildCost;
+    public int maintenanceGoldCost;
 }
 
 [System.Serializable]

@@ -39,9 +39,11 @@ public class PlacementManagerTests
         (GameObject, Vector3, GameObject)? ghostReturn = 
             placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure);
         yield return new WaitForEndOfFrame();
+        Color colourToCompare = Color.green;
+        colourToCompare.a = 0.5f;
         foreach (MeshRenderer renderer in ghostReturn.Value.Item1.GetComponentsInChildren<MeshRenderer>())
         {
-            Assert.AreEqual(renderer.material.color, Color.green);
+            Assert.AreEqual(colourToCompare, renderer.material.color);
         }
     }
 
@@ -64,9 +66,11 @@ public class PlacementManagerTests
     {
         placementManager.SetStructureForDemolishing(testGameObject);
         yield return new WaitForEndOfFrame();
+        Color colourToCompare = Color.red;
+        colourToCompare.a = 0.5f;
         foreach (MeshRenderer renderer in testGameObject.GetComponentsInChildren<MeshRenderer>())
         {
-            Assert.AreEqual(renderer.material.color, Color.red);
+            Assert.AreEqual(colourToCompare, renderer.material.color);
         }
 
 

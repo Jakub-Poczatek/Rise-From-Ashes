@@ -267,6 +267,23 @@ public class GridStructure
         if (!CheckIndexValidity(index)) return null;
         return neightbourPosition;
     }
+
+    public IEnumerable<StructureBase> GetAllStructures()
+    {
+        List<StructureBase> structureBases = new List<StructureBase>();
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for(int col = 0; col < grid.GetLength(1); col++)
+            {
+                var data = grid[row, col].GetStructureBase();
+                if (data != null && !structureBases.Contains(data))
+                {
+                    structureBases.Add(data);
+                }
+            }
+        }
+        return structureBases;
+    }
 }
 
 public enum NeighbourDirection
