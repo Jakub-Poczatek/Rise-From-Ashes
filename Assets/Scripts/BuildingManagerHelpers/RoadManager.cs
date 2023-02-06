@@ -41,7 +41,7 @@ public static class RoadManager
         return structuresToBeModified.ContainsKey(neighbourPosition.Value);
     }
 
-    internal static RoadStructureHelper IfCornerRoadFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
+    public static RoadStructureHelper IfCornerRoadFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
     {
         if (neighboursStatus == ((int)NeighbourDirection.Up | (int)NeighbourDirection.Right))
         {
@@ -62,7 +62,7 @@ public static class RoadManager
         return roadToReturn;
     }
 
-    internal static RoadStructureHelper IfFourWayFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
+    public static RoadStructureHelper IfFourWayFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
     {
         if (neighboursStatus == ((int)NeighbourDirection.Up | (int)NeighbourDirection.Right | (int)NeighbourDirection.Down | (int)NeighbourDirection.Left))
         {
@@ -71,7 +71,7 @@ public static class RoadManager
         return roadToReturn;
     }
 
-    internal static RoadStructureHelper IfStraightRoadFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
+    public static RoadStructureHelper IfStraightRoadFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
     {
         if (neighboursStatus == ((int)NeighbourDirection.Up | (int)NeighbourDirection.Down)
             || neighboursStatus == (int)NeighbourDirection.Up
@@ -89,7 +89,7 @@ public static class RoadManager
         return roadToReturn;
     }
 
-    internal static RoadStructureHelper IfThreeWayFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
+    public static RoadStructureHelper IfThreeWayFits(int neighboursStatus, RoadStructureHelper roadToReturn, StructureBase structureBase)
     {
         if (neighboursStatus == ((int)NeighbourDirection.Up | (int)NeighbourDirection.Down | (int)NeighbourDirection.Right))
         {
@@ -130,5 +130,63 @@ public static class RoadManager
             }
         }
         return dictionaryToReturn;
+    }
+
+    public static void modifyRoadCellsOnGrid(Dictionary<Vector3Int, GameObject> neighbours, StructureBase structureBase, 
+        Dictionary<Vector3Int, GameObject> structuresToBeModified, GridStructure gridStructure, IPlacementManager placementManager)
+    {
+        foreach (KeyValuePair<Vector3Int, GameObject> kvp in neighbours)
+        {
+            if (structuresToBeModified.ContainsKey(kvp.Key)) structuresToBeModified.Remove(kvp.Key);
+            MonoBehaviour.Destroy(kvp.Value);
+            gridStructure.RemoveStructureFromTheGrid(kvp.Key);
+            RoadStructureHelper roadStruct = RoadManager.GetCorrectRoadPrefab(kvp.Key, structureBase, structuresToBeModified, gridStructure);
+            PlaceNewRoad(roadStruct, kvp.Key, kvp.Key, placementManager, gridStructure, structuresToBeModified, structureBase);
+            //var structure =
+            //placementManager.InstantiateRoad(kvp.Key, roadStruct.RoadPrefab, roadStruct.RoadPrefabRotation);
+            //placementManager.CreateGhostRoad(kvp.Key, roadStruct.RoadPrefab, gridStructure, roadStruct.RoadPrefabRotation);
+            //gridStructure.PlaceStructureOnTheGrid(structure.Value.Item1, kvp.Key, structureBase);
+            //structuresToBeModified.Add(kvp.Key, gridStructure.GetStructureFromTheGrid(kvp.Key));
+        }
+        placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
+        neighbours.Clear();
+    }
+
+    public static RoadStructureHelper GetCorrectRoadPrefab(Vector3 position, StructureBase structureBase, 
+        Dictionary<Vector3Int, GameObject> structuresToBeModified, GridStructure gridStructure)
+    {
+        int neighboursStatus = RoadManager.GetRoadNeighboursStatus(position, gridStructure, structuresToBeModified);
+        RoadStructureHelper roadToReturn = null;
+        roadToReturn = RoadManager.IfStraightRoadFits(neighboursStatus, roadToReturn, structureBase);
+        if (roadToReturn != null)
+        {
+            return roadToReturn;
+        }
+        roadToReturn = RoadManager.IfCornerRoadFits(neighboursStatus, roadToReturn, structureBase);
+        if (roadToReturn != null)
+        {
+            return roadToReturn;
+        }
+        roadToReturn = RoadManager.IfThreeWayFits(neighboursStatus, roadToReturn, structureBase);
+        if (roadToReturn != null)
+        {
+            return roadToReturn;
+        }
+        roadToReturn = RoadManager.IfFourWayFits(neighboursStatus, roadToReturn, structureBase);
+        return roadToReturn;
+    }
+
+    public static Vector3Int PlaceNewRoad(RoadStructureHelper road, Vector3 gridPosition, Vector3Int gridPositionInt, 
+        IPlacementManager placementManager, GridStructure gridStructure, Dictionary<Vector3Int, GameObject> structuresToBeModified, StructureBase structureBase)
+    {
+        (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostRoad(gridPosition, road.RoadPrefab, gridStructure, road.RoadPrefabRotation);
+        if (ghostReturn != null)
+        {
+            gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
+            structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
+            gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, structureBase, ghostReturn.Value.Item3);
+        }
+
+        return gridPositionInt;
     }
 }

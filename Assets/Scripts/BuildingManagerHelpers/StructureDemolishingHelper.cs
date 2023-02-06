@@ -30,7 +30,7 @@ public class StructureDemolishingHelper : StructureModificationHelper
             {
                 Debug.Log("Multiple Neighbours Exist: " + neighbours.Count);
                 var structureBase = gridStructure.GetStructureDataFromGrid(neighbours.Keys.First());
-                ((RoadPlacementModificationHelper)roadPlacementHelper).modifyRoadCellsOnGrid(neighbours, structureBase);
+                RoadManager.modifyRoadCellsOnGrid(neighbours, structureBase, new Dictionary<Vector3Int, GameObject>(), gridStructure, placementManager);
             }
         }
         this.placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);

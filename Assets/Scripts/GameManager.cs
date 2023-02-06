@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //UpdateUI();
+        UpdateUI();
     }
 
     private void UpdateUI()
