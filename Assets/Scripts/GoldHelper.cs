@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GoldHelper
@@ -52,9 +53,12 @@ public class GoldHelper
 
     private void CollectGold(IEnumerable<StructureBase> structures)
     {
-        foreach (ResourceGenStruct structure in structures)
+        foreach (StructureBase structure in structures)
         {
-            Gold += Mathf.FloorToInt(structure.resourceGenAmount);
+            if (structure.GetType() == typeof(ResourceGenStruct))
+            {
+                Gold += Mathf.FloorToInt(((ResourceGenStruct) structure).resourceGenAmount);
+            }
         }
     }
 }

@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class SingleStructurePlacementHelper : StructureModificationHelper
 {
+    StructureBase structureBase;
     public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, IResourceManager resourceManager) 
         : base(structureRepository, gridStructure, placementManager, resourceManager) { }
 
     public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
-        Time.timeScale = 0;
-        StructureBase myStructureBase = this.structureRepository.GetStructureByName(structureName, structureType);
+        structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
 
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
         if (structuresToBeModified.ContainsKey(gridPositionInt))
         {
-            resourceManager.InceaseGold(myStructureBase.buildCost.gold);
+            resourceManager.InceaseGold(structureBase.buildCost.gold);
             RemovePreview(gridPosition, gridPositionInt);
         }
-        else if (!gridStructure.IsCellTaken(gridPosition) && resourceManager.CanIBuyIt(myStructureBase.buildCost.gold))
+        else if (!gridStructure.IsCellTaken(gridPosition) && resourceManager.CanIBuyIt(structureBase.buildCost.gold))
         {
-            AddPreview(myStructureBase, gridPosition, gridPositionInt);
-            resourceManager.SpendGold(myStructureBase.buildCost.gold);
+            AddPreview(structureBase, gridPosition, gridPositionInt);
         }
     }
 
@@ -36,6 +35,7 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
             gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
             structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
             gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, myStructureBase, ghostReturn.Value.Item3);
+            resourceManager.SpendGold(structureBase.buildCost.gold);
         }
     }
 
@@ -48,5 +48,12 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
         structuresToBeModified.Remove(gridPositionInt);
     }
 
-
+    public override void CancelModifications()
+    {
+        foreach (var structure in structuresToBeModified)
+        {
+            resourceManager.InceaseGold(structureBase.buildCost.gold);
+        }
+        base.CancelModifications();
+    }
 }

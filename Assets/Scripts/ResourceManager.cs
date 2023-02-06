@@ -5,20 +5,26 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour, IResourceManager
 {
-    private int initialGold = 5000;
-    private float resourceCalculationInterval = 1;
-    public BuildingManager buildingManager;
+    [SerializeField] private int initialGold = 5000;
+    [SerializeField] private float resourceCalculationInterval = 1;
+    private BuildingManager buildingManager;
     public UIController uiController;
     private GoldHelper goldHelper;
 
-    public int InitialGold { get => initialGold; set => initialGold = value; }
-    public float ResourceCalculationInterval { get => resourceCalculationInterval; set => resourceCalculationInterval = value; }
+    public int InitialGold { get => initialGold; }
+    public float ResourceCalculationInterval { get => resourceCalculationInterval; }
 
     // Start is called before the first frame update
     void Start()
     {
         goldHelper = new GoldHelper(initialGold);
         UpdateMoneyValueUI();
+    }
+
+    public void PrepareResourceManager(BuildingManager buildingManager)
+    {
+        this.buildingManager = buildingManager;
+        InvokeRepeating(nameof(CalculateIncome), 0, ResourceCalculationInterval);
     }
 
     public bool SpendGold(int amount)
@@ -75,9 +81,8 @@ public class ResourceManager : MonoBehaviour, IResourceManager
         uiController.SetGoldValue(goldHelper.Gold);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-
+        CancelInvoke();
     }
 }

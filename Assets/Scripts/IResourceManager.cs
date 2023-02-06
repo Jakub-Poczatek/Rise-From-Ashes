@@ -1,7 +1,7 @@
 ﻿public interface IResourceManager
 {
-    int InitialGold { get; set; }
-    float ResourceCalculationInterval { get; set; }
+    int InitialGold { get; }
+    float ResourceCalculationInterval { get; }
 
     void CalculateIncome();
     bool CanIBuyIt(int amount);
