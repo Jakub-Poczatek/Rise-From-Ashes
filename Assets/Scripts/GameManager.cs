@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject placementManagerGameObject;
     public UIController uiController;
     public StructureRepository structureRepository;
+    public ResourceManager resourceManager;
 
     public PlayerSelectionState playerSelectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void PrepareStates()
     {
-        buildingManager = new BuildingManager(placementManager, structureRepository, cellSize, width, length);
+        buildingManager = new BuildingManager(placementManager, structureRepository, resourceManager, cellSize, width, length);
         playerSelectionState = new PlayerSelectionState(this);
         playerRemoveBuildingState = new PlayerDemolishingState(this, buildingManager);
         buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);

@@ -10,14 +10,14 @@ public static class StructureModificationFactory
     private static StructureModificationHelper structureDemolishingHelper;
     private static StructureModificationHelper roadStructurePlacementHelper;
 
-    public static void PrepareStructureModificationFactory(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager)
+    public static void PrepareStructureModificationFactory(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, IResourceManager resourceManager)
     {
         singleStructurePlacementHelper =
-            new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager);
+            new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager, resourceManager);
         structureDemolishingHelper =
-            new StructureDemolishingHelper(structureRepository, gridStructure, placementManager);
+            new StructureDemolishingHelper(structureRepository, gridStructure, placementManager, resourceManager);
         roadStructurePlacementHelper =
-            new RoadPlacementModificationHelper(structureRepository, gridStructure, placementManager);
+            new RoadPlacementModificationHelper(structureRepository, gridStructure, placementManager, resourceManager);
     }
 
     public static StructureModificationHelper GetHelper(Type classType)

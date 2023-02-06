@@ -8,14 +8,16 @@ public abstract class StructureModificationHelper
     protected readonly StructureRepository structureRepository;
     protected readonly GridStructure gridStructure;
     protected readonly IPlacementManager placementManager;
+    protected IResourceManager resourceManager;
 
 
     public StructureModificationHelper(StructureRepository structureRepository, GridStructure gridStructure,
-        IPlacementManager placementManager)
+        IPlacementManager placementManager, IResourceManager resourceManager)
     {
         this.structureRepository = structureRepository;
         this.gridStructure = gridStructure;
         this.placementManager = placementManager;
+        this.resourceManager = resourceManager;
     }
 
     public GameObject GetStructureToBeModified(Vector3 gridPosition)

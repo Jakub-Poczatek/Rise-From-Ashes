@@ -7,8 +7,8 @@ public class StructureDemolishingHelper : StructureModificationHelper
 {
     Dictionary<Vector3Int, GameObject> roadsToDemolish = new Dictionary<Vector3Int, GameObject>();
 
-    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager) 
-        : base(structureRepository, gridStructure, placementManager) { }
+    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, IResourceManager resourceManager) 
+        : base(structureRepository, gridStructure, placementManager, resourceManager) { }
     public override void CancelModifications()
     {
         this.placementManager.DisplayStructureOnMap(structuresToBeModified.Values);

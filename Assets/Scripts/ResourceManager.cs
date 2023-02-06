@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager : MonoBehaviour, IResourceManager
 {
-    public int initialGold = 5000;
-    public float resourceCalculationInterval = 1;
+    private int initialGold = 5000;
+    private float resourceCalculationInterval = 1;
     public BuildingManager buildingManager;
     public UIController uiController;
     private GoldHelper goldHelper;
+
+    public int InitialGold { get => initialGold; set => initialGold = value; }
+    public float ResourceCalculationInterval { get => resourceCalculationInterval; set => resourceCalculationInterval = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +23,7 @@ public class ResourceManager : MonoBehaviour
 
     public bool SpendGold(int amount)
     {
-        if(CanIBuyIt(amount))
+        if (CanIBuyIt(amount))
         {
             try
             {
@@ -47,7 +50,7 @@ public class ResourceManager : MonoBehaviour
         Debug.Log("End the game");
     }
 
-    private bool CanIBuyIt(int amount)
+    public bool CanIBuyIt(int amount)
     {
         if (goldHelper.Gold >= amount) return true;
         else return false;
@@ -75,6 +78,6 @@ public class ResourceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

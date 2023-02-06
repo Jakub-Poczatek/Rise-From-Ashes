@@ -10,13 +10,13 @@ public class BuildingManager
     StructureRepository structureRepository;
     StructureModificationHelper helper;
 
-    public BuildingManager(IPlacementManager placementManager, StructureRepository structureRepository, 
+    public BuildingManager(IPlacementManager placementManager, StructureRepository structureRepository, IResourceManager resourceManager,
         int cellSize, int width, int length)
     {
         this.gridStructure = new GridStructure(cellSize, width, length);
         this.placementManager = placementManager;
         this.structureRepository = structureRepository;
-        StructureModificationFactory.PrepareStructureModificationFactory(structureRepository, gridStructure, placementManager);
+        StructureModificationFactory.PrepareStructureModificationFactory(structureRepository, gridStructure, placementManager, resourceManager);
     }
 
     public void PrepareBuildingManager(Type classType)

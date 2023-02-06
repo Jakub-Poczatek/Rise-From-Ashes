@@ -10,8 +10,8 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
     StructureBase structureBase;
     Dictionary<Vector3Int, GameObject> existingRoadStructuresToBeModified = new Dictionary<Vector3Int, GameObject>();
 
-    public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager) 
-        : base(structureRepository, gridStructure, placementManager)
+    public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, 
+        IPlacementManager placementManager, IResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager)
     {
 
     }

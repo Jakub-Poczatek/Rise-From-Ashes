@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046acd466ce178644b2133cbee94e2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialGold: 5000
+  initialGold: 100
   resourceCalculationInterval: 1
   uiController: {fileID: 1938490060}
 --- !u!4 &514157004
@@ -2757,6 +2757,7 @@ MonoBehaviour:
   placementManagerGameObject: {fileID: 286151421}
   uiController: {fileID: 1938490060}
   structureRepository: {fileID: 1043946001}
+  resourceManager: {fileID: 514157003}
 --- !u!4 &2142264299
 Transform:
   m_ObjectHideFlags: 0
