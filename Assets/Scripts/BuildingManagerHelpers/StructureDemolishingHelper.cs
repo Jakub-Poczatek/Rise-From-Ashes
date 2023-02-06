@@ -7,8 +7,8 @@ public class StructureDemolishingHelper : StructureModificationHelper
 {
     Dictionary<Vector3Int, GameObject> roadsToDemolish = new Dictionary<Vector3Int, GameObject>();
 
-    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager,
-        ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager) { }
+    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager) 
+        : base(structureRepository, gridStructure, placementManager) { }
     public override void CancelModifications()
     {
         this.placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
@@ -25,10 +25,8 @@ public class StructureDemolishingHelper : StructureModificationHelper
         foreach (KeyValuePair<Vector3Int, GameObject> kvp in roadsToDemolish)
         {
             Dictionary<Vector3Int, GameObject> neighbours = RoadManager.GetRoadNeighboursForPosition(gridStructure, kvp.Key);
-            Debug.Log("Got some neighbours: " + neighbours.ToString());
             if(neighbours.Count > 0)
             {
-                Debug.Log("Multiple Neighbours Exist: " + neighbours.Count);
                 var structureBase = gridStructure.GetStructureDataFromGrid(neighbours.Keys.First());
                 RoadManager.modifyRoadCellsOnGrid(neighbours, structureBase, new Dictionary<Vector3Int, GameObject>(), gridStructure, placementManager);
             }
@@ -39,7 +37,6 @@ public class StructureDemolishingHelper : StructureModificationHelper
 
     public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
-        Debug.Log("Demolishing");
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         if (gridStructure.IsCellTaken(gridPosition))
         {

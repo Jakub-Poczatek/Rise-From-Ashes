@@ -12,7 +12,7 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     private Dictionary<GameObject, Material[]> originalMaterials = new Dictionary<GameObject, Material[]>();
 
     public (GameObject, Vector3, GameObject)? CreateGhostStructure(Vector3 gridPosition, StructureBase structure,
-        GridStructure gridStructure, ResourceManager resourceManager)
+        GridStructure gridStructure)
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
@@ -26,9 +26,6 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
 
         if (gridStructure.CheckIfStructureFits(newStructure, gridPosition) && !gridStructure.CheckIfStructureExists(newStructure, gridPosition))
         {
-            resourceManager.buyStructure(structure);
-            if (structure is ResourceGenStruct)
-                resourceManager.adjustTempResourceGain((ResourceGenStruct)structure);
             Color colourToSet = Color.green;
             ChangeStructureMaterial(newStructure, colourToSet);
             return (newStructure, gridPosition, gridOutline);
@@ -51,10 +48,6 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
         Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.z));
         newStructure.transform.position += diff;
         gridPosition += diff;
-
-
-        if (!gridStructure.CheckIfStructureFits(newStructure, gridPosition)) Debug.Log("Structure can't fit");
-        if (gridStructure.CheckIfStructureExists(newStructure, gridPosition)) Debug.Log("Structure does exist");
 
         if (gridStructure.CheckIfStructureFits(newStructure, gridPosition) && !gridStructure.CheckIfStructureExists(newStructure, gridPosition))
         {
@@ -105,7 +98,6 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
                 MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
                 if (originalMaterials.ContainsKey(child.gameObject) == false)
                 {
-                    Debug.Log("Material Added: ");
                     originalMaterials.Add(child.gameObject, meshRenderer.materials);
                 }
                 Material[] materialsToSet = new Material[meshRenderer.materials.Length];
@@ -124,7 +116,6 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     {
         foreach (GameObject structure in structureCollection)
         {
-            Debug.Log("Resetting: " + structure.ToString());
             ResetBuildingMaterial(structure);
         }
         originalMaterials.Clear();
@@ -134,11 +125,9 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     {
         foreach (Transform child in structure.transform)
         {
-            Debug.Log("I am a child running, this is the materials lenght: " + originalMaterials.Count);
             MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
             if (originalMaterials.ContainsKey(child.gameObject))
             {
-                Debug.Log("This origina material is: " + originalMaterials[child.gameObject].ToString());
                 meshRenderer.materials = originalMaterials[child.gameObject];
             }
         }

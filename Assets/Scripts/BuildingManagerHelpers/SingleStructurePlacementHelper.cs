@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class SingleStructurePlacementHelper : StructureModificationHelper
 {
-    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, 
-        ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager) { }
+    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager) 
+        : base(structureRepository, gridStructure, placementManager) { }
 
     public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
         Time.timeScale = 0;
         StructureBase myStructureBase = this.structureRepository.GetStructureByName(structureName, structureType);
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
-
-        if (!resourceManager.isAffordable(myStructureBase))
-        {
-            return;
-        }
 
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
         if (structuresToBeModified.ContainsKey(gridPositionInt))
@@ -31,7 +26,7 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
         {
             // Add preview structure
             // ghostReturn = (structure, position, gridOutline)
-            (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostStructure(gridPosition, myStructureBase, gridStructure, resourceManager);
+            (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostStructure(gridPosition, myStructureBase, gridStructure);
             if (ghostReturn != null)
             {
                 gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);

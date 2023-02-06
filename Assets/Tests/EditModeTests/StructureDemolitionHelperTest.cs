@@ -10,7 +10,6 @@ public class StructureDemolitionHelperTest
 {
     GameObject tempObject;
     GridStructure gridStructure;
-    ResourceManager resourceManager;
     Vector3 gridPosition1 = Vector3.zero;
     Vector3 gridPosition2 = new(5, 0, 5);
     StructureModificationHelper helper;
@@ -22,15 +21,14 @@ public class StructureDemolitionHelperTest
         IPlacementManager placementManager = Substitute.For<IPlacementManager>();
         tempObject = new GameObject();
         tempObject.AddComponent<MeshRenderer>();
-        placementManager.CreateGhostStructure(default, default, default, default)
+        placementManager.CreateGhostStructure(default, default, default)
             .ReturnsForAnyArgs((tempObject, gridPosition1, tempObject), (tempObject, gridPosition2, tempObject));
         gridStructure = new GridStructure(1, 10, 10);
-        resourceManager = Substitute.For<ResourceManager>();
 
         gridStructure.PlaceStructureOnTheGrid(tempObject, gridPosition1, null);
         gridStructure.PlaceStructureOnTheGrid(tempObject, gridPosition2, null);
 
-        helper = new StructureDemolishingHelper(structureRepository, gridStructure, placementManager, resourceManager);    
+        helper = new StructureDemolishingHelper(structureRepository, gridStructure, placementManager);    
     }
 
     [Test]

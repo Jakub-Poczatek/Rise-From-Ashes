@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     public CameraMovement cameraMovement;
     public GameObject placementManagerGameObject;
     public UIController uiController;
-    public ResourceManager resourceManager;
     public StructureRepository structureRepository;
 
     public PlayerSelectionState playerSelectionState;
@@ -41,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void PrepareStates()
     {
-        buildingManager = new BuildingManager(placementManager, resourceManager, structureRepository, cellSize, width, length);
+        buildingManager = new BuildingManager(placementManager, structureRepository, cellSize, width, length);
         playerSelectionState = new PlayerSelectionState(this);
         playerRemoveBuildingState = new PlayerDemolishingState(this, buildingManager);
         buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
@@ -61,14 +60,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateUI();
-    }
-
-    private void UpdateUI()
-    {
-        uiController.goldAmountTxt.text = resourceManager.GoldAmount.ToString();
-        uiController.woodAmountTxt.text = resourceManager.WoodAmount.ToString();
-        uiController.stoneAmountTxt.text = resourceManager.StoneAmount.ToString();
     }
 
     private void PrepareGameComponents()

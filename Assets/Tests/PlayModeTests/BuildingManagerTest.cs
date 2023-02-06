@@ -32,8 +32,7 @@ public class BuildingManagerTest
         roadStruct.prefab = road;
         structPool.roadStruct = roadStruct;
         structureRepository.modelDataPool = structPool;
-        ResourceManager resourceManager = Substitute.For<ResourceManager>();
-        buildingManager = new(placementManager, resourceManager, structureRepository, 1, 10, 10);
+        buildingManager = new(placementManager, structureRepository, 1, 10, 10);
     }
 
     [UnityTest]

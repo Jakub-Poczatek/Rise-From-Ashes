@@ -8,16 +8,14 @@ public abstract class StructureModificationHelper
     protected readonly StructureRepository structureRepository;
     protected readonly GridStructure gridStructure;
     protected readonly IPlacementManager placementManager;
-    protected readonly ResourceManager resourceManager;
 
 
     public StructureModificationHelper(StructureRepository structureRepository, GridStructure gridStructure,
-        IPlacementManager placementManager, ResourceManager resourceManager)
+        IPlacementManager placementManager)
     {
         this.structureRepository = structureRepository;
         this.gridStructure = gridStructure;
         this.placementManager = placementManager;
-        this.resourceManager = resourceManager;
     }
 
     public GameObject GetStructureToBeModified(Vector3 gridPosition)
@@ -34,8 +32,6 @@ public abstract class StructureModificationHelper
     {
         placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
         structuresToBeModified.Clear();
-        resourceManager.SyncResourceGains();
-        Time.timeScale = 1;
     }
 
     public virtual void CancelModifications()
@@ -46,8 +42,6 @@ public abstract class StructureModificationHelper
             gridStructure.RemoveStructureFromTheGrid(keyValuePair.Key);
         }
         structuresToBeModified.Clear();
-        resourceManager.ClearTempResourceGain();
-        Time.timeScale = 1;
     }
 
     public virtual void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None)
