@@ -28,7 +28,8 @@ public class StructureDemolitionHelperTest
         gridStructure.PlaceStructureOnTheGrid(tempObject, gridPosition1, null);
         gridStructure.PlaceStructureOnTheGrid(tempObject, gridPosition2, null);
 
-        ResourceManager resourceManager = Substitute.For<ResourceManager>();
+        IResourceManager resourceManager = Substitute.For<IResourceManager>();
+        resourceManager.CanIBuyIt(default).Returns(true);
         helper = new StructureDemolishingHelper(structureRepository, gridStructure, placementManager, resourceManager);    
     }
 

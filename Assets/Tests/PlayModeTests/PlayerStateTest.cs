@@ -18,10 +18,12 @@ public class PlayerStateTest
     {
         GameObject gameManagerObject = new GameObject();
         var cameraMovementComponent = gameManagerObject.AddComponent<CameraMovement>();
+        gameManagerObject.AddComponent<ResourceManagerTestStub>();
 
         uiController = Substitute.For<UIController>();
 
         gameManager = gameManagerObject.AddComponent<GameManager>();
+        gameManager.resourceManagerGameObject = gameManagerObject;
         gameManager.cameraMovement = cameraMovementComponent;
         gameManager.uiController = uiController;
 

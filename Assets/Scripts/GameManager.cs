@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject placementManagerGameObject;
     public UIController uiController;
     public StructureRepository structureRepository;
-    public ResourceManager resourceManager;
+    public GameObject resourceManagerGameObject;
+    private IResourceManager resourceManager;
 
     public PlayerSelectionState playerSelectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         placementManager = placementManagerGameObject.GetComponent<IPlacementManager>();
-
+        resourceManager = resourceManagerGameObject.GetComponent<IResourceManager>();
         PrepareStates();
         PrepareGameComponents();
         AssignInputListener();

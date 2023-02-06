@@ -7,4 +7,5 @@
     bool CanIBuyIt(int amount);
     void InceaseGold(int amount);
     bool SpendGold(int amount);
+    void PrepareResourceManager(BuildingManager buildingManager);
 }
