@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class SingleStructurePlacementHelper : StructureModificationHelper
 {
-    StructureBase structureBase;
     public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, IResourceManager resourceManager) 
         : base(structureRepository, gridStructure, placementManager, resourceManager) { }
 
     public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
-        structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
+        base.PrepareStructureForModification(position, structureName, structureType);
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
 
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);

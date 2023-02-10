@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class RoadPlacementModificationHelper : StructureModificationHelper
 {
-    StructureBase structureBase;
     Dictionary<Vector3Int, GameObject> existingRoadStructuresToBeModified = new Dictionary<Vector3Int, GameObject>();
 
     public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, 
@@ -18,7 +17,8 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
 
     public override void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None)
     {
-        structureBase = structureRepository.GetStructureByName(structureName, structureType);
+        base.PrepareStructureForModification(position, structureName, structureType);
+
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
 
