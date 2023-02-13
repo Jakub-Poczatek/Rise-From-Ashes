@@ -29,6 +29,8 @@ public class UIController : MonoBehaviour
     public TMP_Text woodAmountTxt;
     public TMP_Text stoneAmountTxt;
 
+    public UIStructInfoPnlHelper structPanelHelper;
+
     /*public TMP_Text infoPnlStructName;
     public TMP_Text infoPnlStructCost;
     public TMP_Text infoPnlStructLevel;
@@ -48,6 +50,11 @@ public class UIController : MonoBehaviour
         openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
         demolishBtn.onClick.AddListener(OnDemolishHandler);
         closeBuildMenuBtn.onClick.AddListener(OnCloseMenuHandler);
+    }
+
+    public void DisplayStructureInfo(StructureBase structure)
+    {
+        structPanelHelper.DisplayStructureInfo(structure);
     }
 
     private void OnCloseMenuHandler()
@@ -179,5 +186,10 @@ public class UIController : MonoBehaviour
     public void SetGoldValue(int gold)
     {
         goldAmountTxt.text = gold.ToString();
+    }
+
+    public void HideStructureInfo()
+    {
+        structPanelHelper.Hide();
     }
 }

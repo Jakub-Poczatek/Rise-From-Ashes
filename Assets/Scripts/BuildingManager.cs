@@ -70,4 +70,14 @@ public class BuildingManager
     {
         return gridStructure.GetAllStructures();
     }
+
+    public StructureBase GetStructureBaseFromPosition(Vector3 position)
+    {
+        Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
+        if (gridStructure.IsCellTaken(gridPosition))
+        {
+            return gridStructure.GetStructureDataFromGrid(gridPosition);
+        }
+        return null;
+    }
 }

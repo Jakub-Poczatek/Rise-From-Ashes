@@ -27,6 +27,7 @@ public class UIStructInfoPnlHelper : MonoBehaviour
 
     public void DisplayStructureInfo(StructureBase structure)
     {
+        Show();
         HideElement(infoPnlStructType.gameObject);
         HideElement(infoPnlStructIncome.gameObject);
         SetText(infoPnlStructName, structure.name);
@@ -39,7 +40,7 @@ public class UIStructInfoPnlHelper : MonoBehaviour
     public void DisplayResourceGenStruct(ResourceGenStruct structure)
     {
         SetText(infoPnlStructType, structure.resourceType.ToString());
-        SetText(infoPnlStructIncome, structure.resourceGenAmount.ToString());
+        SetText(infoPnlStructIncome, "+" + structure.resourceGenAmount.ToString());
     }
 
     private void HideElement(GameObject element)

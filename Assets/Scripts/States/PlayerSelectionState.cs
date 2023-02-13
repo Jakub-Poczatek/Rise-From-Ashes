@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerSelectionState : PlayerState
 {
+    BuildingManager buildingManager;
 
-    public PlayerSelectionState(GameManager gameManager) : base(gameManager)
-    { }
+    public PlayerSelectionState(GameManager gameManager, BuildingManager buildingManager) : base(gameManager)
+    {
+        this.buildingManager = buildingManager;
+    }
 
     public override void OnInputPointerChange(Vector3 position)
     {
@@ -15,6 +18,11 @@ public class PlayerSelectionState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
+        StructureBase structure = buildingManager.GetStructureBaseFromPosition(position);
+        if (structure != null)
+            this.gameManager.uiController.DisplayStructureInfo(structure);
+        else
+            this.gameManager.uiController.HideStructureInfo();
         return;
     }
 

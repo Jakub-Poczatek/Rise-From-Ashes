@@ -46,6 +46,7 @@ public class PlayerBuildingSingleStructureState : PlayerState
 
     public override void EnterState(string structureName)
     {
+        base.EnterState(structureName);
         this.buildingManager.PrepareBuildingManager(this.GetType());
         this.structureName = structureName;
     }
