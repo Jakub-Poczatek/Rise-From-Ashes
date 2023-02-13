@@ -5,36 +5,9 @@ using UnityEngine;
 public class PlayerBuildingRoadState : PlayerState
 {
     string structureName;
-    BuildingManager buildingManager;
 
-    public PlayerBuildingRoadState(GameManager gameManager, BuildingManager buildingManager) : base(gameManager)
-    {
-        this.buildingManager = buildingManager;
-    }
-
-    public override void OnBuildSingleStructure(string structureName)
-    {
-        this.buildingManager.CancelModification();
-        base.OnBuildSingleStructure(structureName);
-    }
-
-    public override void OnDemolish()
-    {
-        this.buildingManager.CancelModification();
-        base.OnDemolish();
-    }
-
-    public override void OnConfirmAction()
-    {
-        this.buildingManager.ConfirmModification();
-        base.OnConfirmAction();
-    }
-
-    public override void OnCancel()
-    {
-        this.buildingManager.CancelModification();
-        this.gameManager.TransitionToState(this.gameManager.playerSelectionState, null);
-    }
+    public PlayerBuildingRoadState(GameManager gameManager, BuildingManager buildingManager) 
+        : base(gameManager, buildingManager) {}
 
     public override void EnterState(string structureName)
     {

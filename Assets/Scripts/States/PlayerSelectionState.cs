@@ -4,17 +4,8 @@ using UnityEngine;
 
 public class PlayerSelectionState : PlayerState
 {
-    BuildingManager buildingManager;
-
-    public PlayerSelectionState(GameManager gameManager, BuildingManager buildingManager) : base(gameManager)
-    {
-        this.buildingManager = buildingManager;
-    }
-
-    public override void OnInputPointerChange(Vector3 position)
-    {
-        return;
-    }
+    public PlayerSelectionState(GameManager gameManager, BuildingManager buildingManager) 
+        : base(gameManager, buildingManager) {}
 
     public override void OnInputPointerDown(Vector3 position)
     {
@@ -23,22 +14,6 @@ public class PlayerSelectionState : PlayerState
             this.gameManager.uiController.DisplayStructureInfo(structure);
         else
             this.gameManager.uiController.HideStructureInfo();
-        return;
-    }
-
-    public override void OnDemolish()
-    {
-        this.buildingManager.CancelModification();
-        base.OnDemolish();
-    }
-
-    public override void OnInputPointerUp()
-    {
-        return;
-    }
-
-    public override void OnCancel()
-    {
         return;
     }
 }
