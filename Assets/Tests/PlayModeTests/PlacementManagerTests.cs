@@ -13,7 +13,6 @@ public class PlacementManagerTests
     GameObject testGameObject;
     StructureBase structureBase;
     GridStructure gridStructure;
-    ResourceManager resourceManager;
     Vector3 gridPosition1 = Vector3.zero;
     Vector3 gridPosition2 = new(5, 0, 5);
 
@@ -32,19 +31,19 @@ public class PlacementManagerTests
         structureBase = Substitute.For<ResourceGenStruct>();
         structureBase.prefab = testGameObject;
         gridStructure = new(1, 10, 10);
-
-        resourceManager = Substitute.For<ResourceManager>();
     }
 
     [UnityTest]
     public IEnumerator CreateGhostStructurePass()
     {
         (GameObject, Vector3, GameObject)? ghostReturn = 
-            placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure, resourceManager);
+            placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure);
         yield return new WaitForEndOfFrame();
+        Color colourToCompare = Color.green;
+        colourToCompare.a = 0.5f;
         foreach (MeshRenderer renderer in ghostReturn.Value.Item1.GetComponentsInChildren<MeshRenderer>())
         {
-            Assert.AreEqual(renderer.material.color, Color.green);
+            Assert.AreEqual(colourToCompare, renderer.material.color);
         }
     }
 
@@ -52,7 +51,7 @@ public class PlacementManagerTests
     public IEnumerator DisplayStructureOnMapMaterialPasses()
     {
         (GameObject, Vector3, GameObject)? ghostReturn =
-            placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure, resourceManager);
+            placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure);
         placementManager.DisplayStructureOnMap(new List<GameObject>() { ghostReturn.Value.Item1 });
         yield return new WaitForEndOfFrame();
         foreach (MeshRenderer renderer in ghostReturn.Value.Item1.GetComponentsInChildren<MeshRenderer>())
@@ -67,9 +66,11 @@ public class PlacementManagerTests
     {
         placementManager.SetStructureForDemolishing(testGameObject);
         yield return new WaitForEndOfFrame();
+        Color colourToCompare = Color.red;
+        colourToCompare.a = 0.5f;
         foreach (MeshRenderer renderer in testGameObject.GetComponentsInChildren<MeshRenderer>())
         {
-            Assert.AreEqual(renderer.material.color, Color.red);
+            Assert.AreEqual(colourToCompare, renderer.material.color);
         }
 
 

@@ -10,8 +10,7 @@ public static class StructureModificationFactory
     private static StructureModificationHelper structureDemolishingHelper;
     private static StructureModificationHelper roadStructurePlacementHelper;
 
-    public static void PrepareStructureModificationFactory(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager,
-        ResourceManager resourceManager)
+    public static void PrepareStructureModificationFactory(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, IResourceManager resourceManager)
     {
         singleStructurePlacementHelper =
             new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager, resourceManager);

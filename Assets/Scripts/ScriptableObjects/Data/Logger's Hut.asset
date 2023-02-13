@@ -18,6 +18,7 @@ MonoBehaviour:
     gold: 10
     wood: 20
     stone: 5
+  maintenanceGoldCost: 1
   resourceGenAmount: 10
   resourceType: 1
   upgradable: 1

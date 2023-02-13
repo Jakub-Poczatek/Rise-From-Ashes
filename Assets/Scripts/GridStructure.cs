@@ -267,6 +267,26 @@ public class GridStructure
         if (!CheckIndexValidity(index)) return null;
         return neightbourPosition;
     }
+
+    public IEnumerable<StructureBase> GetAllStructures()
+    {
+        List<StructureBase> structureBases = new List<StructureBase>();
+        List<GameObject> structures = new List<GameObject>();
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for(int col = 0; col < grid.GetLength(1); col++)
+            {
+                var data = grid[row, col].GetStructureBase();
+                var structure = grid[row, col].GetStructure();
+                if (data != null && !structures.Contains(structure))
+                {
+                    structureBases.Add(data);
+                    structures.Add(structure);
+                }
+            }
+        }
+        return structureBases;
+    }
 }
 
 public enum NeighbourDirection

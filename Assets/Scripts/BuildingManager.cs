@@ -7,16 +7,14 @@ public class BuildingManager
 {
     GridStructure gridStructure;
     IPlacementManager placementManager;
-    ResourceManager resourceManager;
     StructureRepository structureRepository;
     StructureModificationHelper helper;
 
-    public BuildingManager(IPlacementManager placementManager, ResourceManager resourceManager,
-                        StructureRepository structureRepository, int cellSize, int width, int length)
+    public BuildingManager(IPlacementManager placementManager, StructureRepository structureRepository, IResourceManager resourceManager,
+        int cellSize, int width, int length)
     {
         this.gridStructure = new GridStructure(cellSize, width, length);
         this.placementManager = placementManager;
-        this.resourceManager = resourceManager;
         this.structureRepository = structureRepository;
         StructureModificationFactory.PrepareStructureModificationFactory(structureRepository, gridStructure, placementManager, resourceManager);
     }
@@ -66,5 +64,10 @@ public class BuildingManager
         }
         structureToReturn = helper.GetStructureToBeModified(gridPosition);
         return structureToReturn;
+    }
+
+    public IEnumerable<StructureBase> GetAllStructures()
+    {
+        return gridStructure.GetAllStructures();
     }
 }

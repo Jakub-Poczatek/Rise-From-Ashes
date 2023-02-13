@@ -7,18 +7,18 @@ using UnityEngine;
 
 public class RoadPlacementModificationHelper : StructureModificationHelper
 {
-    StructureBase structureBase;
     Dictionary<Vector3Int, GameObject> existingRoadStructuresToBeModified = new Dictionary<Vector3Int, GameObject>();
 
-    public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, 
-        ResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager)
+    public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, 
+        IPlacementManager placementManager, IResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager)
     {
 
     }
 
     public override void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None)
     {
-        structureBase = structureRepository.GetStructureByName(structureName, structureType);
+        base.PrepareStructureForModification(position, structureName, structureType);
+
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
 
@@ -27,11 +27,13 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
         if (structuresToBeModified.ContainsKey(gridPositionInt))
         {
             RevokeRoadPlacement(gridPosition, gridPositionInt);
+            resourceManager.InceaseGold(structureBase.buildCost.gold);
         }
-        else if (!gridStructure.IsCellTaken(gridPosition))
+        else if (!gridStructure.IsCellTaken(gridPosition) && resourceManager.CanIBuyIt(structureBase.buildCost.gold))
         {
             RoadStructureHelper road = RoadManager.GetCorrectRoadPrefab(gridPosition, structureBase, structuresToBeModified, gridStructure);
             gridPositionInt = RoadManager.PlaceNewRoad(road, gridPosition, gridPositionInt, placementManager, gridStructure, structuresToBeModified, structureBase);
+            resourceManager.SpendGold(structureBase.buildCost.gold);
         }
         AdjustNeighboursIfAreRoadStructures(gridPosition);
     }
@@ -87,6 +89,7 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
 
     public override void CancelModifications()
     {
+        resourceManager.InceaseGold(structuresToBeModified.Count * structureBase.buildCost.gold);
         base.CancelModifications();
         existingRoadStructuresToBeModified.Clear();
     }

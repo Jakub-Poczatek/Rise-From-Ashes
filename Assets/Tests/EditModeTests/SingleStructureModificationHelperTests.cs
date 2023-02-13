@@ -11,7 +11,6 @@ public class SingleStructureModificationHelperTests
 {
     GameObject tempObject;
     GridStructure gridStructure;
-    ResourceManager resourceManager;
     StructureType structureType = StructureType.RoadStructure;
     string structureName = "Road";
     Vector3 gridPosition1 = Vector3.zero;
@@ -25,10 +24,11 @@ public class SingleStructureModificationHelperTests
         IPlacementManager placementManager = Substitute.For<IPlacementManager>();
         tempObject = new GameObject();
         tempObject.AddComponent<MeshRenderer>();
-        placementManager.CreateGhostStructure(default, default, default, default)
+        placementManager.CreateGhostStructure(default, default, default)
             .ReturnsForAnyArgs((tempObject, gridPosition1, tempObject), (tempObject, gridPosition2, tempObject));
         gridStructure = new GridStructure(1, 10, 10);
-        resourceManager= Substitute.For<ResourceManager>();
+        IResourceManager resourceManager = Substitute.For<IResourceManager>();
+        resourceManager.CanIBuyIt(default).Returns(true);
         helper = new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager, resourceManager);
     }
 

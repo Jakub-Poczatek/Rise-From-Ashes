@@ -8,16 +8,18 @@ public abstract class StructureModificationHelper
     protected readonly StructureRepository structureRepository;
     protected readonly GridStructure gridStructure;
     protected readonly IPlacementManager placementManager;
-    protected readonly ResourceManager resourceManager;
+    protected IResourceManager resourceManager;
+    protected StructureBase structureBase;
 
 
     public StructureModificationHelper(StructureRepository structureRepository, GridStructure gridStructure,
-        IPlacementManager placementManager, ResourceManager resourceManager)
+        IPlacementManager placementManager, IResourceManager resourceManager)
     {
         this.structureRepository = structureRepository;
         this.gridStructure = gridStructure;
         this.placementManager = placementManager;
         this.resourceManager = resourceManager;
+        structureBase = ScriptableObject.CreateInstance<NullStructure>();
     }
 
     public GameObject GetStructureToBeModified(Vector3 gridPosition)
@@ -33,9 +35,7 @@ public abstract class StructureModificationHelper
     public virtual void ConfirmModifications()
     {
         placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
-        structuresToBeModified.Clear();
-        resourceManager.SyncResourceGains();
-        Time.timeScale = 1;
+        ResetHelper();
     }
 
     public virtual void CancelModifications()
@@ -45,13 +45,18 @@ public abstract class StructureModificationHelper
         {
             gridStructure.RemoveStructureFromTheGrid(keyValuePair.Key);
         }
-        structuresToBeModified.Clear();
-        resourceManager.ClearTempResourceGain();
-        Time.timeScale = 1;
+        ResetHelper();
     }
 
     public virtual void PrepareStructureForModification(Vector3 position, string structureName = "", StructureType structureType = StructureType.None)
     {
+        if (structureBase.GetType() == typeof(NullStructure))
+            structureBase = this.structureRepository.GetStructureByName(structureName, structureType);
+    }
 
+    private void ResetHelper()
+    {
+        structuresToBeModified.Clear();
+        structureBase = ScriptableObject.CreateInstance<NullStructure>();
     }
 }
