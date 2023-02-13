@@ -29,6 +29,12 @@ public class UIController : MonoBehaviour
     public TMP_Text woodAmountTxt;
     public TMP_Text stoneAmountTxt;
 
+    /*public TMP_Text infoPnlStructName;
+    public TMP_Text infoPnlStructCost;
+    public TMP_Text infoPnlStructLevel;
+    public TMP_Text infoPnlStructType;
+    public TMP_Text infoPnlStructIncome;*/
+
     public StructureRepository structureRepository;
 
     // Start is called before the first frame update
