@@ -29,6 +29,12 @@ public class PlayerDemolishingState : PlayerState
         base.OnBuildRoad(structureName);
     }
 
+    public override void OnDemolish()
+    {
+        this.buildingManager.CancelModification();
+        base.OnDemolish();
+    }
+
     public override void OnBuildSingleStructure(string structureName)
     {
         this.buildingManager.CancelModification();
@@ -52,6 +58,7 @@ public class PlayerDemolishingState : PlayerState
 
     public override void EnterState(string structureName)
     {
+       // this.buildingManager.CancelModification();
         base.EnterState(structureName);
         this.buildingManager.PrepareBuildingManager(this.GetType());
     }

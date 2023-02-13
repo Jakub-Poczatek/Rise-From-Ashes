@@ -36,7 +36,7 @@ public class BuildingManager
 
     public void CancelModification()
     {
-        helper.CancelModifications();
+        helper?.CancelModifications();
     }
 
     public void PrepareStructureForDemolishing(Vector3 position)

@@ -26,6 +26,12 @@ public class PlayerSelectionState : PlayerState
         return;
     }
 
+    public override void OnDemolish()
+    {
+        this.buildingManager.CancelModification();
+        base.OnDemolish();
+    }
+
     public override void OnInputPointerUp()
     {
         return;

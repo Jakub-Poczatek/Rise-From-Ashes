@@ -18,6 +18,12 @@ public class PlayerBuildingRoadState : PlayerState
         base.OnBuildSingleStructure(structureName);
     }
 
+    public override void OnDemolish()
+    {
+        this.buildingManager.CancelModification();
+        base.OnDemolish();
+    }
+
     public override void OnConfirmAction()
     {
         this.buildingManager.ConfirmModification();
