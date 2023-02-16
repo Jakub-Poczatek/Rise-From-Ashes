@@ -27,13 +27,13 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
         if (structuresToBeModified.ContainsKey(gridPositionInt))
         {
             RevokeRoadPlacement(gridPosition, gridPositionInt);
-            resourceManager.EarnResources(structureBase.buildCost.gold);
+            resourceManager.EarnResources(structureBase.buildCost);
         }
-        else if (!gridStructure.IsCellTaken(gridPosition) && resourceManager.CanIBuyIt(structureBase.buildCost.gold))
+        else if (!gridStructure.IsCellTaken(gridPosition) && resourceManager.CanIAffordIt(structureBase.buildCost))
         {
             RoadStructureHelper road = RoadManager.GetCorrectRoadPrefab(gridPosition, structureBase, structuresToBeModified, gridStructure);
             gridPositionInt = RoadManager.PlaceNewRoad(road, gridPosition, gridPositionInt, placementManager, gridStructure, structuresToBeModified, structureBase);
-            resourceManager.Purchase(structureBase.buildCost.gold);
+            resourceManager.Purchase(structureBase.buildCost);
         }
         AdjustNeighboursIfAreRoadStructures(gridPosition);
     }
@@ -89,7 +89,14 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
 
     public override void CancelModifications()
     {
-        resourceManager.EarnResources(structuresToBeModified.Count * structureBase.buildCost.gold);
+        int structAmount = structuresToBeModified.Count;
+        resourceManager.EarnResources( new Cost(
+            structAmount * structureBase.buildCost.gold,
+            structAmount * structureBase.buildCost.food,
+            structAmount * structureBase.buildCost.wood,
+            structAmount * structureBase.buildCost.stone, 
+            structAmount * structureBase.buildCost.metal
+            ));
         base.CancelModifications();
         existingRoadStructuresToBeModified.Clear();
     }

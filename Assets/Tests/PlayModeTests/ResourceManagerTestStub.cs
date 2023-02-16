@@ -11,12 +11,12 @@ public class ResourceManagerTestStub : MonoBehaviour, IResourceManager
     {
     }
 
-    public bool CanIBuyIt(int amount)
+    public bool CanIAffordIt(Cost cost)
     {
         return true;
     }
 
-    public void EarnResources(int amount)
+    public void EarnResources(Cost cost)
     {
     }
 
@@ -24,7 +24,7 @@ public class ResourceManagerTestStub : MonoBehaviour, IResourceManager
     {
     }
 
-    public bool Purchase(int amount)
+    public bool Purchase(Cost cost)
     {
         return true;
     }

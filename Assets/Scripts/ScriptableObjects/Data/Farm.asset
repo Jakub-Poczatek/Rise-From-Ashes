@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e77ca10fa2731ae45a0fdc4de872b98e, type: 3}
-  m_Name: Logger's Hut
+  m_Name: Farm
   m_EditorClassIdentifier: 
-  structureName: Logger's Hut
-  prefab: {fileID: 5165217977655863059, guid: 9cb38882ec89caf4292824f3b2bb7e62, type: 3}
+  structureName: Farm
+  prefab: {fileID: 7607514041704122858, guid: 59e4f03cfda8970499a8180aed396830, type: 3}
   buildCost:
-    gold: 10
+    gold: 15
     food: 0
-    wood: 100
+    wood: 30
     stone: 0
     metal: 0
-  maintenanceGoldCost: 1
+  maintenanceGoldCost: 0
   resourceGenAmount: 2
-  resourceType: 2
-  upgradable: 1
+  resourceType: 1
+  upgradable: 0
   availableUpgrades: []

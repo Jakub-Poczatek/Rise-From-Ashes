@@ -15,17 +15,21 @@ MonoBehaviour:
   structureName: Bank
   prefab: {fileID: 5044072459351066130, guid: 347768c8844747845b2495c04c95f861, type: 3}
   buildCost:
-    gold: 25
-    wood: 10
-    stone: 5
+    gold: 125
+    food: 0
+    wood: 0
+    stone: 20
+    metal: 0
   maintenanceGoldCost: 1
-  resourceGenAmount: 5
+  resourceGenAmount: 2
   resourceType: 0
   upgradable: 1
   availableUpgrades:
   - prefab: {fileID: 2244612804670639158, guid: 11d93bcd6783d5149a731bb1e64fded5, type: 3}
     cost:
       gold: 50
+      food: 0
       wood: 20
       stone: 10
+      metal: 0
     resourceGenAmount: 10
