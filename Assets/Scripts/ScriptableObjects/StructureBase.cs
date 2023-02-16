@@ -10,7 +10,7 @@ public abstract class StructureBase : ScriptableObject
     public int maintenanceGoldCost;
 }
 
-[System.Serializable]
+/*[System.Serializable]
 public struct Cost
 {
     public Cost(int gold, int wood, int stone)
@@ -22,4 +22,4 @@ public struct Cost
     public int gold;
     public int wood;
     public int stone;
-}
+}*/

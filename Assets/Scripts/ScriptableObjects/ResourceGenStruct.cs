@@ -22,6 +22,8 @@ public struct UpgradeType
 public enum ResourceType
 {
     Gold,
+    Food,
     Wood,
-    Stone
+    Stone,
+    Metal
 }

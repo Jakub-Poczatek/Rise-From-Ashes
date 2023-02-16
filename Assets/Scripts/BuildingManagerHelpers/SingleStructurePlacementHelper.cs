@@ -15,7 +15,7 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
         if (structuresToBeModified.ContainsKey(gridPositionInt))
         {
-            resourceManager.InceaseGold(structureBase.buildCost.gold);
+            resourceManager.EarnResources(structureBase.buildCost.gold);
             RemovePreview(gridPosition, gridPositionInt);
         }
         else if (!gridStructure.IsCellTaken(gridPosition) && resourceManager.CanIBuyIt(structureBase.buildCost.gold))
@@ -34,7 +34,7 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
             gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
             structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
             gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, myStructureBase, ghostReturn.Value.Item3);
-            resourceManager.SpendGold(structureBase.buildCost.gold);
+            resourceManager.Purchase(structureBase.buildCost.gold);
         }
     }
 
@@ -51,7 +51,7 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
     {
         foreach (var structure in structuresToBeModified)
         {
-            resourceManager.InceaseGold(structureBase.buildCost.gold);
+            resourceManager.EarnResources(structureBase.buildCost.gold);
         }
         base.CancelModifications();
     }

@@ -4,7 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GoldHelper
+public class GoldHelper : BasicResourceHelper
+{
+
+    public GoldHelper(int initialAmount) : base(initialAmount) { }
+
+    public override void CollectResource(float amount)
+    {
+        base.CollectResource(amount);
+    }
+
+    public void Maintain(IEnumerable<StructureBase> structures)
+    {
+        foreach (StructureBase structure in structures)
+        {
+            resource -= structure.maintenanceGoldCost;
+        }
+    }
+}
+
+
+
+/*public class GoldHelper
 {
     private int gold;
 
@@ -20,7 +41,7 @@ public class GoldHelper
             if (value < 0)
             {
                 gold = 0;
-                throw new GoldException("Not enough gold");
+                throw new ResourceException("Not enough gold");
             }
             else
                 gold = value; 
@@ -61,4 +82,4 @@ public class GoldHelper
             }
         }
     }
-}
+}*/

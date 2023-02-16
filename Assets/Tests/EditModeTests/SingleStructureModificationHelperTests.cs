@@ -28,7 +28,7 @@ public class SingleStructureModificationHelperTests
             .ReturnsForAnyArgs((tempObject, gridPosition1, tempObject), (tempObject, gridPosition2, tempObject));
         gridStructure = new GridStructure(1, 10, 10);
         IResourceManager resourceManager = Substitute.For<IResourceManager>();
-        resourceManager.CanIBuyIt(default).Returns(true);
+        resourceManager.CanIAffordIt(default).Returns(true);
         helper = new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager, resourceManager);
     }
 

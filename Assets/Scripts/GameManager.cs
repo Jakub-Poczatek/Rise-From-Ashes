@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int cellSize = 1;
+    public int cellSize = 1;
+    public GameObject groundModel;
     private bool buildingModeIsActive = false;
     private GridStructure gridStructure;
     private BuildingManager buildingManager;
     private PlayerState playerState;
-    public int width, length;
+    private int width, lenght;
     public IInputManager inputManager;
     public LayerMask mouseInputMask;
     public CameraMovement cameraMovement;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     private IPlacementManager placementManager;
 
+
     public PlayerState PlayerState 
     { 
         get => playerState;
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void PrepareStates()
     {
-        buildingManager = new BuildingManager(placementManager, structureRepository, resourceManager, cellSize, width, length);
+        buildingManager = new BuildingManager(placementManager, structureRepository, resourceManager, cellSize, width, lenght);
         resourceManager.PrepareResourceManager(buildingManager);
         playerSelectionState = new PlayerSelectionState(this, buildingManager);
         playerRemoveBuildingState = new PlayerDemolishingState(this, buildingManager);
@@ -53,6 +55,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        width = (int) groundModel.GetComponent<MeshRenderer>().bounds.size.x;
+        lenght = (int) groundModel.GetComponent<MeshRenderer>().bounds.size.z;
+        Debug.Log(width + " " + lenght);
         placementManager = placementManagerGameObject.GetComponent<IPlacementManager>();
         resourceManager = resourceManagerGameObject.GetComponent<IResourceManager>();
         PrepareStates();
@@ -68,7 +73,7 @@ public class GameManager : MonoBehaviour
     private void PrepareGameComponents()
     {
         inputManager.MouseInputMask = mouseInputMask;
-        cameraMovement.SetCameraBounds(0, width, 0, length);
+        cameraMovement.SetCameraBounds(0, width, 0, lenght);
     }
 
     private void AssignUiControllerListeners()
