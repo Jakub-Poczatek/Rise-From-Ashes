@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc51707c9c202b47a6cf40bd9db31b4, type: 3}
   m_Name: StructurePool
   m_EditorClassIdentifier: 
-  RoadStruct: {fileID: 11400000, guid: 9057f8e6e4f60fb49b473373ad7d465f, type: 2}
+  roadStruct: {fileID: 11400000, guid: 9057f8e6e4f60fb49b473373ad7d465f, type: 2}
   resourceGenStructs:
   - {fileID: 11400000, guid: 4b19a6319357f5a4aaffe57bf7c47a97, type: 2}
   - {fileID: 11400000, guid: dc5378be2d16ffd4b8625d15f49512e9, type: 2}

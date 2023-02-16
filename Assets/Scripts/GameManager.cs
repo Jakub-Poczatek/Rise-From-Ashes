@@ -15,15 +15,18 @@ public class GameManager : MonoBehaviour
     public IInputManager inputManager;
     public LayerMask mouseInputMask;
     public CameraMovement cameraMovement;
-    public PlacementManager placementManager;
+    public GameObject placementManagerGameObject;
     public UIController uiController;
-    public ResourceManager resourceManager;
     public StructureRepository structureRepository;
+    public GameObject resourceManagerGameObject;
+    private IResourceManager resourceManager;
 
     public PlayerSelectionState playerSelectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
     public PlayerBuildingRoadState buildingRoadState;
-    public PlayerRemoveBuildingState playerRemoveBuildingState;
+    public PlayerDemolishingState playerRemoveBuildingState;
+
+    private IPlacementManager placementManager;
 
     public PlayerState PlayerState 
     { 
@@ -32,9 +35,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        PrepareStates();
-
-
         #if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
                 inputManager = gameObject.AddComponent<InputManager>();
         #endif
@@ -42,9 +42,10 @@ public class GameManager : MonoBehaviour
 
     private void PrepareStates()
     {
-        buildingManager = new BuildingManager(placementManager, resourceManager, structureRepository, cellSize, width, length);
-        playerSelectionState = new PlayerSelectionState(this, cameraMovement);
-        playerRemoveBuildingState = new PlayerRemoveBuildingState(this, buildingManager);
+        buildingManager = new BuildingManager(placementManager, structureRepository, resourceManager, cellSize, width, length);
+        resourceManager.PrepareResourceManager(buildingManager);
+        playerSelectionState = new PlayerSelectionState(this, buildingManager);
+        playerRemoveBuildingState = new PlayerDemolishingState(this, buildingManager);
         buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
         buildingRoadState = new PlayerBuildingRoadState(this, buildingManager);
         playerState = playerSelectionState;
@@ -52,6 +53,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        placementManager = placementManagerGameObject.GetComponent<IPlacementManager>();
+        resourceManager = resourceManagerGameObject.GetComponent<IResourceManager>();
+        PrepareStates();
         PrepareGameComponents();
         AssignInputListener();
         AssignUiControllerListeners();
@@ -59,9 +63,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        uiController.goldAmountTxt.text = resourceManager.GoldAmount.ToString();
-        uiController.woodAmountTxt.text = resourceManager.WoodAmount.ToString();
-        uiController.stoneAmountTxt.text = resourceManager.StoneAmount.ToString();
     }
 
     private void PrepareGameComponents()
@@ -74,9 +75,9 @@ public class GameManager : MonoBehaviour
     {
         uiController.AddListenerOnBuildSingleStructureEvent((structureName) => playerState.OnBuildSingleStructure(structureName));
         uiController.AddListenerOnBuildRoadEvent((structureName) => playerState.OnBuildRoad(structureName));
-        //uiController.AddListenerOnBuildAreaEvent(ChangeToBuildingSingleStructureState);
         uiController.AddListenerOnCancelActionEvent(() => playerState.OnCancel());
         uiController.AddListenerOnDemolishActionEvent(() => playerState.OnDemolish());
+        uiController.AddListenerOnConfirmActionEvent(() => playerState.OnConfirmAction());
     }
 
     private void AssignInputListener()

@@ -11,11 +11,13 @@ public class UIController : MonoBehaviour
     private Action<string> OnBuildRoadHandler;
     private Action OnCancelActionHandler;
     private Action OnDemolishActionHandler;
+    private Action OnConfirmActionHandler;
 
     public Button buildResidentialAreaBtn;
     public Button cancelActionBtn;
     public Button openBuildMenuBtn;
     public Button demolishBtn;
+    public Button confirmActionBtn;
     public Button closeBuildMenuBtn;
     public GameObject cancelActionPnl;
     public GameObject buildingMenuPnl;
@@ -27,6 +29,14 @@ public class UIController : MonoBehaviour
     public TMP_Text woodAmountTxt;
     public TMP_Text stoneAmountTxt;
 
+    public UIStructInfoPnlHelper structPanelHelper;
+
+    /*public TMP_Text infoPnlStructName;
+    public TMP_Text infoPnlStructCost;
+    public TMP_Text infoPnlStructLevel;
+    public TMP_Text infoPnlStructType;
+    public TMP_Text infoPnlStructIncome;*/
+
     public StructureRepository structureRepository;
 
     // Start is called before the first frame update
@@ -36,9 +46,15 @@ public class UIController : MonoBehaviour
         buildingMenuPnl.SetActive(false);
         //buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
+        confirmActionBtn.onClick.AddListener(OnConfirmActionCallback);
         openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
         demolishBtn.onClick.AddListener(OnDemolishHandler);
         closeBuildMenuBtn.onClick.AddListener(OnCloseMenuHandler);
+    }
+
+    public void DisplayStructureInfo(StructureBase structure)
+    {
+        structPanelHelper.DisplayStructureInfo(structure);
     }
 
     private void OnCloseMenuHandler()
@@ -87,12 +103,6 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnBuildSingleStructureCallback(string structureName)
     {
         PrepareUIForBuilding();
@@ -109,6 +119,12 @@ public class UIController : MonoBehaviour
     {
         cancelActionPnl.SetActive(true);
         OnCloseMenuHandler();
+    }
+
+    private void OnConfirmActionCallback()
+    {
+        cancelActionPnl.SetActive(false);
+        OnConfirmActionHandler?.Invoke();
     }
 
     private void OnCancelActionCallback()
@@ -147,6 +163,16 @@ public class UIController : MonoBehaviour
         OnCancelActionHandler -= listener;
     }
 
+    public void AddListenerOnConfirmActionEvent(Action listener)
+    {
+        OnConfirmActionHandler += listener;
+    }
+
+    public void RemoveListenerOnConfirmActionEvent(Action listener)
+    {
+        OnConfirmActionHandler -= listener;
+    }
+
     public void AddListenerOnDemolishActionEvent(Action listener)
     {
         OnDemolishActionHandler += listener;
@@ -155,5 +181,15 @@ public class UIController : MonoBehaviour
     public void RemoveListenerOnDemolishActionEvent(Action listener)
     {
         OnDemolishActionHandler -= listener;
+    }
+
+    public void SetGoldValue(int gold)
+    {
+        goldAmountTxt.text = gold.ToString();
+    }
+
+    public void HideStructureInfo()
+    {
+        structPanelHelper.Hide();
     }
 }

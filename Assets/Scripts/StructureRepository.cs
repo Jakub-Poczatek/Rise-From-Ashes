@@ -27,7 +27,7 @@ public class StructureRepository : MonoBehaviour
 
     public string GetRoadStructName()
     {
-        return modelDataPool.RoadStruct.structureName;
+        return modelDataPool.roadStruct.structureName;
     }
 
     public StructureBase GetStructureByName(string structureName, StructureType structureType)
@@ -54,7 +54,7 @@ public class StructureRepository : MonoBehaviour
 
     private RoadStruct GetRoadStruct()
     {
-        return modelDataPool.RoadStruct;
+        return modelDataPool.roadStruct;
     }
 
     private ResourceGenStruct GetResourceGenStructByName(string structureName)
@@ -73,5 +73,6 @@ public class StructureRepository : MonoBehaviour
 public enum StructureType
 {
     ResourceGenStructure,
-    RoadStructure
+    RoadStructure,
+    None
 }

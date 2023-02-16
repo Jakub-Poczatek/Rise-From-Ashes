@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Structure Pool", menuName = "StructureManagement/Pool")]
 public class StructPool : ScriptableObject
 {
-    public RoadStruct RoadStruct;
+    public RoadStruct roadStruct;
     public List<ResourceGenStruct> resourceGenStructs;
 }

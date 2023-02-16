@@ -4,40 +4,16 @@ using UnityEngine;
 
 public class PlayerSelectionState : PlayerState
 {
-    CameraMovement cameraMovement;
-
-    public PlayerSelectionState(GameManager gameManager, CameraMovement cameraMovement) : base(gameManager)
-    {
-        this.cameraMovement = cameraMovement;
-    }
-
-    public override void OnInputPanChange(Vector3 position)
-    {
-        cameraMovement.MoveCamera(position);
-    }
-
-    public override void OnInputPanUp()
-    {
-        cameraMovement.StopCameraMovement();
-    }
-
-    public override void OnInputPointerChange(Vector3 position)
-    {
-        return;
-    }
+    public PlayerSelectionState(GameManager gameManager, BuildingManager buildingManager) 
+        : base(gameManager, buildingManager) {}
 
     public override void OnInputPointerDown(Vector3 position)
     {
-        return;
-    }
-
-    public override void OnInputPointerUp()
-    {
-        return;
-    }
-
-    public override void OnCancel()
-    {
+        StructureBase structure = buildingManager.GetStructureBaseFromPosition(position);
+        if (structure != null)
+            this.gameManager.uiController.DisplayStructureInfo(structure);
+        else
+            this.gameManager.uiController.HideStructureInfo();
         return;
     }
 }

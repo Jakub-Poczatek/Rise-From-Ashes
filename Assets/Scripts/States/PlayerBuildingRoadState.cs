@@ -5,25 +5,19 @@ using UnityEngine;
 public class PlayerBuildingRoadState : PlayerState
 {
     string structureName;
-    BuildingManager buildingManager;
 
-    public PlayerBuildingRoadState(GameManager gameManager, BuildingManager buildingManager) : base(gameManager)
-    {
-        this.buildingManager = buildingManager;
-    }
-
-    public override void OnCancel()
-    {
-        this.gameManager.TransitionToState(this.gameManager.playerSelectionState, null);
-    }
+    public PlayerBuildingRoadState(GameManager gameManager, BuildingManager buildingManager) 
+        : base(gameManager, buildingManager) {}
 
     public override void EnterState(string structureName)
     {
+        base.EnterState(structureName);
+        this.buildingManager.PrepareBuildingManager(this.GetType());
         this.structureName = structureName;
     }
 
     public override void OnInputPointerDown(Vector3 position)
     {
-        this.buildingManager.PlaceStructureAt(position, structureName, StructureType.RoadStructure);
+        this.buildingManager.PrepareStructureForModification(position, structureName, StructureType.RoadStructure);
     }
 }

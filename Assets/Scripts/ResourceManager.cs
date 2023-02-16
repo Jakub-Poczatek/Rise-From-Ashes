@@ -1,72 +1,88 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager : MonoBehaviour, IResourceManager
 {
-    private float timer;
-    private float oneSecond = 1;
-    private float goldAmount = 100;
-    private float woodAmount = 100;
-    private float stoneAmount = 100;
-    private float goldGain = 0;
-    private float woodGain = 0;
-    private float stoneGain = 0;
+    [SerializeField] private int initialGold = 5000;
+    [SerializeField] private float resourceCalculationInterval = 1;
+    private BuildingManager buildingManager;
+    public UIController uiController;
+    private GoldHelper goldHelper;
+
+    public int InitialGold { get => initialGold; }
+    public float ResourceCalculationInterval { get => resourceCalculationInterval; }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        goldHelper = new GoldHelper(initialGold);
+        UpdateMoneyValueUI();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PrepareResourceManager(BuildingManager buildingManager)
     {
-        timer += Time.deltaTime;
+        this.buildingManager = buildingManager;
+        InvokeRepeating(nameof(CalculateIncome), 0, ResourceCalculationInterval);
+    }
 
-        if(timer > oneSecond)
+    public bool SpendGold(int amount)
+    {
+        if (CanIBuyIt(amount))
         {
-            timer -= oneSecond;
+            try
+            {
+                goldHelper.DecreaseGold(amount);
+                UpdateMoneyValueUI();
+                return true;
+            }
+            catch (GoldException)
+            {
+                ReloadGame();
+            }
+        }
+        return false;
+    }
 
-            goldAmount += goldGain;
-            woodAmount += woodGain;
-            stoneAmount += stoneGain;
+    public void InceaseGold(int amount)
+    {
+        goldHelper.IncreaseGold(amount);
+        UpdateMoneyValueUI();
+    }
+
+    private void ReloadGame()
+    {
+        Debug.Log("End the game");
+    }
+
+    public bool CanIBuyIt(int amount)
+    {
+        if (goldHelper.Gold >= amount) return true;
+        else return false;
+    }
+
+    public void CalculateIncome()
+    {
+        try
+        {
+            goldHelper.CalculateGold(buildingManager.GetAllStructures());
+            UpdateMoneyValueUI();
+        }
+        catch (GoldException)
+        {
+
+            ReloadGame();
         }
     }
 
-    public bool isAffordable(StructureBase structure)
+    private void UpdateMoneyValueUI()
     {
-        return  goldAmount > structure.buildCost.gold &&
-                stoneAmount > structure.buildCost.stone &&
-                woodAmount > structure.buildCost.wood;
+        uiController.SetGoldValue(goldHelper.Gold);
     }
 
-    public void buyStructure(StructureBase structure)
+    private void OnDisable()
     {
-        goldAmount -= structure.buildCost.gold;
-        stoneAmount -= structure.buildCost.stone;
-        woodAmount -= structure.buildCost.wood;
+        CancelInvoke();
     }
-
-    public void adjustResourceGain(ResourceGenStruct structure)
-    {
-        switch (structure.resourceType)
-        {
-            case ResourceType.Gold:
-                goldGain += structure.resourceGenAmount;
-                break;
-            case ResourceType.Wood:
-                woodGain += structure.resourceGenAmount;
-                break;
-            case ResourceType.Stone:
-                stoneGain += structure.resourceGenAmount;
-                break;
-            default:
-                throw new System.Exception("Invalid resource gain type: " + structure.resourceType);
-        }
-    }
-
-    public float GoldAmount { get => goldAmount;}
-    public float WoodAmount { get => woodAmount;}
-    public float StoneAmount { get => stoneAmount;}
 }
