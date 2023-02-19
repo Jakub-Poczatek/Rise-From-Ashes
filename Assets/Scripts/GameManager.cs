@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
     {
         width = (int) groundModel.GetComponent<MeshRenderer>().bounds.size.x;
         lenght = (int) groundModel.GetComponent<MeshRenderer>().bounds.size.z;
-        Debug.Log(width + " " + lenght);
         placementManager = placementManagerGameObject.GetComponent<IPlacementManager>();
         resourceManager = resourceManagerGameObject.GetComponent<IResourceManager>();
         PrepareStates();
