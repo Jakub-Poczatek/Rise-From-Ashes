@@ -27,7 +27,7 @@ public static class RoadManager
     {
         if (gridStructure.IsCellTaken(neighbourPosition.Value))
         {
-            var neighbourStructure = gridStructure.GetStructureDataFromGrid(neighbourPosition.Value);
+            var neighbourStructure = gridStructure.GetStructureBaseFromGrid(neighbourPosition.Value);
             if (neighbourStructure != null && neighbourStructure.GetType() == typeof(RoadStruct))
             {
                 return true;

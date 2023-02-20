@@ -79,13 +79,45 @@ public class ResourceManager : MonoBehaviour, IResourceManager
 
     public void CalculateResources()
     {
-        IEnumerable<StructureBase> structures = buildingManager.GetAllStructures();
+        //IEnumerable<StructureBase> structures = buildingManager.GetAllStructuresData();
+        IEnumerable<GameObject> structures = buildingManager.GetAllStructures();
         CollectResourceGains(structures);
         goldHelper.Maintain(structures);
         UpdateMoneyValueUI();
     }
 
-    private void CollectResourceGains(IEnumerable<StructureBase> structures)
+    private void CollectResourceGains(IEnumerable<GameObject> structures)
+    {
+        foreach (GameObject structure in structures)
+        {
+            if (structure.CompareTag("Structure"))
+            {
+                WorkableStructure workableStructure = structure.GetComponent<WorkableStructure>();
+                switch (workableStructure.ResourceType)
+                {
+                    case ResourceType.Gold:
+                        goldHelper.CollectResource(workableStructure.GenAmount);
+                        break;
+                    case ResourceType.Food:
+                        foodHelper.CollectResource(workableStructure.GenAmount);
+                        break;
+                    case ResourceType.Wood:
+                        woodHelper.CollectResource(workableStructure.GenAmount);
+                        break;
+                    case ResourceType.Stone:
+                        stoneHelper.CollectResource(workableStructure.GenAmount);
+                        break;
+                    case ResourceType.Metal:
+                        metalHelper.CollectResource(workableStructure.GenAmount);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    /*private void CollectResourceGains(IEnumerable<StructureBase> structures)
     {
         foreach (StructureBase structure in structures)
         {
@@ -114,7 +146,7 @@ public class ResourceManager : MonoBehaviour, IResourceManager
                 }
             }
         }
-    }
+    }*/
 
     private void UpdateMoneyValueUI()
     {

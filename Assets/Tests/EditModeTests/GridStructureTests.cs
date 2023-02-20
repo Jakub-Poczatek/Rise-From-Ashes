@@ -359,7 +359,7 @@ public class GridStructureTests
         gameObject.AddComponent<MeshRenderer>();
         gridStructure.PlaceStructureOnTheGrid(gameObject, new Vector3(99, 0, 99), resourceGenStruct);
 
-        var list = gridStructure.GetAllStructures().ToList();
+        var list = gridStructure.GetAllStructuresData().ToList();
         Assert.IsTrue(list.Count == 4);
     }
 }

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 7778100619314231449}
   - component: {fileID: 9190729660647959996}
   - component: {fileID: 4190549891292604989}
+  - component: {fileID: 2934570225554410641}
   m_Layer: 0
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -587,11 +588,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &2934570225554410641
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402994077926238960}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7607514041704122858
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,9 +623,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1702772387462968134}
+  - component: {fileID: 1221135730984730546}
   m_Layer: 0
   m_Name: Farm
-  m_TagString: Untagged
+  m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -622,5 +645,22 @@ Transform:
   m_Children:
   - {fileID: 8067288012502283412}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1221135730984730546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7607514041704122858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0f252a906ee844ca3c838ada2676a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  structureName: 
+  maintenanceCost: 0
+  genAmount: 0
+  resourceType: 0
+  maxWorkerCapacity: 0

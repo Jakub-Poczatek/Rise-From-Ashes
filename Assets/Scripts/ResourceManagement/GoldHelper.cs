@@ -14,13 +14,24 @@ public class GoldHelper : BasicResourceHelper
         base.CollectResource(amount);
     }
 
-    public void Maintain(IEnumerable<StructureBase> structures)
+    public void Maintain(IEnumerable<GameObject> structures)
+    {
+        foreach (GameObject structure in structures)
+        {
+            if(structure.CompareTag("Structure"))
+            {
+                resource -= Mathf.FloorToInt(structure.GetComponent<WorkableStructure>().MaintenanceCost);
+            }
+        }
+    }
+
+    /*public void Maintain(IEnumerable<StructureBase> structures)
     {
         foreach (StructureBase structure in structures)
         {
             resource -= structure.maintenanceGoldCost;
         }
-    }
+    }*/
 }
 
 

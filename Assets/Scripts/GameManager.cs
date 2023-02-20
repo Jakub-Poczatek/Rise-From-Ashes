@@ -22,10 +22,11 @@ public class GameManager : MonoBehaviour
     public GameObject resourceManagerGameObject;
     private IResourceManager resourceManager;
 
-    public PlayerSelectionState playerSelectionState;
+    public PlayerSelectionState selectionState;
     public PlayerBuildingSingleStructureState buildingSingleStructureState;
     public PlayerBuildingRoadState buildingRoadState;
-    public PlayerDemolishingState playerRemoveBuildingState;
+    public PlayerDemolishingState removeBuildingState;
+    public PlayerCitizenAssignState citizenAssignState;
 
     private IPlacementManager placementManager;
 
@@ -46,11 +47,12 @@ public class GameManager : MonoBehaviour
     {
         buildingManager = new BuildingManager(placementManager, structureRepository, resourceManager, cellSize, width, lenght);
         resourceManager.PrepareResourceManager(buildingManager);
-        playerSelectionState = new PlayerSelectionState(this, buildingManager);
-        playerRemoveBuildingState = new PlayerDemolishingState(this, buildingManager);
+        selectionState = new PlayerSelectionState(this, buildingManager);
+        removeBuildingState = new PlayerDemolishingState(this, buildingManager);
         buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
         buildingRoadState = new PlayerBuildingRoadState(this, buildingManager);
-        playerState = playerSelectionState;
+        citizenAssignState = new PlayerCitizenAssignState(this, buildingManager);
+        playerState = selectionState;
     }
 
     void Start()
@@ -82,6 +84,7 @@ public class GameManager : MonoBehaviour
         uiController.AddListenerOnCancelActionEvent(() => playerState.OnCancel());
         uiController.AddListenerOnDemolishActionEvent(() => playerState.OnDemolish());
         uiController.AddListenerOnConfirmActionEvent(() => playerState.OnConfirmAction());
+        uiController.AddListenerOnCitizenAssignEvent(() => playerState.OnCitizenAssign());
     }
 
     private void AssignInputListener()

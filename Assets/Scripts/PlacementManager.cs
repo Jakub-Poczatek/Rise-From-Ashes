@@ -16,7 +16,7 @@ public class PlacementManager : MonoBehaviour, IPlacementManager
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
-
+        newStructure.GetComponent<WorkableStructure>().StructureData = (ResourceGenStruct) structure;
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x

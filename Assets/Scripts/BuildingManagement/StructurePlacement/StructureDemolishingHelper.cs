@@ -27,7 +27,7 @@ public class StructureDemolishingHelper : StructureModificationHelper
             Dictionary<Vector3Int, GameObject> neighbours = RoadManager.GetRoadNeighboursForPosition(gridStructure, kvp.Key);
             if(neighbours.Count > 0)
             {
-                var structureBase = gridStructure.GetStructureDataFromGrid(neighbours.Keys.First());
+                var structureBase = gridStructure.GetStructureBaseFromGrid(neighbours.Keys.First());
                 RoadManager.modifyRoadCellsOnGrid(neighbours, structureBase, new Dictionary<Vector3Int, GameObject>(), gridStructure, placementManager);
             }
         }
