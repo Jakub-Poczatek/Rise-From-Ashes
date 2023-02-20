@@ -20,8 +20,9 @@ MonoBehaviour:
     wood: 100
     stone: 0
     metal: 0
-  maintenanceGoldCost: 1
+  maintenanceGoldCost: 0
   resourceGenAmount: 2
   resourceType: 2
   upgradable: 1
+  maxWorkerCapacity: 1
   availableUpgrades: []

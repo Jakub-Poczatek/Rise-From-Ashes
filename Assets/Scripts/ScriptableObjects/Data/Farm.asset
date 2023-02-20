@@ -24,4 +24,5 @@ MonoBehaviour:
   resourceGenAmount: 2
   resourceType: 1
   upgradable: 0
+  maxWorkerCapacity: 1
   availableUpgrades: []

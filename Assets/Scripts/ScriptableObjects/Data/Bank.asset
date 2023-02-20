@@ -20,10 +20,11 @@ MonoBehaviour:
     wood: 0
     stone: 20
     metal: 0
-  maintenanceGoldCost: 1
+  maintenanceGoldCost: 0
   resourceGenAmount: 2
   resourceType: 0
   upgradable: 1
+  maxWorkerCapacity: 1
   availableUpgrades:
   - prefab: {fileID: 2244612804670639158, guid: 11d93bcd6783d5149a731bb1e64fded5, type: 3}
     cost:
