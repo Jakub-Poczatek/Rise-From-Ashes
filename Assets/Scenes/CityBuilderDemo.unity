@@ -992,7 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   citizenSpawnRate: 1
   citizenPrefab: {fileID: 3142739486678288549, guid: 8d47885913122034bb1a33f58dc3216e, type: 3}
-  citizenLimit: 3
+  citizenLimit: 5
   townHall: {fileID: 1031254973}
 --- !u!4 &624703467
 Transform:
