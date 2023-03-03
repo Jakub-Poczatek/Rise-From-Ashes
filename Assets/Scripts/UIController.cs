@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     private Action OnCancelActionHandler;
     private Action OnDemolishActionHandler;
     private Action OnConfirmActionHandler;
+    private Action OnCitizenAssignHandler;
 
     public Button buildResidentialAreaBtn;
     public Button cancelActionBtn;
@@ -26,10 +27,15 @@ public class UIController : MonoBehaviour
     public GameObject structureButtonPrefab;
 
     public TMP_Text goldAmountTxt;
+    public TMP_Text foodAmountTxt;
     public TMP_Text woodAmountTxt;
     public TMP_Text stoneAmountTxt;
+    public TMP_Text metalAmountTxt;
 
     public UIStructInfoPnlHelper structPanelHelper;
+
+    public GameObject citizenInteractionPnl;
+    private Button citizenAssignBtn;
 
     /*public TMP_Text infoPnlStructName;
     public TMP_Text infoPnlStructCost;
@@ -44,12 +50,21 @@ public class UIController : MonoBehaviour
     {
         cancelActionPnl.SetActive(false);
         buildingMenuPnl.SetActive(false);
+        citizenInteractionPnl.SetActive(false);
         //buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
         confirmActionBtn.onClick.AddListener(OnConfirmActionCallback);
         openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
         demolishBtn.onClick.AddListener(OnDemolishHandler);
         closeBuildMenuBtn.onClick.AddListener(OnCloseMenuHandler);
+
+        citizenAssignBtn = citizenInteractionPnl.transform.GetChild(0).GetComponent<Button>();
+        citizenAssignBtn.onClick.AddListener(OnCitizenAssignCallback);
+    }
+
+    public void ToggleCitizenInteraction(bool toggle)
+    {
+        citizenInteractionPnl.SetActive(toggle);
     }
 
     public void DisplayStructureInfo(StructureBase structure)
@@ -103,6 +118,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    private void OnCitizenAssignCallback()
+    {
+        OnCitizenAssignHandler?.Invoke();
+    }
+
     private void OnBuildSingleStructureCallback(string structureName)
     {
         PrepareUIForBuilding();
@@ -131,6 +151,11 @@ public class UIController : MonoBehaviour
     {
         cancelActionPnl.SetActive(false);
         OnCancelActionHandler?.Invoke();
+    }
+
+    public void AddListenerOnCitizenAssignEvent(Action listener)
+    {
+        OnCitizenAssignHandler += listener;
     }
 
     public void AddListenerOnBuildSingleStructureEvent(Action<string> listener)
@@ -183,9 +208,13 @@ public class UIController : MonoBehaviour
         OnDemolishActionHandler -= listener;
     }
 
-    public void SetGoldValue(int gold)
+    public void UpdateResourceValues(Cost cost)
     {
-        goldAmountTxt.text = gold.ToString();
+        goldAmountTxt.text = cost.gold.ToString();
+        foodAmountTxt.text = cost.food.ToString();
+        woodAmountTxt.text = cost.wood.ToString();
+        stoneAmountTxt.text = cost.stone.ToString();
+        metalAmountTxt.text = cost.metal.ToString();
     }
 
     public void HideStructureInfo()

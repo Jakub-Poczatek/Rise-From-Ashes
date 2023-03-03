@@ -9,11 +9,29 @@ public class PlayerSelectionState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
+        RaycastHit hit;
+        Physics.Raycast(position + (Vector3.up * 5), Vector3.down, out hit, 10);
+        GameObject target = hit.collider.transform.parent.gameObject;
+        Debug.Log(target.tag);
+
+        switch (target.tag)
+        {
+            case "Citizen":
+                this.gameManager.citizenAssignState.citizen = target;
+                this.gameManager.uiController.ToggleCitizenInteraction(true);
+                return;
+            default:
+                break;
+        }
+
         StructureBase structure = buildingManager.GetStructureBaseFromPosition(position);
         if (structure != null)
             this.gameManager.uiController.DisplayStructureInfo(structure);
         else
+        {
             this.gameManager.uiController.HideStructureInfo();
+            this.gameManager.uiController.ToggleCitizenInteraction(false);
+        }
         return;
     }
 }

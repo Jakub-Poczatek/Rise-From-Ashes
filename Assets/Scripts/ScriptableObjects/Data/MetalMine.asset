@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e77ca10fa2731ae45a0fdc4de872b98e, type: 3}
-  m_Name: Logger's Hut
+  m_Name: MetalMine
   m_EditorClassIdentifier: 
-  structureName: Logger's Hut
-  prefab: {fileID: 5165217977655863059, guid: 9cb38882ec89caf4292824f3b2bb7e62, type: 3}
+  structureName: Metal Mine
+  prefab: {fileID: 361282805584930587, guid: 16dd5c860d2e7c548bee709bc5da4f34, type: 3}
   buildCost:
-    gold: 10
+    gold: 50
     food: 0
-    wood: 100
-    stone: 0
+    wood: 25
+    stone: 50
     metal: 0
   maintenanceGoldCost: 0
-  resourceGenAmount: 2
-  resourceType: 2
-  upgradable: 1
+  resourceGenAmount: 1
+  resourceType: 4
+  upgradable: 0
   maxWorkerCapacity: 1
   availableUpgrades: []

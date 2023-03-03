@@ -107,7 +107,7 @@ public class GridStructure
         }
     }
     
-    public StructureBase GetStructureDataFromGrid(Vector3 gridPosition)
+    public StructureBase GetStructureBaseFromGrid(Vector3 gridPosition)
     {
         var cellIndex = CalculateGridIndex(gridPosition);
         return grid[(int)cellIndex.y, (int)cellIndex.x].GetStructureBase();
@@ -268,13 +268,23 @@ public class GridStructure
         return neightbourPosition;
     }
 
-    public IEnumerable<StructureBase> GetAllStructures()
+    public IEnumerable<StructureBase> GetAllStructuresData()
+    {
+        return GetAllStructuresAndData().Item1;
+    }
+
+    public IEnumerable<GameObject> GetAllStructures()
+    {
+        return GetAllStructuresAndData().Item2;
+    }
+
+    private (IEnumerable<StructureBase>, IEnumerable<GameObject>) GetAllStructuresAndData()
     {
         List<StructureBase> structureBases = new List<StructureBase>();
         List<GameObject> structures = new List<GameObject>();
         for (int row = 0; row < grid.GetLength(0); row++)
         {
-            for(int col = 0; col < grid.GetLength(1); col++)
+            for (int col = 0; col < grid.GetLength(1); col++)
             {
                 var data = grid[row, col].GetStructureBase();
                 var structure = grid[row, col].GetStructure();
@@ -285,7 +295,7 @@ public class GridStructure
                 }
             }
         }
-        return structureBases;
+        return (structureBases, structures);
     }
 }
 

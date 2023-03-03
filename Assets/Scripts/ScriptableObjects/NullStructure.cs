@@ -8,7 +8,7 @@ public class NullStructure : StructureBase
     {
         name = "Nullable Object";
         prefab = null;
-        buildCost = new Cost(0, 0, 0);
+        buildCost = new Cost(0, 0, 0, 0, 0);
         maintenanceGoldCost = 0;
     }
 }

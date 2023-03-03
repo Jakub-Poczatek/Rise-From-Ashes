@@ -8,6 +8,7 @@ public class ResourceGenStruct : StructureBase
     public float resourceGenAmount;
     public ResourceType resourceType;
     public bool upgradable;
+    public int maxWorkerCapacity;
     public UpgradeType[] availableUpgrades;
 }
 
@@ -22,6 +23,8 @@ public struct UpgradeType
 public enum ResourceType
 {
     Gold,
+    Food,
     Wood,
-    Stone
+    Stone,
+    Metal
 }

@@ -7,16 +7,16 @@ public class ResourceManagerTestStub : MonoBehaviour, IResourceManager
     public int InitialGold  { get; }
     public float ResourceCalculationInterval { get; }
 
-    public void CalculateIncome()
+    public void CalculateResources()
     {
     }
 
-    public bool CanIBuyIt(int amount)
+    public bool CanIAffordIt(Cost cost)
     {
         return true;
     }
 
-    public void InceaseGold(int amount)
+    public void EarnResources(Cost cost)
     {
     }
 
@@ -24,7 +24,7 @@ public class ResourceManagerTestStub : MonoBehaviour, IResourceManager
     {
     }
 
-    public bool SpendGold(int amount)
+    public bool Purchase(Cost cost)
     {
         return true;
     }

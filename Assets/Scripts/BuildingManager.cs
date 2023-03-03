@@ -66,7 +66,12 @@ public class BuildingManager
         return structureToReturn;
     }
 
-    public IEnumerable<StructureBase> GetAllStructures()
+    public IEnumerable<StructureBase> GetAllStructuresData()
+    {
+        return gridStructure.GetAllStructuresData();
+    }
+
+    public IEnumerable<GameObject> GetAllStructures()
     {
         return gridStructure.GetAllStructures();
     }
@@ -76,7 +81,7 @@ public class BuildingManager
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         if (gridStructure.IsCellTaken(gridPosition))
         {
-            return gridStructure.GetStructureDataFromGrid(gridPosition);
+            return gridStructure.GetStructureBaseFromGrid(gridPosition);
         }
         return null;
     }

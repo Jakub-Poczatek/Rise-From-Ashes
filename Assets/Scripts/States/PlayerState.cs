@@ -42,13 +42,13 @@ public abstract class PlayerState
     public virtual void OnCancel()
     {
         this.buildingManager.CancelModification();
-        this.gameManager.TransitionToState(this.gameManager.playerSelectionState, null);
+        this.gameManager.TransitionToState(this.gameManager.selectionState, null);
     }
 
     public virtual void OnConfirmAction()
     {
         this.buildingManager.ConfirmModification();
-        this.gameManager.TransitionToState(this.gameManager.playerSelectionState, null);
+        this.gameManager.TransitionToState(this.gameManager.selectionState, null);
     }
 
     public virtual void OnBuildSingleStructure(string structureName)
@@ -63,9 +63,15 @@ public abstract class PlayerState
         this.gameManager.TransitionToState(this.gameManager.buildingRoadState, structureName);
     }
 
+    public virtual void OnCitizenAssign()
+    {
+        this.buildingManager.CancelModification();
+        this.gameManager.TransitionToState(this.gameManager.citizenAssignState, null);
+    }
+
     public virtual void OnDemolish()
     {
         this.buildingManager.CancelModification();
-        this.gameManager.TransitionToState(this.gameManager.playerRemoveBuildingState, null);
+        this.gameManager.TransitionToState(this.gameManager.removeBuildingState, null);
     }
 }
