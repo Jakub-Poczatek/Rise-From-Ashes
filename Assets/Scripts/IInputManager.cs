@@ -1,5 +1,6 @@
-﻿using System;
+﻿/*using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public interface IInputManager
 {
@@ -14,4 +15,5 @@ public interface IInputManager
     void RemoveListenerOnPointerChangeEvent(Action<Vector3> listener);
     void RemoveListenerOnPointerSecondChangeEvent(Action<Vector3> listener);
     void RemoveListenerOnPointerSecondUpEvent(Action listener);
-}
+    void Hello(InputAction.CallbackContext context);
+}*/

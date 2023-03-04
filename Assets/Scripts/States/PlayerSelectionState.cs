@@ -12,7 +12,6 @@ public class PlayerSelectionState : PlayerState
         RaycastHit hit;
         Physics.Raycast(position + (Vector3.up * 5), Vector3.down, out hit, 10);
         GameObject target = hit.collider.transform.parent.gameObject;
-        Debug.Log(target.tag);
 
         switch (target.tag)
         {

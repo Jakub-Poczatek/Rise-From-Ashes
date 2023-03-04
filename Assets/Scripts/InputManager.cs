@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour, IInputManager
+public class InputManager : MonoBehaviour
+    //, IInputManager
 {
     private Action<Vector3> OnPointerSecondChangeHandler;
     private Action OnPointerSecondUpHandler;
     private Action<Vector3> OnPointerDownHandler;
     private Action OnPointerUpHandler;
     private Action<Vector3> OnPointerChangeHandler;
+    private MasterInput masterInput;
     private LayerMask mouseInputMask;
 
     public LayerMask MouseInputMask 
@@ -19,27 +22,43 @@ public class InputManager : MonoBehaviour, IInputManager
         set => this.mouseInputMask = value;
     }
 
+    private void Awake()
+    {
+        masterInput = new();
+        masterInput.Enable();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        GetPointerPosition();
-        GetPanningPointer();
+        GetSecondaryInProgress();
     }
 
-    private void GetPointerPosition()
+    private void GetSecondaryInProgress()
     {
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (masterInput.Master.Secondary.IsInProgress())
         {
-            CallActionOnPointer((position) => OnPointerDownHandler?.Invoke(position));
+            var position = Input.mousePosition;
+            OnPointerSecondChangeHandler?.Invoke(position);
         }
-        if (Input.GetMouseButton(0))
+    }
+
+    public void OnMouseLeftDownCallBack(InputAction.CallbackContext context)
+    {
+        if (context.started)
         {
+            if (!EventSystem.current.IsPointerOverGameObject())
+                CallActionOnPointer((position) => OnPointerDownHandler?.Invoke(position));
             CallActionOnPointer((position) => OnPointerChangeHandler?.Invoke(position));
         }
-        if (Input.GetMouseButtonUp(0))
-        {
+        if (context.canceled)
             OnPointerUpHandler?.Invoke();
-        }
+    }
+
+    public void OnMouseRightCallBack(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+            OnPointerSecondUpHandler?.Invoke();
     }
 
     private void CallActionOnPointer(Action<Vector3> action)
@@ -64,19 +83,6 @@ public class InputManager : MonoBehaviour, IInputManager
         return position;
     }
 
-    private void GetPanningPointer()
-    {
-        if (Input.GetMouseButton(1))
-        {
-            var position = Input.mousePosition;
-            OnPointerSecondChangeHandler?.Invoke(position);
-        }
-
-        if (Input.GetMouseButtonUp(1))
-        {
-            OnPointerSecondUpHandler?.Invoke();
-        }
-    }
 
     public void AddListenerOnPointerDownEvent(Action<Vector3> listener)
     {
@@ -128,3 +134,33 @@ public class InputManager : MonoBehaviour, IInputManager
         OnPointerSecondUpHandler -= listener;
     }
 }
+
+
+/*private void GetPointerPosition()
+{
+    if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+    {
+        CallActionOnPointer((position) => OnPointerDownHandler?.Invoke(position));
+    }
+    if (Input.GetMouseButton(0))
+    {
+        CallActionOnPointer((position) => OnPointerChangeHandler?.Invoke(position));
+    }
+    if (Input.GetMouseButtonUp(0))
+    {
+        OnPointerUpHandler?.Invoke();
+    }
+}*/
+/*private void GetPanningPointer()
+{
+    if (Input.GetMouseButton(1))
+    {
+        var position = Input.mousePosition;
+        OnPointerSecondChangeHandler?.Invoke(position);
+    }
+
+    if (Input.GetMouseButtonUp(1))
+    {
+        OnPointerSecondUpHandler?.Invoke();
+    }
+}*/
