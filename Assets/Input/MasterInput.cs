@@ -53,6 +53,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraZoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""809952e6-5892-48f0-8ebd-e48c2cd939cd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -97,6 +106,17 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""CameraRotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06c4e754-53c7-4ec8-a12b-bf43e7590792"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraZoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -171,6 +191,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Master_Primary = m_Master.FindAction("Primary", throwIfNotFound: true);
         m_Master_Secondary = m_Master.FindAction("Secondary", throwIfNotFound: true);
         m_Master_CameraRotate = m_Master.FindAction("CameraRotate", throwIfNotFound: true);
+        m_Master_CameraZoom = m_Master.FindAction("CameraZoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -235,6 +256,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Master_Primary;
     private readonly InputAction m_Master_Secondary;
     private readonly InputAction m_Master_CameraRotate;
+    private readonly InputAction m_Master_CameraZoom;
     public struct MasterActions
     {
         private @MasterInput m_Wrapper;
@@ -242,6 +264,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public InputAction @Primary => m_Wrapper.m_Master_Primary;
         public InputAction @Secondary => m_Wrapper.m_Master_Secondary;
         public InputAction @CameraRotate => m_Wrapper.m_Master_CameraRotate;
+        public InputAction @CameraZoom => m_Wrapper.m_Master_CameraZoom;
         public InputActionMap Get() { return m_Wrapper.m_Master; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -260,6 +283,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @CameraRotate.started += instance.OnCameraRotate;
             @CameraRotate.performed += instance.OnCameraRotate;
             @CameraRotate.canceled += instance.OnCameraRotate;
+            @CameraZoom.started += instance.OnCameraZoom;
+            @CameraZoom.performed += instance.OnCameraZoom;
+            @CameraZoom.canceled += instance.OnCameraZoom;
         }
 
         private void UnregisterCallbacks(IMasterActions instance)
@@ -273,6 +299,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @CameraRotate.started -= instance.OnCameraRotate;
             @CameraRotate.performed -= instance.OnCameraRotate;
             @CameraRotate.canceled -= instance.OnCameraRotate;
+            @CameraZoom.started -= instance.OnCameraZoom;
+            @CameraZoom.performed -= instance.OnCameraZoom;
+            @CameraZoom.canceled -= instance.OnCameraZoom;
         }
 
         public void RemoveCallbacks(IMasterActions instance)
@@ -340,5 +369,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         void OnPrimary(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
         void OnCameraRotate(InputAction.CallbackContext context);
+        void OnCameraZoom(InputAction.CallbackContext context);
     }
 }

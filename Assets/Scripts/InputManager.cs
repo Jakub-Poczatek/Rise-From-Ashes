@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
     private Action OnMouseLeftUpHandler;
     private Action<Vector3> OnMouseChangeHandler;
     private Action<int> OnCameraRotatePerformedHandler;
+    private Action<float> OnCameraZoomPerformedHandler;
     private MasterInput masterInput;
     private LayerMask mouseInputMask;
 
@@ -69,6 +70,13 @@ public class InputManager : MonoBehaviour
                 OnCameraRotatePerformedHandler.Invoke(-90);
             else if (context.control.name.Equals("q"))
                 OnCameraRotatePerformedHandler.Invoke(90);
+    }
+
+    public void OnCameraZoomCallBack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnCameraZoomPerformedHandler.Invoke(context.ReadValue<Vector2>().normalized.y);
+        //Debug.Log(context.ReadValue<Vector2>().normalized.y);
     }
 
     private void CallActionOnMouseLeft(Action<Vector3> action)
@@ -147,6 +155,11 @@ public class InputManager : MonoBehaviour
     public void AddListenerOnCameraRotatePerformedEvent(Action<int> listener)
     {
         OnCameraRotatePerformedHandler += listener;
+    }
+
+    public void AddListenerOnCameraZoomPerformedEvent(Action<float> listener)
+    {
+        OnCameraZoomPerformedHandler += listener;
     }
 }
 

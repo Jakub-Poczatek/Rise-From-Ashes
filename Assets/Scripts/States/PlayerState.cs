@@ -39,6 +39,11 @@ public abstract class PlayerState
         cameraMovement.RotateCamera(angle);
     }
 
+    public virtual void OnCameraZoom(float zoom)
+    {
+        cameraMovement.ZoomCamera(zoom);
+    }
+
     public virtual void EnterState(string structureName)
     {
         gameManager.uiController.HideStructureInfo();

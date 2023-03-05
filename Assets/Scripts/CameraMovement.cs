@@ -9,6 +9,7 @@ public class CameraMovement : MonoBehaviour
     private int cameraXMin, cameraXMax, cameraZMin, cameraZMax;
     Vector3? basePointerPosition = null;
     public float cameraMovementSpeed = 0.05f;
+    private Camera camera;
 
     // Rotation
     private bool rotateCamera = false;
@@ -18,10 +19,16 @@ public class CameraMovement : MonoBehaviour
     private float angleCounter = 0;
     private float rotationSpeed = 200;
 
+    // Zoom
+    public float maxZoom = 24;
+    public float minZoom = 6;
+    public float minNearClip = -24;
+    public float maxNearClip = -6;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        camera = GetComponentInChildren<Camera>();
     }
 
     // Update is called once per frame
@@ -61,6 +68,12 @@ public class CameraMovement : MonoBehaviour
             isRotating = true;
             rotateCamera = true;
         }
+    }
+
+    public void ZoomCamera(float zoom)
+    {
+        camera.orthographicSize = Mathf.Clamp(camera.orthographicSize - zoom, minZoom, maxZoom);
+        camera.nearClipPlane = Mathf.Clamp(camera.nearClipPlane + zoom, minNearClip, maxNearClip);
     }
 
     private void LimitPositionInsideCameraBounds()
