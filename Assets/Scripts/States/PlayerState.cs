@@ -26,12 +26,27 @@ public abstract class PlayerState
 
     public virtual void OnInputPanChange(Vector3 position)
     {
-        cameraMovement.MoveCamera(position);
+        cameraMovement.PanCamera(position);
     }
 
     public virtual void OnInputPanUp()
     {
         cameraMovement.StopCameraMovement();
+    }
+
+    public virtual void OnCameraRotate(float angle)
+    {
+        cameraMovement.RotateCamera(angle);
+    }
+
+    public virtual void OnCameraZoom(float zoom)
+    {
+        cameraMovement.ZoomCamera(zoom);
+    }
+
+    public virtual void OnCameraMove(Vector2 direction)
+    {
+        cameraMovement.MoveCamera(direction);
     }
 
     public virtual void EnterState(string structureName)

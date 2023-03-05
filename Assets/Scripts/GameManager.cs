@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     private BuildingManager buildingManager;
     private PlayerState playerState;
     private int width, lenght;
-    public IInputManager inputManager;
+    //public IInputManager inputManager;
+    //public InputManager inputManagerConcrete;
+    public InputManager inputManager;
     public LayerMask mouseInputMask;
     public CameraMovement cameraMovement;
     public GameObject placementManagerGameObject;
@@ -38,9 +40,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        #if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
-                inputManager = gameObject.AddComponent<InputManager>();
-        #endif
+        /*#if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
+        inputManager = gameObject.AddComponent<InputManager>();
+        inputManager = inputManagerConcrete;
+        #endif*/
+        //inputManager = inputManagerConcrete;
+        //inputManager = gameObject.AddComponent<InputManager>();
     }
 
     private void PrepareStates()
@@ -89,10 +94,13 @@ public class GameManager : MonoBehaviour
 
     private void AssignInputListener()
     {
-        inputManager.AddListenerOnPointerDownEvent((position) => playerState.OnInputPointerDown(position));
-        inputManager.AddListenerOnPointerSecondChangeEvent((position) => playerState.OnInputPanChange(position));
-        inputManager.AddListenerOnPointerSecondUpEvent(() => playerState.OnInputPanUp());
-        inputManager.AddListenerOnPointerChangeEvent((position) => playerState.OnInputPointerChange(position));
+        inputManager.AddListenerOnMouseLeftDownEvent((position) => playerState.OnInputPointerDown(position));
+        inputManager.AddListenerOnMouseRightChangeEvent((position) => playerState.OnInputPanChange(position));
+        inputManager.AddListenerOnMouseRightUpEvent(() => playerState.OnInputPanUp());
+        inputManager.AddListenerOnMouseChangeEvent((position) => playerState.OnInputPointerChange(position));
+        inputManager.AddListenerOnCameraRotatePerformedEvent((angle) => PlayerState.OnCameraRotate(angle));
+        inputManager.AddListenerOnCameraZoomPerformedEvent((zoom) => PlayerState.OnCameraZoom(zoom));
+        inputManager.AddListenerOnCameraMoveChangeEvent((direction) => playerState.OnCameraMove(direction));
     }
 
     public void TransitionToState(PlayerState newState, string structureName)
