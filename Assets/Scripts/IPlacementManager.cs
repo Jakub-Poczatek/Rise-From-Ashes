@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using UnityEngine;
 
 public interface IPlacementManager
@@ -11,4 +11,4 @@ public interface IPlacementManager
     void DisplayStructureOnMap(IEnumerable<GameObject> structureCollection);
     void ResetBuildingMaterial(GameObject structure);
     void SetStructureForDemolishing(GameObject structureToDemolish);
-}
+}*/

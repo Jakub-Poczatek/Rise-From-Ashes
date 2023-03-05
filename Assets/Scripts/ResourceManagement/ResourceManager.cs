@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour, IResourceManager
+public class ResourceManager : MonoBehaviour
 {
     [SerializeField] private int initialGold = 1000;
     [SerializeField] private int initialFood = 50;
@@ -11,6 +11,8 @@ public class ResourceManager : MonoBehaviour, IResourceManager
     [SerializeField] private int initialStone = 100;
     [SerializeField] private int initialMetal = 0;
     [SerializeField] private float resourceCalculationInterval = 1;
+    [SerializeField] private int maxCitizenCapacity = 3;
+    [SerializeField] private int currentCitizenCapacity = 0;
     
     public UIController uiController;
     private BuildingManager buildingManager;
@@ -19,6 +21,12 @@ public class ResourceManager : MonoBehaviour, IResourceManager
     private BasicResourceHelper woodHelper;
     private BasicResourceHelper stoneHelper;
     private BasicResourceHelper metalHelper;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +40,39 @@ public class ResourceManager : MonoBehaviour, IResourceManager
         UpdateMoneyValueUI();
     }
 
+    public static ResourceManager Instance { get; private set; }
+
+    public int MaxCitizenCapacity 
+    { 
+        get => maxCitizenCapacity;
+        set
+        {
+            maxCitizenCapacity = value;
+            if (maxCitizenCapacity < 0) maxCitizenCapacity = 0;
+        }
+    }
+
+    public int CurrentCitizenCapacity 
+    { 
+        get => currentCitizenCapacity;
+        set
+        {
+            currentCitizenCapacity = value;
+            if (currentCitizenCapacity < 0) currentCitizenCapacity = 0;
+        }
+    }
+
+    private ResourceManager() { }
+
     public void PrepareResourceManager(BuildingManager buildingManager)
     {
         this.buildingManager = buildingManager;
         InvokeRepeating(nameof(CalculateResources), 0, resourceCalculationInterval);
+    }
+
+    public bool CanIHouseCitizen()
+    {
+        return currentCitizenCapacity < maxCitizenCapacity;
     }
 
     public bool Purchase(Cost cost)

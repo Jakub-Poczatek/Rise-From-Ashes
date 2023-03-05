@@ -1,8 +1,8 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManagerTestStub : MonoBehaviour, IResourceManager
+public class ResourceManagerTestStub : MonoBehaviour
 {
     public int InitialGold  { get; }
     public float ResourceCalculationInterval { get; }
@@ -29,3 +29,4 @@ public class ResourceManagerTestStub : MonoBehaviour, IResourceManager
         return true;
     }
 }
+*/

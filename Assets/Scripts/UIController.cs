@@ -9,12 +9,12 @@ public class UIController : MonoBehaviour
 {
     private Action<string> OnBuildSingleStructureHandler;
     private Action<string> OnBuildRoadHandler;
+    private Action<string> OnBuildResidentialHandler;
     private Action OnCancelActionHandler;
     private Action OnDemolishActionHandler;
     private Action OnConfirmActionHandler;
     private Action OnCitizenAssignHandler;
 
-    public Button buildResidentialAreaBtn;
     public Button cancelActionBtn;
     public Button openBuildMenuBtn;
     public Button demolishBtn;
@@ -24,6 +24,7 @@ public class UIController : MonoBehaviour
     public GameObject buildingMenuPnl;
     public GameObject resourceGenStructsPnl;
     public GameObject roadStructsPnl;
+    public GameObject residentialStructsPnl;
     public GameObject structureButtonPrefab;
 
     public TMP_Text goldAmountTxt;
@@ -94,6 +95,7 @@ public class UIController : MonoBehaviour
     {
         CreateButtonsInPanel(resourceGenStructsPnl.transform, structureRepository.GetResourceGenStructNames(), OnBuildSingleStructureCallback);
         CreateButtonsInPanel(roadStructsPnl.transform, new List<string>() { structureRepository.GetRoadStructName() }, OnBuildRoadCallback);
+        CreateButtonsInPanel(residentialStructsPnl.transform, new List<string>() { structureRepository.GetResidentialStructName() }, OnBuildResidentialCallback);
     }
 
     private void CreateButtonsInPanel(Transform panelTransform, List<string> dataToShow, Action<string> callback)
@@ -133,6 +135,12 @@ public class UIController : MonoBehaviour
     {
         PrepareUIForBuilding();
         OnBuildRoadHandler?.Invoke(structureName);
+    }
+
+    private void OnBuildResidentialCallback(string structureName)
+    {
+        PrepareUIForBuilding();
+        OnBuildResidentialHandler?.Invoke(structureName);
     }
 
     private void PrepareUIForBuilding()
@@ -176,6 +184,16 @@ public class UIController : MonoBehaviour
     public void RemoveListenerOnBuildRoadEvent(Action<string> listener)
     {
         OnBuildRoadHandler -= listener;
+    }
+
+    public void AddListenerOnBuildResidentialEvent(Action<string> listener)
+    {
+        OnBuildResidentialHandler += listener;
+    }
+
+    public void RemoveListenerOnBuildResidentialEvent(Action<string> listener)
+    {
+        OnBuildResidentialHandler -= listener;
     }
 
     public void AddListenerOnCancelActionEvent(Action listener)

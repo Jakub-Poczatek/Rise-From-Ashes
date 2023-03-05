@@ -21,15 +21,16 @@ public class SingleStructureModificationHelperTests
     public void Init()
     {
         StructureRepository structureRepository = TestHelpers.CreateStructureRepositoryContainingRoad();
-        IPlacementManager placementManager = Substitute.For<IPlacementManager>();
+        //IPlacementManager placementManager = Substitute.For<IPlacementManager>();
+        PlacementManager placementManager = PlacementManager.Instance;
+        ResourceManager resourceManager = ResourceManager.Instance;
+        //PlacementManager placementManager = Substitute.For<PlacementManager>();
         tempObject = new GameObject();
         tempObject.AddComponent<MeshRenderer>();
-        placementManager.CreateGhostStructure(default, default, default)
-            .ReturnsForAnyArgs((tempObject, gridPosition1, tempObject), (tempObject, gridPosition2, tempObject));
+        //placementManager.CreateGhostStructure(default, default, default)
+        //    .Returns((tempObject, gridPosition1, tempObject), (tempObject, gridPosition2, tempObject));
         gridStructure = new GridStructure(1, 10, 10);
-        IResourceManager resourceManager = Substitute.For<IResourceManager>();
-        resourceManager.CanIAffordIt(default).Returns(true);
-        helper = new SingleStructurePlacementHelper(structureRepository, gridStructure, placementManager, resourceManager);
+        helper = new SingleStructurePlacementHelper(structureRepository, gridStructure);
     }
 
     [Test]

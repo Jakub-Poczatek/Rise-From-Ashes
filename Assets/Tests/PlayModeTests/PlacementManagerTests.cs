@@ -37,7 +37,7 @@ public class PlacementManagerTests
     public IEnumerator CreateGhostStructurePass()
     {
         (GameObject, Vector3, GameObject)? ghostReturn = 
-            placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure);
+            placementManager.CreateGhostResGen(gridPosition1, structureBase, gridStructure);
         yield return new WaitForEndOfFrame();
         Color colourToCompare = Color.green;
         colourToCompare.a = 0.5f;
@@ -51,7 +51,7 @@ public class PlacementManagerTests
     public IEnumerator DisplayStructureOnMapMaterialPasses()
     {
         (GameObject, Vector3, GameObject)? ghostReturn =
-            placementManager.CreateGhostStructure(gridPosition1, structureBase, gridStructure);
+            placementManager.CreateGhostResGen(gridPosition1, structureBase, gridStructure);
         placementManager.DisplayStructureOnMap(new List<GameObject>() { ghostReturn.Value.Item1 });
         yield return new WaitForEndOfFrame();
         foreach (MeshRenderer renderer in ghostReturn.Value.Item1.GetComponentsInChildren<MeshRenderer>())

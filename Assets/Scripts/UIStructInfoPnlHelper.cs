@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 public class UIStructInfoPnlHelper : MonoBehaviour
 {
     public TMP_Text infoPnlStructName, infoPnlStructCost, infoPnlStructLevel, 
-        infoPnlStructType, infoPnlStructIncome;
+        infoPnlStructType, infoPnlStructIncome, infoPnlStructCapacity;
 
     // Start is called before the first frame update
     void Start()
@@ -30,17 +31,26 @@ public class UIStructInfoPnlHelper : MonoBehaviour
         Show();
         HideElement(infoPnlStructType.gameObject);
         HideElement(infoPnlStructIncome.gameObject);
+        HideElement(infoPnlStructCapacity.gameObject);
         SetText(infoPnlStructName, structure.name);
         SetText(infoPnlStructCost, "-" + structure.maintenanceGoldCost.ToString());
 
         if (structure.GetType() == typeof(ResourceGenStruct))
             DisplayResourceGenStruct((ResourceGenStruct) structure);
+        if (structure.GetType() == typeof(ResidentialStruct))
+            DisplayResidentialStruct((ResidentialStruct) structure);
+    }
+
+    private void DisplayResidentialStruct(ResidentialStruct structure)
+    {
+        SetText(infoPnlStructCapacity, structure.maxCitizenCapacity.ToString());
     }
 
     public void DisplayResourceGenStruct(ResourceGenStruct structure)
     {
         SetText(infoPnlStructType, structure.resourceType.ToString());
         SetText(infoPnlStructIncome, "+" + structure.resourceGenAmount.ToString());
+        SetText(infoPnlStructCapacity, structure.maxWorkerCapacity.ToString());
     }
 
     private void HideElement(GameObject element)

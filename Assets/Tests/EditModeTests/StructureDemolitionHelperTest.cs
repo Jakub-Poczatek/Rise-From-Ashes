@@ -18,19 +18,17 @@ public class StructureDemolitionHelperTest
     public void Init()
     {
         StructureRepository structureRepository = TestHelpers.CreateStructureRepositoryContainingRoad();
-        IPlacementManager placementManager = Substitute.For<IPlacementManager>();
+        PlacementManager placementManager = Substitute.For<PlacementManager>();
         tempObject = new GameObject();
         tempObject.AddComponent<MeshRenderer>();
-        placementManager.CreateGhostStructure(default, default, default)
+        placementManager.CreateGhostResGen(default, default, default)
             .ReturnsForAnyArgs((tempObject, gridPosition1, tempObject), (tempObject, gridPosition2, tempObject));
         gridStructure = new GridStructure(1, 10, 10);
 
         gridStructure.PlaceStructureOnTheGrid(tempObject, gridPosition1, null);
         gridStructure.PlaceStructureOnTheGrid(tempObject, gridPosition2, null);
 
-        IResourceManager resourceManager = Substitute.For<IResourceManager>();
-        resourceManager.CanIAffordIt(default).Returns(true);
-        helper = new StructureDemolishingHelper(structureRepository, gridStructure, placementManager, resourceManager);    
+        helper = new StructureDemolishingHelper(structureRepository, gridStructure);    
     }
 
     [Test]

@@ -30,6 +30,11 @@ public class StructureRepository : MonoBehaviour
         return modelDataPool.roadStruct.structureName;
     }
 
+    public string GetResidentialStructName()
+    {
+        return modelDataPool.residentialStruct.structureName;
+    }
+
     public StructureBase GetStructureByName(string structureName, StructureType structureType)
     {
         StructureBase foundStructure;
@@ -41,6 +46,9 @@ public class StructureRepository : MonoBehaviour
             case StructureType.RoadStructure:
                 foundStructure = GetRoadStruct();
                 break;
+            case StructureType.ResidentialStructure:
+                foundStructure = GetResidentialStruct();
+                break;
             default:
                 throw new Exception("Invalid Type: " + structureType);
         }
@@ -50,6 +58,11 @@ public class StructureRepository : MonoBehaviour
             throw new Exception("Invalid prefab name: " + structureName);
         }
         return foundStructure;
+    }
+
+    private StructureBase GetResidentialStruct()
+    {
+        return modelDataPool.residentialStruct;
     }
 
     private RoadStruct GetRoadStruct()
@@ -74,5 +87,6 @@ public enum StructureType
 {
     ResourceGenStructure,
     RoadStructure,
+    ResidentialStructure,
     None
 }

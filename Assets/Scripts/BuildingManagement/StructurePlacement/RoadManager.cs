@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class RoadManager
 {
+    private static PlacementManager placementManager = PlacementManager.Instance;
+
     public static int GetRoadNeighboursStatus(Vector3 position, GridStructure gridStructure, Dictionary<Vector3Int, GameObject> structuresToBeModified)
     {
         int roadNeighboursStatus = 0;
@@ -133,7 +135,7 @@ public static class RoadManager
     }
 
     public static void modifyRoadCellsOnGrid(Dictionary<Vector3Int, GameObject> neighbours, StructureBase structureBase, 
-        Dictionary<Vector3Int, GameObject> structuresToBeModified, GridStructure gridStructure, IPlacementManager placementManager)
+        Dictionary<Vector3Int, GameObject> structuresToBeModified, GridStructure gridStructure)
     {
         foreach (KeyValuePair<Vector3Int, GameObject> kvp in neighbours)
         {
@@ -141,7 +143,7 @@ public static class RoadManager
             MonoBehaviour.Destroy(kvp.Value);
             gridStructure.RemoveStructureFromTheGrid(kvp.Key);
             RoadStructureHelper roadStruct = RoadManager.GetCorrectRoadPrefab(kvp.Key, structureBase, structuresToBeModified, gridStructure);
-            PlaceNewRoad(roadStruct, kvp.Key, kvp.Key, placementManager, gridStructure, structuresToBeModified, structureBase);
+            PlaceNewRoad(roadStruct, kvp.Key, kvp.Key, gridStructure, structuresToBeModified, structureBase);
             //var structure =
             //placementManager.InstantiateRoad(kvp.Key, roadStruct.RoadPrefab, roadStruct.RoadPrefabRotation);
             //placementManager.CreateGhostRoad(kvp.Key, roadStruct.RoadPrefab, gridStructure, roadStruct.RoadPrefabRotation);
@@ -177,8 +179,9 @@ public static class RoadManager
     }
 
     public static Vector3Int PlaceNewRoad(RoadStructureHelper road, Vector3 gridPosition, Vector3Int gridPositionInt, 
-        IPlacementManager placementManager, GridStructure gridStructure, Dictionary<Vector3Int, GameObject> structuresToBeModified, StructureBase structureBase)
+        GridStructure gridStructure, Dictionary<Vector3Int, GameObject> structuresToBeModified, StructureBase structureBase)
     {
+
         (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostRoad(gridPosition, road.RoadPrefab, gridStructure, road.RoadPrefabRotation);
         if (ghostReturn != null)
         {

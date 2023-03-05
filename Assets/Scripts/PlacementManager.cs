@@ -4,19 +4,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlacementManager : MonoBehaviour, IPlacementManager
+public class PlacementManager : MonoBehaviour
 {
     public Transform ground;
     public GameObject gridOutline;
     public Material transparentMaterial;
     private Dictionary<GameObject, Material[]> originalMaterials = new Dictionary<GameObject, Material[]>();
 
-    public (GameObject, Vector3, GameObject)? CreateGhostStructure(Vector3 gridPosition, StructureBase structure,
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+
+    public static PlacementManager Instance { get; private set; }
+    
+    private PlacementManager() { }
+
+    public (GameObject, Vector3, GameObject)? CreateGhostResGen(Vector3 gridPosition, StructureBase structure,
         GridStructure gridStructure)
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
         newStructure.GetComponent<WorkableStructure>().StructureData = (ResourceGenStruct) structure;
+        Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
+
+        // Maybe change size.z to size.x
+        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.z));
+        newStructure.transform.position += diff;
+        gridPosition += diff;
+
+        if (gridStructure.CheckIfStructureFits(newStructure, gridPosition) && !gridStructure.CheckIfStructureExists(newStructure, gridPosition))
+        {
+            Color colourToSet = Color.green;
+            ChangeStructureMaterial(newStructure, colourToSet);
+            return (newStructure, gridPosition, gridOutline);
+        }
+        else
+        {
+            Destroy(newStructure);
+            return null;
+        }
+    }
+
+    public (GameObject, Vector3, GameObject)? CreateGhostResidential(Vector3 gridPosition, StructureBase structure,
+        GridStructure gridStructure)
+    {
+
+        GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x

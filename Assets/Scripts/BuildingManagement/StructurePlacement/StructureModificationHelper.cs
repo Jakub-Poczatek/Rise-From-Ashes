@@ -7,19 +7,18 @@ public abstract class StructureModificationHelper
     protected Dictionary<Vector3Int, GameObject> structuresToBeModified = new Dictionary<Vector3Int, GameObject>();
     protected readonly StructureRepository structureRepository;
     protected readonly GridStructure gridStructure;
-    protected readonly IPlacementManager placementManager;
-    protected IResourceManager resourceManager;
+    protected readonly PlacementManager placementManager;
+    protected ResourceManager resourceManager;
     protected StructureBase structureBase;
 
 
-    public StructureModificationHelper(StructureRepository structureRepository, GridStructure gridStructure,
-        IPlacementManager placementManager, IResourceManager resourceManager)
+    public StructureModificationHelper(StructureRepository structureRepository, GridStructure gridStructure)
     {
         this.structureRepository = structureRepository;
         this.gridStructure = gridStructure;
-        this.placementManager = placementManager;
-        this.resourceManager = resourceManager;
         structureBase = ScriptableObject.CreateInstance<NullStructure>();
+        placementManager = PlacementManager.Instance;
+        resourceManager = ResourceManager.Instance;
     }
 
     public GameObject GetStructureToBeModified(Vector3 gridPosition)

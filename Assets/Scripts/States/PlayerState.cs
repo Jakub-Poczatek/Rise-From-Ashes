@@ -78,6 +78,12 @@ public abstract class PlayerState
         this.gameManager.TransitionToState(this.gameManager.buildingRoadState, structureName);
     }
 
+    public virtual void OnBuildResidential(string structureName)
+    {
+        this.buildingManager.CancelModification();
+        this.gameManager.TransitionToState(this.gameManager.buildingResidentialState, structureName);
+    }
+
     public virtual void OnCitizenAssign()
     {
         this.buildingManager.CancelModification();

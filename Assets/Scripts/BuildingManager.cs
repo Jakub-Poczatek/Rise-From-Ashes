@@ -5,18 +5,16 @@ using UnityEngine;
 
 public class BuildingManager
 {
-    GridStructure gridStructure;
-    IPlacementManager placementManager;
-    StructureRepository structureRepository;
-    StructureModificationHelper helper;
+    private GridStructure gridStructure;
+    private StructureRepository structureRepository;
+    private StructureModificationHelper helper;
 
-    public BuildingManager(IPlacementManager placementManager, StructureRepository structureRepository, IResourceManager resourceManager,
+    public BuildingManager(StructureRepository structureRepository,
         int cellSize, int width, int length)
     {
         this.gridStructure = new GridStructure(cellSize, width, length);
-        this.placementManager = placementManager;
         this.structureRepository = structureRepository;
-        StructureModificationFactory.PrepareStructureModificationFactory(structureRepository, gridStructure, placementManager, resourceManager);
+        StructureModificationFactory.PrepareStructureModificationFactory(structureRepository, gridStructure);
     }
 
     public void PrepareBuildingManager(Type classType)
