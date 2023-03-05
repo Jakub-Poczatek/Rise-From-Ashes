@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
         inputManager.AddListenerOnMouseChangeEvent((position) => playerState.OnInputPointerChange(position));
         inputManager.AddListenerOnCameraRotatePerformedEvent((angle) => PlayerState.OnCameraRotate(angle));
         inputManager.AddListenerOnCameraZoomPerformedEvent((zoom) => PlayerState.OnCameraZoom(zoom));
+        inputManager.AddListenerOnCameraMoveChangeEvent((direction) => playerState.OnCameraMove(direction));
     }
 
     public void TransitionToState(PlayerState newState, string structureName)

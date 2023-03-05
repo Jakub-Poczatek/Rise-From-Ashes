@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
     private Action<Vector3> OnMouseChangeHandler;
     private Action<int> OnCameraRotatePerformedHandler;
     private Action<float> OnCameraZoomPerformedHandler;
+    private Action<Vector2> OnCameraMoveChangeHandler;
     private MasterInput masterInput;
     private LayerMask mouseInputMask;
 
@@ -34,6 +35,15 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         GetSecondaryInProgress();
+        GetCameraMoveInProgress();
+    }
+
+    private void GetCameraMoveInProgress()
+    {
+        if (masterInput.Master.CameraMove.IsInProgress())
+        {
+            OnCameraMoveChangeHandler?.Invoke(masterInput.Master.CameraMove.ReadValue<Vector2>() * Time.deltaTime);
+        }
     }
 
     private void GetSecondaryInProgress()
@@ -67,15 +77,15 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
             if (context.control.name.Equals("e"))
-                OnCameraRotatePerformedHandler.Invoke(-90);
+                OnCameraRotatePerformedHandler?.Invoke(-90);
             else if (context.control.name.Equals("q"))
-                OnCameraRotatePerformedHandler.Invoke(90);
+                OnCameraRotatePerformedHandler?.Invoke(90);
     }
 
     public void OnCameraZoomCallBack(InputAction.CallbackContext context)
     {
         if (context.performed)
-            OnCameraZoomPerformedHandler.Invoke(context.ReadValue<Vector2>().normalized.y);
+            OnCameraZoomPerformedHandler?.Invoke(context.ReadValue<Vector2>().normalized.y);
         //Debug.Log(context.ReadValue<Vector2>().normalized.y);
     }
 
@@ -160,6 +170,11 @@ public class InputManager : MonoBehaviour
     public void AddListenerOnCameraZoomPerformedEvent(Action<float> listener)
     {
         OnCameraZoomPerformedHandler += listener;
+    }
+
+    public void AddListenerOnCameraMoveChangeEvent(Action<Vector2> listener)
+    {
+        OnCameraMoveChangeHandler += listener;
     }
 }
 

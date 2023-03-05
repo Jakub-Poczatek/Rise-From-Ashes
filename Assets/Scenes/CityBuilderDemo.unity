@@ -1095,6 +1095,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 809952e6-5892-48f0-8ebd-e48c2cd939cd
     m_ActionName: Master/CameraZoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b113205-f973-4a8e-b492-8cf096796821
+    m_ActionName: Master/CameraMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Master
@@ -2828,7 +2832,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dc65a83cfa63444ad7da5b775a5512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMovementSpeed: 0.0005
+  cameraPanSpeed: 0.1
+  cameraMoveSpeed: 35
   maxZoom: 24
   minZoom: 6
   minNearClip: -24

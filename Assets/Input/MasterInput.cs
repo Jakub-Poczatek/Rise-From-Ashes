@@ -62,6 +62,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CameraMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""2b113205-f973-4a8e-b492-8cf096796821"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -119,6 +128,61 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""action"": ""CameraZoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Direction"",
+                    ""id"": ""f4fbb398-e176-4fe5-a1b5-252aee45a702"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""33cebb5c-c77a-489d-bb89-ad7397542d8d"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""fe236835-5445-410f-9bbc-0852f850a21f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""967d3bef-9c8a-4d63-8647-08a4e11b7b54"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3c430c8c-1b41-499f-a5dd-1edc1ffbc99e"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -192,6 +256,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Master_Secondary = m_Master.FindAction("Secondary", throwIfNotFound: true);
         m_Master_CameraRotate = m_Master.FindAction("CameraRotate", throwIfNotFound: true);
         m_Master_CameraZoom = m_Master.FindAction("CameraZoom", throwIfNotFound: true);
+        m_Master_CameraMove = m_Master.FindAction("CameraMove", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -257,6 +322,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Master_Secondary;
     private readonly InputAction m_Master_CameraRotate;
     private readonly InputAction m_Master_CameraZoom;
+    private readonly InputAction m_Master_CameraMove;
     public struct MasterActions
     {
         private @MasterInput m_Wrapper;
@@ -265,6 +331,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public InputAction @Secondary => m_Wrapper.m_Master_Secondary;
         public InputAction @CameraRotate => m_Wrapper.m_Master_CameraRotate;
         public InputAction @CameraZoom => m_Wrapper.m_Master_CameraZoom;
+        public InputAction @CameraMove => m_Wrapper.m_Master_CameraMove;
         public InputActionMap Get() { return m_Wrapper.m_Master; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -286,6 +353,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @CameraZoom.started += instance.OnCameraZoom;
             @CameraZoom.performed += instance.OnCameraZoom;
             @CameraZoom.canceled += instance.OnCameraZoom;
+            @CameraMove.started += instance.OnCameraMove;
+            @CameraMove.performed += instance.OnCameraMove;
+            @CameraMove.canceled += instance.OnCameraMove;
         }
 
         private void UnregisterCallbacks(IMasterActions instance)
@@ -302,6 +372,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @CameraZoom.started -= instance.OnCameraZoom;
             @CameraZoom.performed -= instance.OnCameraZoom;
             @CameraZoom.canceled -= instance.OnCameraZoom;
+            @CameraMove.started -= instance.OnCameraMove;
+            @CameraMove.performed -= instance.OnCameraMove;
+            @CameraMove.canceled -= instance.OnCameraMove;
         }
 
         public void RemoveCallbacks(IMasterActions instance)
@@ -370,5 +443,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         void OnSecondary(InputAction.CallbackContext context);
         void OnCameraRotate(InputAction.CallbackContext context);
         void OnCameraZoom(InputAction.CallbackContext context);
+        void OnCameraMove(InputAction.CallbackContext context);
     }
 }

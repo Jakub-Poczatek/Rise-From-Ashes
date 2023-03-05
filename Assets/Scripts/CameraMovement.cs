@@ -6,10 +6,13 @@ using UnityEngine.UIElements;
 
 public class CameraMovement : MonoBehaviour
 {
+    private Camera childCamera;
+
+    // Move
     private int cameraXMin, cameraXMax, cameraZMin, cameraZMax;
     Vector3? basePointerPosition = null;
-    public float cameraMovementSpeed = 0.05f;
-    private Camera camera;
+    public float cameraPanSpeed = 0.05f;
+    public float cameraMoveSpeed = 1;
 
     // Rotation
     private bool rotateCamera = false;
@@ -28,11 +31,16 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camera = GetComponentInChildren<Camera>();
+        childCamera = GetComponentInChildren<Camera>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+        UpdateRotate();
+    }
+
+    private void UpdateRotate()
     {
         if (rotateCamera)
         {
@@ -46,7 +54,7 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    public void MoveCamera(Vector3 pointerPosition)
+    public void PanCamera(Vector3 pointerPosition)
     {
         if (!basePointerPosition.HasValue)
         {
@@ -54,8 +62,15 @@ public class CameraMovement : MonoBehaviour
         }
         Vector3 newPosition = pointerPosition - basePointerPosition.Value;
         newPosition = new Vector3(newPosition.x, 0, newPosition.y);
-        transform.Translate(newPosition * cameraMovementSpeed);
-        LimitPositionInsideCameraBounds();
+        transform.Translate(newPosition * Time.deltaTime * cameraPanSpeed);
+        ClampPosition();
+    }
+
+    public void MoveCamera(Vector2 direction)
+    {
+        Vector3 moveBy = new Vector3(direction.x, 0, direction.y);
+        transform.Translate(moveBy * cameraMoveSpeed);
+        ClampPosition();
     }
 
     public void RotateCamera(float angle)
@@ -72,17 +87,24 @@ public class CameraMovement : MonoBehaviour
 
     public void ZoomCamera(float zoom)
     {
-        camera.orthographicSize = Mathf.Clamp(camera.orthographicSize - zoom, minZoom, maxZoom);
-        camera.nearClipPlane = Mathf.Clamp(camera.nearClipPlane + zoom, minNearClip, maxNearClip);
+        childCamera.orthographicSize -= zoom;
+        childCamera.nearClipPlane += zoom;
+        ClampOrthographicSizeAndNearClipPlane();
     }
 
-    private void LimitPositionInsideCameraBounds()
+    private void ClampPosition()
     {
         transform.position = new Vector3(
                 Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), 
                 0,
                 Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax)
                 );
+    }
+
+    private void ClampOrthographicSizeAndNearClipPlane()
+    {
+        childCamera.orthographicSize = Mathf.Clamp(childCamera.orthographicSize, minZoom, maxZoom);
+        childCamera.nearClipPlane = Mathf.Clamp(childCamera.nearClipPlane, minNearClip, maxNearClip);
     }
 
     public void StopCameraMovement()
