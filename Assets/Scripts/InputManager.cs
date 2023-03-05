@@ -8,11 +8,12 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
     //, IInputManager
 {
-    private Action<Vector3> OnPointerSecondChangeHandler;
-    private Action OnPointerSecondUpHandler;
-    private Action<Vector3> OnPointerDownHandler;
-    private Action OnPointerUpHandler;
-    private Action<Vector3> OnPointerChangeHandler;
+    private Action<Vector3> OnMouseRightChangeHandler;
+    private Action OnMouseRightUpHandler;
+    private Action<Vector3> OnMouseLeftDownHandler;
+    private Action OnMouseLeftUpHandler;
+    private Action<Vector3> OnMouseChangeHandler;
+    private Action<int> OnCameraRotatePerformedHandler;
     private MasterInput masterInput;
     private LayerMask mouseInputMask;
 
@@ -39,29 +40,38 @@ public class InputManager : MonoBehaviour
         if (masterInput.Master.Secondary.IsInProgress())
         {
             var position = Input.mousePosition;
-            OnPointerSecondChangeHandler?.Invoke(position);
+            OnMouseRightChangeHandler?.Invoke(position);
         }
     }
 
-    public void OnMouseLeftDownCallBack(InputAction.CallbackContext context)
+    public void OnMouseLeftCallBack(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             if (!EventSystem.current.IsPointerOverGameObject())
-                CallActionOnPointer((position) => OnPointerDownHandler?.Invoke(position));
-            CallActionOnPointer((position) => OnPointerChangeHandler?.Invoke(position));
+                CallActionOnMouseLeft((position) => OnMouseLeftDownHandler?.Invoke(position));
+            CallActionOnMouseLeft((position) => OnMouseChangeHandler?.Invoke(position));
         }
         if (context.canceled)
-            OnPointerUpHandler?.Invoke();
+            OnMouseLeftUpHandler?.Invoke();
     }
 
     public void OnMouseRightCallBack(InputAction.CallbackContext context)
     {
         if (context.canceled)
-            OnPointerSecondUpHandler?.Invoke();
+            OnMouseRightUpHandler?.Invoke();
     }
 
-    private void CallActionOnPointer(Action<Vector3> action)
+    public void OnCameraRotateCallBack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            if (context.control.name.Equals("e"))
+                OnCameraRotatePerformedHandler.Invoke(-90);
+            else if (context.control.name.Equals("q"))
+                OnCameraRotatePerformedHandler.Invoke(90);
+    }
+
+    private void CallActionOnMouseLeft(Action<Vector3> action)
     {
         Vector3? position = GetMousePosition();
         if (position.HasValue)
@@ -84,54 +94,59 @@ public class InputManager : MonoBehaviour
     }
 
 
-    public void AddListenerOnPointerDownEvent(Action<Vector3> listener)
+    public void AddListenerOnMouseLeftDownEvent(Action<Vector3> listener)
     {
-        OnPointerDownHandler += listener;
+        OnMouseLeftDownHandler += listener;
     }
 
-    public void RemoveListenerOnPointerDownEvent(Action<Vector3> listener)
+    public void RemoveListenerOnMouseLeftDownEvent(Action<Vector3> listener)
     {
-        OnPointerDownHandler -= listener;
+        OnMouseLeftDownHandler -= listener;
     }
 
-    public void AddListenerOnPointerUpEvent(Action listener)
+    public void AddListenerOnMouseLeftUpEvent(Action listener)
     {
-        OnPointerUpHandler += listener;
+        OnMouseLeftUpHandler += listener;
     }
 
-    public void RemoveListenerOnPointerUpEvent(Action listener)
+    public void RemoveListenerOnMouseLeftUpEvent(Action listener)
     {
-        OnPointerUpHandler -= listener;
+        OnMouseLeftUpHandler -= listener;
     }
 
-    public void AddListenerOnPointerChangeEvent(Action<Vector3> listener)
+    public void AddListenerOnMouseChangeEvent(Action<Vector3> listener)
     {
-        OnPointerChangeHandler += listener;
+        OnMouseChangeHandler += listener;
     }
 
-    public void RemoveListenerOnPointerChangeEvent(Action<Vector3> listener)
+    public void RemoveListenerOnMouseChangeEvent(Action<Vector3> listener)
     {
-        OnPointerChangeHandler -= listener;
+        OnMouseChangeHandler -= listener;
     }
 
-    public void AddListenerOnPointerSecondChangeEvent(Action<Vector3> listener)
+    public void AddListenerOnMouseRightChangeEvent(Action<Vector3> listener)
     {
-        OnPointerSecondChangeHandler += listener;
+        OnMouseRightChangeHandler += listener;
     }
 
-    public void RemoveListenerOnPointerSecondChangeEvent(Action<Vector3> listener)
+    public void RemoveListenerOnMouseRightChangeEvent(Action<Vector3> listener)
     {
-        OnPointerSecondChangeHandler -= listener;
+        OnMouseRightChangeHandler -= listener;
     }
 
-    public void AddListenerOnPointerSecondUpEvent(Action listener)
+    public void AddListenerOnMouseRightUpEvent(Action listener)
     {
-        OnPointerSecondUpHandler += listener;
+        OnMouseRightUpHandler += listener;
     }
 
-    public void RemoveListenerOnPointerSecondUpEvent(Action listener)
+    public void RemoveListenerOnMouseRightUpEvent(Action listener)
     {
-        OnPointerSecondUpHandler -= listener;
+        OnMouseRightUpHandler -= listener;
+    }
+
+    public void AddListenerOnCameraRotatePerformedEvent(Action<int> listener)
+    {
+        OnCameraRotatePerformedHandler += listener;
     }
 }
 
@@ -140,15 +155,15 @@ public class InputManager : MonoBehaviour
 {
     if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
     {
-        CallActionOnPointer((position) => OnPointerDownHandler?.Invoke(position));
+        CallActionOnMouseLeft((position) => OnMouseLeftDownHandler?.Invoke(position));
     }
     if (Input.GetMouseButton(0))
     {
-        CallActionOnPointer((position) => OnPointerChangeHandler?.Invoke(position));
+        CallActionOnMouseLeft((position) => OnMouseChangeHandler?.Invoke(position));
     }
     if (Input.GetMouseButtonUp(0))
     {
-        OnPointerUpHandler?.Invoke();
+        OnMouseLeftUpHandler?.Invoke();
     }
 }*/
 /*private void GetPanningPointer()
@@ -156,11 +171,11 @@ public class InputManager : MonoBehaviour
     if (Input.GetMouseButton(1))
     {
         var position = Input.mousePosition;
-        OnPointerSecondChangeHandler?.Invoke(position);
+        OnMouseRightChangeHandler?.Invoke(position);
     }
 
     if (Input.GetMouseButtonUp(1))
     {
-        OnPointerSecondUpHandler?.Invoke();
+        OnMouseRightUpHandler?.Invoke();
     }
 }*/

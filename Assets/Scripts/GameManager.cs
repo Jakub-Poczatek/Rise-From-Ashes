@@ -94,10 +94,11 @@ public class GameManager : MonoBehaviour
 
     private void AssignInputListener()
     {
-        inputManager.AddListenerOnPointerDownEvent((position) => playerState.OnInputPointerDown(position));
-        inputManager.AddListenerOnPointerSecondChangeEvent((position) => playerState.OnInputPanChange(position));
-        inputManager.AddListenerOnPointerSecondUpEvent(() => playerState.OnInputPanUp());
-        inputManager.AddListenerOnPointerChangeEvent((position) => playerState.OnInputPointerChange(position));
+        inputManager.AddListenerOnMouseLeftDownEvent((position) => playerState.OnInputPointerDown(position));
+        inputManager.AddListenerOnMouseRightChangeEvent((position) => playerState.OnInputPanChange(position));
+        inputManager.AddListenerOnMouseRightUpEvent(() => playerState.OnInputPanUp());
+        inputManager.AddListenerOnMouseChangeEvent((position) => playerState.OnInputPointerChange(position));
+        inputManager.AddListenerOnCameraRotatePerformedEvent((angle) => PlayerState.OnCameraRotate(angle));
     }
 
     public void TransitionToState(PlayerState newState, string structureName)

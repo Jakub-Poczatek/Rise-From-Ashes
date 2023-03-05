@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 public interface IInputManager
 {
     LayerMask MouseInputMask { get; set; }
-    void AddListenerOnPointerDownEvent(Action<Vector3> listener);
-    void AddListenerOnPointerUpEvent(Action listener);
-    void AddListenerOnPointerChangeEvent(Action<Vector3> listener);
-    void AddListenerOnPointerSecondChangeEvent(Action<Vector3> listener);
-    void AddListenerOnPointerSecondUpEvent(Action listener);
-    void RemoveListenerOnPointerDownEvent(Action<Vector3> listener);
-    void RemoveListenerOnPointerUpEvent(Action listener);
-    void RemoveListenerOnPointerChangeEvent(Action<Vector3> listener);
-    void RemoveListenerOnPointerSecondChangeEvent(Action<Vector3> listener);
-    void RemoveListenerOnPointerSecondUpEvent(Action listener);
+    void AddListenerOnMouseLeftDownEvent(Action<Vector3> listener);
+    void AddListenerOnMouseLeftUpEvent(Action listener);
+    void AddListenerOnMouseChangeEvent(Action<Vector3> listener);
+    void AddListenerOnMouseRightChangeEvent(Action<Vector3> listener);
+    void AddListenerOnMouseRightUpEvent(Action listener);
+    void RemoveListenerOnMouseLeftDownEvent(Action<Vector3> listener);
+    void RemoveListenerOnMouseLeftUpEvent(Action listener);
+    void RemoveListenerOnMouseChangeEvent(Action<Vector3> listener);
+    void RemoveListenerOnMouseRightChangeEvent(Action<Vector3> listener);
+    void RemoveListenerOnMouseRightUpEvent(Action listener);
     void Hello(InputAction.CallbackContext context);
 }*/

@@ -34,6 +34,11 @@ public abstract class PlayerState
         cameraMovement.StopCameraMovement();
     }
 
+    public virtual void OnCameraRotate(float angle)
+    {
+        cameraMovement.RotateCamera(angle);
+    }
+
     public virtual void EnterState(string structureName)
     {
         gameManager.uiController.HideStructureInfo();

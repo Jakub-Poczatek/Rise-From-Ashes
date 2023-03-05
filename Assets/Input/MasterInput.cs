@@ -44,6 +44,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CameraRotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""0501b522-63dd-4ddf-bf69-a65017f170bb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -66,6 +75,28 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Secondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99ad0ef5-1d29-46f6-87e5-6e822830a40c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraRotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d00a42a5-53c6-4702-83b5-77b934800f77"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraRotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -139,6 +170,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Master = asset.FindActionMap("Master", throwIfNotFound: true);
         m_Master_Primary = m_Master.FindAction("Primary", throwIfNotFound: true);
         m_Master_Secondary = m_Master.FindAction("Secondary", throwIfNotFound: true);
+        m_Master_CameraRotate = m_Master.FindAction("CameraRotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -202,12 +234,14 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private List<IMasterActions> m_MasterActionsCallbackInterfaces = new List<IMasterActions>();
     private readonly InputAction m_Master_Primary;
     private readonly InputAction m_Master_Secondary;
+    private readonly InputAction m_Master_CameraRotate;
     public struct MasterActions
     {
         private @MasterInput m_Wrapper;
         public MasterActions(@MasterInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Primary => m_Wrapper.m_Master_Primary;
         public InputAction @Secondary => m_Wrapper.m_Master_Secondary;
+        public InputAction @CameraRotate => m_Wrapper.m_Master_CameraRotate;
         public InputActionMap Get() { return m_Wrapper.m_Master; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -223,6 +257,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @Secondary.started += instance.OnSecondary;
             @Secondary.performed += instance.OnSecondary;
             @Secondary.canceled += instance.OnSecondary;
+            @CameraRotate.started += instance.OnCameraRotate;
+            @CameraRotate.performed += instance.OnCameraRotate;
+            @CameraRotate.canceled += instance.OnCameraRotate;
         }
 
         private void UnregisterCallbacks(IMasterActions instance)
@@ -233,6 +270,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @Secondary.started -= instance.OnSecondary;
             @Secondary.performed -= instance.OnSecondary;
             @Secondary.canceled -= instance.OnSecondary;
+            @CameraRotate.started -= instance.OnCameraRotate;
+            @CameraRotate.performed -= instance.OnCameraRotate;
+            @CameraRotate.canceled -= instance.OnCameraRotate;
         }
 
         public void RemoveCallbacks(IMasterActions instance)
@@ -299,5 +339,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     {
         void OnPrimary(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
+        void OnCameraRotate(InputAction.CallbackContext context);
     }
 }

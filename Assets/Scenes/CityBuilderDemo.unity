@@ -1035,7 +1035,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 590720103}
         m_TargetAssemblyTypeName: InputManager, ProjectAssembly
-        m_MethodName: OnMouseLeftDownCallBack
+        m_MethodName: OnMouseLeftCallBack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1049,13 +1049,13 @@ MonoBehaviour:
     m_ActionName: Master/Interact[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 590720103}
+        m_TargetAssemblyTypeName: InputManager, ProjectAssembly
+        m_MethodName: OnMouseRightCallBack
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1063,6 +1063,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 46760f74-ddc1-4085-b316-ec444004de76
     m_ActionName: Master/CameraChange[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 590720103}
+        m_TargetAssemblyTypeName: InputManager, ProjectAssembly
+        m_MethodName: OnCameraRotateCallBack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0501b522-63dd-4ddf-bf69-a65017f170bb
+    m_ActionName: Master/CameraRotate[/Keyboard/e,/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Master
