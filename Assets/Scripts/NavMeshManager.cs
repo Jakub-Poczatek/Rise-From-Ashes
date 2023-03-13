@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class NavMeshManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public NavMeshSurface navMeshSurface;
+
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static NavMeshManager Instance { get; private set; }
+
+    private NavMeshManager() { }
+
+    public void Rebake()
     {
-        
+        navMeshSurface.BuildNavMesh();
     }
 }

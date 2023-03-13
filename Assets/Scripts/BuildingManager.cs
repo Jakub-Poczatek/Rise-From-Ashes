@@ -30,6 +30,7 @@ public class BuildingManager
     public void ConfirmModification()
     {
         helper.ConfirmModifications();
+        NavMeshManager.Instance.Rebake();
     }
 
     public void CancelModification()
