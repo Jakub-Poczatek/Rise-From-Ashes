@@ -34,9 +34,7 @@ public class UIController : MonoBehaviour
     public TMP_Text metalAmountTxt;
 
     public UIStructInfoPnlHelper structPanelHelper;
-
-    public GameObject citizenInteractionPnl;
-    private Button citizenAssignBtn;
+    public UICitizenInfoPnlHelper citizenPanelHelper;
 
     /*public TMP_Text infoPnlStructName;
     public TMP_Text infoPnlStructCost;
@@ -51,7 +49,8 @@ public class UIController : MonoBehaviour
     {
         cancelActionPnl.SetActive(false);
         buildingMenuPnl.SetActive(false);
-        citizenInteractionPnl.SetActive(false);
+        citizenPanelHelper.Hide();
+
         //buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
         confirmActionBtn.onClick.AddListener(OnConfirmActionCallback);
@@ -59,13 +58,17 @@ public class UIController : MonoBehaviour
         demolishBtn.onClick.AddListener(OnDemolishHandler);
         closeBuildMenuBtn.onClick.AddListener(OnCloseMenuHandler);
 
-        citizenAssignBtn = citizenInteractionPnl.transform.GetChild(0).GetComponent<Button>();
-        citizenAssignBtn.onClick.AddListener(OnCitizenAssignCallback);
+        citizenPanelHelper.assignBtn.onClick.AddListener(OnCitizenAssignCallback);
     }
 
-    public void ToggleCitizenInteraction(bool toggle)
+    public void ToggleCitizenInteraction(bool toggle, CitizenData citizenData = null)
     {
-        citizenInteractionPnl.SetActive(toggle);
+        if (toggle)
+        {
+            citizenPanelHelper.DisplayCitizenMenu(citizenData);
+            citizenPanelHelper.Show();
+        }
+        else citizenPanelHelper.Hide();
     }
 
     public void DisplayStructureInfo(StructureBase structure)

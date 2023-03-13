@@ -14,10 +14,12 @@ public class Citizen : MonoBehaviour
     private bool isWorking = false;
     private Vector3 townHallPos;
     private bool stateRunning = false;
+    public CitizenData citizenData;
 
     // Start is called before the first frame update
     void Start()
     {
+        CreateCitizenData();
         anim = this.GetComponent<Animator>();
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         agent = this.GetComponent<NavMeshAgent>();
@@ -94,6 +96,7 @@ public class Citizen : MonoBehaviour
         state = State.Working;
         agent.SetDestination(target);
         building.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
+        AssignNewOccupation(building.GetComponent<WorkableStructure>().ResourceType);
         stateRunning = false;
     }
 
@@ -102,6 +105,59 @@ public class Citizen : MonoBehaviour
         Idle,
         Roaming,
         Working
+    }
+
+    private void AssignNewOccupation(ResourceType resourceType)
+    {
+        switch (resourceType)
+        {
+            case ResourceType.Gold:
+                citizenData.occupation = Occupation.Merchant;
+                break;
+            case ResourceType.Food:
+                citizenData.occupation = Occupation.Farmer;
+                break;
+            case ResourceType.Wood:
+                citizenData.occupation = Occupation.Logger;
+                break;
+            case ResourceType.Stone:
+                citizenData.occupation = Occupation.Miner;
+                break;
+            case ResourceType.Metal:
+                citizenData.occupation = Occupation.Miner;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void CreateCitizenData()
+    {
+        string firstName = NameData.firstNames[Random.Range(0, NameData.firstNames.Length)];
+        string lastName = NameData.lastNames[Random.Range(0, NameData.lastNames.Length)];
+        Skills skills = new(1, 1, 1, 1, 1);
+        citizenData = new(
+            firstName + " " + lastName,
+            Occupation.Citizen,
+            100,
+            5,
+            8,
+            0,
+            500,
+            skills
+        );
+
+        /*Debug.Log(
+            "Name: " + citizenData.name +
+            "\nOccupation: " + citizenData.occupation +
+            "\nHealth: " + citizenData.health +
+            "\nDaily Food: " + citizenData.dailyFood +
+            "\nDaily Sleep: " + citizenData.dailySleep +
+            "\nHappiness: " + citizenData.happiness +
+            "\nLoyalty: " + citizenData.loyalty +
+            "\nSkills: " + citizenData.skills.ToString() +
+            "\n\t"
+            );*/
     }
 }
 
