@@ -126,6 +126,8 @@ public class UIController : MonoBehaviour
     private void OnCitizenAssignCallback()
     {
         OnCitizenAssignHandler?.Invoke();
+        citizenPanelHelper.Hide();
+        cancelActionPnl.gameObject.SetActive(true);
     }
 
     private void OnBuildSingleStructureCallback(string structureName)
