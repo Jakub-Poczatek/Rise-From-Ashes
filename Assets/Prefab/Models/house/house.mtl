@@ -1,6 +1,17 @@
 # Blender 3.3.1 MTL File: 'house.blend'
 # www.blender.org
 
+newmtl BasicBrownWood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_refl textures/Wood Wall Slits Var01_metallic.jpeg
+
 newmtl Chimney
 Ka 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
@@ -8,10 +19,20 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd -s 0.4 0.2 1 C:/Bricks058_2K_Color.jpg
-map_Ns -s 0.4 0.2 1 C:/Bricks058_2K_Roughness.jpg
+map_Kd -s 0.4 0.2 1 textures/Bricks058_2K_Color.jpg
+map_Ns -s 0.4 0.2 1 textures/Bricks058_2K_Roughness.jpg
 
-newmtl HouseBaseWood
+newmtl DoorBrownWood
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl RoofBlueTiles
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -20,9 +41,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_refl C:/Wood Wall Slits Var01_metallic.jpeg
+map_refl textures/Tiles_09_metallic.jpg
 
-newmtl HouseRoofTiles
+newmtl RoofBlueTiles2
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -31,42 +52,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_refl C:/Tiles_09_metallic.jpg
+map_refl textures/Tiles_09_metallic.jpg
 
-newmtl HouseTopWood
-Ns 250.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_refl C:/Wood Wall Slits Var01_metallic.jpeg
-
-newmtl PorchRoof
-Ns 250.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_refl C:/Tiles_09_metallic.jpg
-
-newmtl PorchStairs
-Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_Kd C:/Carved_wood_BaseColor.png
-map_Ns C:/Carved_wood_Roughness.png
-map_refl C:/Carved_wood_Metallic.png
-
-newmtl Procedural_Plaster
+newmtl WhitePlaster
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -85,10 +73,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_refl C:/murble_metal.jpg
-map_Bump -bm 0.020000 C:/murble_normal.jpg
+map_refl textures/murble_metal.jpg
+map_Bump -bm 0.020000 textures/murble_normal.jpg
 
-newmtl WindowBlueRoof
+newmtl WindowBlue2
 Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -97,17 +85,5 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_refl C:/murble_metal.jpg
-map_Bump -bm 0.020000 C:/murble_normal.jpg
-
-newmtl plaster_white
-Ka 1.000000 1.000000 1.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_Kd C:/plaster white_albedo.jpg
-map_Ns C:/plaster white_roughness.jpg
-map_refl C:/plaster white_metallic.jpg
-map_Bump -bm 1.000000 C:/plaster white_normal.jpg
+map_refl textures/murble_metal.jpg
+map_Bump -bm 0.020000 textures/murble_normal.jpg

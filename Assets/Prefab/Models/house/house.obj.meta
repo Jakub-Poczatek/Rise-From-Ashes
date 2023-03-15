@@ -7,38 +7,33 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BasicBrownWood
+    second: {fileID: 2100000, guid: e8e7dce28d705544e8f905c7192bfcdd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Chimney
     second: {fileID: 2100000, guid: 2d50abfdf31a02e448f7c74cdbd37ab0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: HouseBaseWood
-    second: {fileID: 2100000, guid: 0b9bf24dc0da5184fb2ca86bea7da4c4, type: 2}
+      name: DoorBrownWood
+    second: {fileID: 2100000, guid: 64b7e30b0d679eb4da173e14f9ed9148, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: HouseRoofTiles
+      name: RoofBlueTiles
     second: {fileID: 2100000, guid: da1e15ecb5318434a87e004671979c33, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: HouseTopWood
-    second: {fileID: 2100000, guid: 3274074a0b7e8d54db69f30237de0dc3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: PorchRoof
+      name: RoofBlueTiles2
     second: {fileID: 2100000, guid: 6b0e749e315bcea4799226ad3f52f9f7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: PorchStairs
-    second: {fileID: 2100000, guid: 42ac3d35ca2b1e34a868eff7fbcf8869, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Procedural_Plaster
-    second: {fileID: 2100000, guid: 0576a478cbcc0994e998772455266639, type: 2}
+      name: WhitePlaster
+    second: {fileID: 2100000, guid: 598a426ac2bff854a8e0eb41ab45367d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -47,18 +42,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: WindowBlueRoof
+      name: WindowBlue2
     second: {fileID: 2100000, guid: fcba2356965e90b479d3513a2146ab1a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: defaultMat
-    second: {fileID: 2100000, guid: 8165e2b019093fc41ac560772cf8cc43, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: plaster_white
-    second: {fileID: 2100000, guid: 0576a478cbcc0994e998772455266639, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
