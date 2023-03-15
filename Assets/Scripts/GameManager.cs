@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        print(playerState.ToString());
     }
 
     private void PrepareGameComponents()

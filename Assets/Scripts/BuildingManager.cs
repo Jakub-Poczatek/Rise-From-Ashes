@@ -1,3 +1,4 @@
+using Codice.Client.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -83,5 +84,16 @@ public class BuildingManager
             return gridStructure.GetStructureBaseFromGrid(gridPosition);
         }
         return null;
+    }
+
+    public void PreviewStructure(string structureName, StructureType structureType)
+    {
+        StructureBase structureBase = structureRepository.GetStructureByName(structureName, structureType);
+        GameObject model = structureBase.prefab.transform.Find("Model").gameObject;
+        Debug.Log(model.transform.localRotation);
+        GameObject preview = GameObject.Instantiate(model, model.transform.position, Quaternion.identity);
+
+        //preview.transform.SetPositionAndRotation(preview.transform.position, model.transform.rotation);
+        preview.AddComponent<FollowMouse>();
     }
 }
