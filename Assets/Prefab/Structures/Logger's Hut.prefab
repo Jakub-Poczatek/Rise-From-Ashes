@@ -3950,7 +3950,7 @@ GameObject:
   - component: {fileID: 6948987358878191845}
   m_Layer: 0
   m_Name: Logger's Hut
-  m_TagString: Structure
+  m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

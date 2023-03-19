@@ -33,4 +33,10 @@ public class PlayerSelectionState : PlayerState
         }
         return;
     }
+
+    public override void EnterState(string structureName)
+    {
+        base.EnterState(structureName);
+        gameManager.uiController.ToggleCancelConfirmPanel(false);
+    }
 }

@@ -127,7 +127,7 @@ public class ResourceManager : MonoBehaviour
     {
         foreach (GameObject structure in structures)
         {
-            if (structure.CompareTag("Structure"))
+            if (structure.CompareTag("ResGenStructure"))
             {
                 WorkableStructure workableStructure = structure.GetComponent<WorkableStructure>();
                 switch (workableStructure.ResourceType)

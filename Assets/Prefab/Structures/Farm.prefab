@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 9095190352347987009}
   m_Layer: 0
   m_Name: Farm
-  m_TagString: Structure
+  m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

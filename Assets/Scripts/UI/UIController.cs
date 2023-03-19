@@ -20,7 +20,7 @@ public class UIController : MonoBehaviour
     public Button demolishBtn;
     public Button confirmActionBtn;
     public Button closeBuildMenuBtn;
-    public GameObject cancelActionPnl;
+    public GameObject cancelConfirmActionPnl;
     public GameObject buildingMenuPnl;
     public GameObject resourceGenStructsPnl;
     public GameObject roadStructsPnl;
@@ -35,6 +35,7 @@ public class UIController : MonoBehaviour
 
     public UIStructInfoPnlHelper structPanelHelper;
     public UICitizenInfoPnlHelper citizenPanelHelper;
+    public UIDebugPnlHelper debugPanelHelper;
 
     /*public TMP_Text infoPnlStructName;
     public TMP_Text infoPnlStructCost;
@@ -47,7 +48,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cancelActionPnl.SetActive(false);
+        cancelConfirmActionPnl.SetActive(false);
         buildingMenuPnl.SetActive(false);
         citizenPanelHelper.Hide();
 
@@ -71,6 +72,11 @@ public class UIController : MonoBehaviour
         else citizenPanelHelper.Hide();
     }
 
+    public void ToggleCancelConfirmPanel(bool toggle)
+    {
+        cancelConfirmActionPnl.SetActive(toggle);
+    }
+
     public void DisplayStructureInfo(StructureBase structure)
     {
         structPanelHelper.DisplayStructureInfo(structure);
@@ -84,12 +90,13 @@ public class UIController : MonoBehaviour
     private void OnDemolishHandler()
     {
         OnDemolishActionHandler?.Invoke();
-        cancelActionPnl.SetActive(true);
+        cancelConfirmActionPnl.SetActive(true);
         OnCloseMenuHandler();
     }
 
     private void OnOpenBuildMenu()
     {
+        citizenPanelHelper.Hide();
         buildingMenuPnl.SetActive(true);
         prepareBuildMenu();
     }
@@ -127,7 +134,7 @@ public class UIController : MonoBehaviour
     {
         OnCitizenAssignHandler?.Invoke();
         citizenPanelHelper.Hide();
-        cancelActionPnl.gameObject.SetActive(true);
+        cancelConfirmActionPnl.gameObject.SetActive(true);
     }
 
     private void OnBuildSingleStructureCallback(string structureName)
@@ -150,19 +157,19 @@ public class UIController : MonoBehaviour
 
     private void PrepareUIForBuilding()
     {
-        cancelActionPnl.SetActive(true);
+        cancelConfirmActionPnl.SetActive(true);
         OnCloseMenuHandler();
     }
 
     private void OnConfirmActionCallback()
     {
-        cancelActionPnl.SetActive(false);
+        cancelConfirmActionPnl.SetActive(false);
         OnConfirmActionHandler?.Invoke();
     }
 
     private void OnCancelActionCallback()
     {
-        cancelActionPnl.SetActive(false);
+        cancelConfirmActionPnl.SetActive(false);
         OnCancelActionHandler?.Invoke();
     }
 
@@ -243,5 +250,10 @@ public class UIController : MonoBehaviour
     public void HideStructureInfo()
     {
         structPanelHelper.Hide();
+    }
+
+    public void UpdateDebugDisplay(string playerState)
+    {
+        debugPanelHelper.UpdateDisplay(playerState);
     }
 }

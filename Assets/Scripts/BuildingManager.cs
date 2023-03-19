@@ -89,11 +89,11 @@ public class BuildingManager
     public void PreviewStructure(string structureName, StructureType structureType)
     {
         StructureBase structureBase = structureRepository.GetStructureByName(structureName, structureType);
-        GameObject model = structureBase.prefab.transform.Find("Model").gameObject;
-        Debug.Log(model.transform.localRotation);
-        GameObject preview = GameObject.Instantiate(model, model.transform.position, Quaternion.identity);
-
-        //preview.transform.SetPositionAndRotation(preview.transform.position, model.transform.rotation);
+        GameObject model = structureBase.prefab.transform.Find("ModelParent").gameObject;
+        GameObject preview = GameObject.Instantiate(model, model.transform.position, model.transform.rotation);
         preview.AddComponent<FollowMouse>();
+
+        // Set preview materials
+
     }
 }

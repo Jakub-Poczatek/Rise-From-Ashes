@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1766337024509681081}
   - component: {fileID: 3245657276128637754}
+  - component: {fileID: -738232936839717217}
   m_Layer: 11
   m_Name: House
-  m_TagString: Untagged
+  m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +33,7 @@ Transform:
   - {fileID: 2926834110948664686}
   - {fileID: 7025941931588773776}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3245657276128637754
 MonoBehaviour:
@@ -53,6 +54,18 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &-738232936839717217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890749091245025512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff25a0121245034f8169a7e318a36e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4437408813238500392
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_LocalRotation.x
@@ -152,11 +165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -164,7 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -172,11 +185,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_Name
-      value: Model
+      value: ModelParent
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
+      propertyPath: m_Name
+      value: Model
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 1b097888fd781444f825af51cb2a9de1, type: 3}
       propertyPath: m_Layer

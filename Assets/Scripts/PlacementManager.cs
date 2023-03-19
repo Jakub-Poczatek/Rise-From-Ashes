@@ -26,7 +26,7 @@ public class PlacementManager : MonoBehaviour
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
-        newStructure.GetComponent<WorkableStructure>().StructureData = (ResourceGenStruct) structure;
+        newStructure.GetComponent<Structure>().BaseData = structure;
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x
@@ -52,6 +52,7 @@ public class PlacementManager : MonoBehaviour
     {
 
         GameObject newStructure = Instantiate(structure.prefab, ground.position + gridPosition, Quaternion.identity);
+        newStructure.GetComponent<Structure>().BaseData = structure;
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x
@@ -76,7 +77,6 @@ public class PlacementManager : MonoBehaviour
         GridStructure gridStructure, RotationValue rotationValue = RotationValue.R0)
     {
         GameObject newStructure = InstantiateRoad(gridPosition, structure, rotationValue);
-
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x

@@ -37,10 +37,7 @@ public class GameManager : MonoBehaviour
     private PlacementManager placementManager;
 
 
-    public PlayerState PlayerState 
-    { 
-        get => playerState;
-    }
+    public PlayerState PlayerState { get => playerState; }
 
     private void Awake()
     {
@@ -82,6 +79,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        uiController.UpdateDebugDisplay(playerState.ToString());
     }
 
     private void PrepareGameComponents()

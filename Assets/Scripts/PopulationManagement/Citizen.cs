@@ -9,7 +9,7 @@ public class Citizen : MonoBehaviour
     private NavMeshAgent agent;
     private Vector3 target;
     private State state = State.Idle;
-    private GameObject workBuildingPosition;
+    private GameObject workBuilding;
     public float workingTime = 5f;
     private bool isWorking = false;
     private Vector3 townHallPos;
@@ -68,16 +68,16 @@ public class Citizen : MonoBehaviour
                     if (info.IsName("TravelToWork"))
                     {
                         anim.SetBool("isWorking", true);
-                        workBuildingPosition.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
+                        workBuilding.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
                         yield return new WaitForSeconds(workingTime);
-                        workBuildingPosition.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
+                        workBuilding.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
                         anim.SetBool("isWorking", false);
                         target = townHallPos;
                     }
                     else
                     {
                         anim.SetTrigger("triggerWorking");
-                        target = workBuildingPosition.transform.position;
+                        target = workBuilding.transform.position;
                     }
                     agent.SetDestination(target);
                 }
@@ -90,14 +90,24 @@ public class Citizen : MonoBehaviour
 
     public void AssignWork(GameObject building)
     {
-        workBuildingPosition = building;
-        target = workBuildingPosition.transform.position;
-        anim.SetTrigger("triggerWorking");
-        state = State.Working;
-        agent.SetDestination(target);
-        building.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
-        AssignNewOccupation(building.GetComponent<WorkableStructure>().ResourceType);
-        stateRunning = false;
+        if (building.GetComponent<WorkableStructure>().HasCapacity())
+        {
+
+            // Remove previous workplace
+            if (workBuilding != null)
+            {
+                workBuilding.GetComponent<WorkableStructure>().RemoveWorker(this.gameObject);
+            }
+
+            workBuilding = building;
+            target = workBuilding.transform.position;
+            anim.SetTrigger("triggerWorking");
+            state = State.Working;
+            agent.SetDestination(target);
+            workBuilding.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
+            AssignNewOccupation(workBuilding.GetComponent<WorkableStructure>().ResourceType);
+            stateRunning = false;
+        }
     }
 
     private enum State

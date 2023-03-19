@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6856793129149500849}
   m_Layer: 0
   m_Name: MetalMine
-  m_TagString: Structure
+  m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

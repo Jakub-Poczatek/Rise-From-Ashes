@@ -13,12 +13,11 @@ public class PlayerCitizenAssignState : PlayerState
         GameObject structure = buildingManager.GetStructureFromGrid(position);
         if (structure != null)
         {
-            if (structure.CompareTag("Structure"))
+            if (structure.CompareTag("ResGenStructure"))
             {
                 citizen.GetComponent<Citizen>().AssignWork(structure);
+                OnConfirmAction();
             }
-            gameManager.uiController.ToggleCitizenInteraction(false);
-            OnConfirmAction();
         }
     }
 }

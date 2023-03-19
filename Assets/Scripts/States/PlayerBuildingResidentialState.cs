@@ -14,6 +14,7 @@ public class PlayerBuildingResidentialState : PlayerState
         base.EnterState(structureName);
         this.buildingManager.PrepareBuildingManager(this.GetType());
         this.structureName = structureName;
+        //this.buildingManager.PreviewStructure(structureName, StructureType.ResidentialStructure);
     }
 
     public override void OnInputPointerDown(Vector3 position)

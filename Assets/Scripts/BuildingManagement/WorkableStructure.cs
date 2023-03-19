@@ -2,41 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorkableStructure : MonoBehaviour
+public class WorkableStructure : Structure
 {
+    private ResourceGenStruct data;
     private Dictionary<GameObject, bool> workers;
-    private ResourceGenStruct structureData;
-    private string structureName;
-    private float maintenanceCost;
+    private ResourceType resourceType;
     private float baseGenAmount;
     private float genAmount = 0;
-    private ResourceType resourceType;
     private int maxWorkerCapacity;
 
-    public ResourceGenStruct StructureData { get => structureData; set => structureData = value; }
+    public ResourceGenStruct Data { get => data; set => data = value; }
     public float GenAmount { get => genAmount; }
     public ResourceType ResourceType { get => resourceType; }
-    public float MaintenanceCost { get => maintenanceCost; }
 
     // Start is called before the first frame update
     void Start()
     {
+        data = (ResourceGenStruct) BaseData;
         SetData();
         workers = new Dictionary<GameObject, bool>();
     }
 
-    private void SetData()
+    protected override void SetData()
     {
-        structureName = structureData.structureName;
-        maintenanceCost = structureData.maintenanceGoldCost;
-        baseGenAmount = structureData.resourceGenAmount;
-        resourceType = structureData.resourceType;
-        maxWorkerCapacity = structureData.maxWorkerCapacity;
+        base.SetData();
+        baseGenAmount = data.resourceGenAmount;
+        resourceType = data.resourceType;
+        maxWorkerCapacity = data.maxWorkerCapacity;
     }
 
     public void AddWorker(GameObject worker)
     {
-        workers[worker] = false;
+        workers.Add(worker, false);
+    }
+
+    public void RemoveWorker(GameObject worker)
+    {
+        workers.Remove(worker);
     }
 
     public void StartWorking(GameObject worker)
@@ -49,5 +51,10 @@ public class WorkableStructure : MonoBehaviour
     {
         workers[worker] = false;
         genAmount -= baseGenAmount;
+    }
+
+    public bool HasCapacity()
+    {
+        return workers.Count < maxWorkerCapacity;
     }
 }
