@@ -8,19 +8,19 @@ public class Skills
 {
     public int goldProductionLevel = 0;
     private float goldProductionExp = 0;
-    private float goldExpUntilNextLevel = 0;
+    private float goldExpUntilNextLevel = 10;
     public int foodProductionLevel = 0;
     private float foodProductionExp = 0;
-    private float foodExpUntilNextLevel = 0;
+    private float foodExpUntilNextLevel = 10;
     public int woodProductionLevel = 0;
     private float woodProductionExp = 0;
-    private float woodExpUntilNextLevel = 0;
+    private float woodExpUntilNextLevel = 10;
     public int stoneProductionLevel = 0;
     private float stoneProductionExp = 0;
-    private float stoneExpUntilNextLevel = 0;
+    private float stoneExpUntilNextLevel = 10;
     public int metalProductionLevel = 0;
     private float metalProductionExp = 0;
-    private float metalExpUntlNextLevel = 0;
+    private float metalExpUntlNextLevel = 10;
 
     public float GoldProductionExp 
     { 
@@ -32,7 +32,7 @@ public class Skills
             {
                 goldProductionLevel++;
                 goldProductionExp = 0;
-                goldExpUntilNextLevel = goldExpUntilNextLevel * 1.15f;
+                goldExpUntilNextLevel *= 1.15f;
             }
         }
     }

@@ -69,7 +69,9 @@ public class Citizen : MonoBehaviour
                     {
                         anim.SetBool("isWorking", true);
                         workBuilding.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
+                        InvokeRepeating(nameof(UpdateExperience), 0, 1);
                         yield return new WaitForSeconds(workingTime);
+                        CancelInvoke(nameof(UpdateExperience));
                         workBuilding.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
                         anim.SetBool("isWorking", false);
                         target = townHallPos;
@@ -107,6 +109,29 @@ public class Citizen : MonoBehaviour
             workBuilding.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
             AssignNewOccupation(workBuilding.GetComponent<WorkableStructure>().ResourceType);
             stateRunning = false;
+        }
+    }
+
+    private void UpdateExperience()
+    {
+        ResourceType workResType = workBuilding.GetComponent<WorkableStructure>().ResourceType;
+        switch (workResType)
+        {
+            case ResourceType.Gold:
+                citizenData.skills.GoldProductionExp++;
+                break;
+            case ResourceType.Food:
+                citizenData.skills.FoodProductionExp++;
+                break;
+            case ResourceType.Wood:
+                citizenData.skills.WoodProductionExp++;
+                break;
+            case ResourceType.Stone:
+                citizenData.skills.StoneProductionExp++;
+                break;
+            case ResourceType.Metal:
+                citizenData.skills.MetalProductionExp++;
+                break;
         }
     }
 
@@ -156,18 +181,6 @@ public class Citizen : MonoBehaviour
             500,
             skills
         );
-
-        /*Debug.Log(
-            "Name: " + citizenData.name +
-            "\nOccupation: " + citizenData.occupation +
-            "\nHealth: " + citizenData.health +
-            "\nDaily Food: " + citizenData.dailyFood +
-            "\nDaily Sleep: " + citizenData.dailySleep +
-            "\nHappiness: " + citizenData.happiness +
-            "\nLoyalty: " + citizenData.loyalty +
-            "\nSkills: " + citizenData.skills.ToString() +
-            "\n\t"
-            );*/
     }
 }
 

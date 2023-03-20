@@ -31,36 +31,38 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         foodAmount.text = data.dailyFood.ToString();
         energyAmount.text = data.dailySleep.ToString();
 
-        goldLevel.text.Split(" ")[goldLevel.text.Split(" ").Length - 1] = data.skills.goldProductionLevel.ToString();
-        foodLevel.text.Split(" ")[foodLevel.text.Split(" ").Length - 1] = data.skills.foodProductionLevel.ToString();
-        woodLevel.text.Split(" ")[woodLevel.text.Split(" ").Length - 1] = data.skills.woodProductionLevel.ToString();
-        stoneLevel.text.Split(" ")[stoneLevel.text.Split(" ").Length - 1] = data.skills.stoneProductionLevel.ToString();
-        metalLevel.text.Split(" ")[metalLevel.text.Split(" ").Length - 1] = data.skills.metalProductionLevel.ToString();
+        goldLevel.text = "Gold Level: \t\t" + data.skills.goldProductionLevel.ToString();
+        foodLevel.text = "Food Level: \t\t" + data.skills.foodProductionLevel.ToString();
+        woodLevel.text = "Wood Level: \t" + data.skills.woodProductionLevel.ToString();
+        stoneLevel.text = "Stone Level: \t" + data.skills.stoneProductionLevel.ToString();
+        metalLevel.text = "Metal Level: \t" + data.skills.metalProductionLevel.ToString();
 
         // Set skill info
-        UpdateSliders(data);
+        UpdateSliders(data.skills);
         UpdateSliderValueLabels();
+        UpdateLevels(data.skills);
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateSliders(currentData);
+        UpdateSliders(currentData.skills);
         UpdateSliderValueLabels();
+        UpdateLevels(currentData.skills);
     }
 
-    private void UpdateSliders(CitizenData data)
+    private void UpdateSliders(Skills skills)
     {
-        goldSlider.maxValue = data.skills.GoldExpUntilNextLevel;
-        goldSlider.value = data.skills.GoldProductionExp;
-        foodSlider.maxValue = data.skills.FoodExpUntilNextLevel;
-        foodSlider.value = data.skills.FoodProductionExp;
-        woodSlider.maxValue = data.skills.WoodExpUntilNextLevel;
-        woodSlider.value = data.skills.WoodProductionExp;
-        stoneSlider.maxValue = data.skills.StoneExpUntilNextLevel;
-        stoneSlider.value = data.skills.StoneProductionExp;
-        metalSlider.maxValue = data.skills.MetalExpUntlNextLevel;
-        metalSlider.value = data.skills.MetalProductionExp;
+        goldSlider.maxValue = skills.GoldExpUntilNextLevel;
+        goldSlider.value = skills.GoldProductionExp;
+        foodSlider.maxValue = skills.FoodExpUntilNextLevel;
+        foodSlider.value = skills.FoodProductionExp;
+        woodSlider.maxValue = skills.WoodExpUntilNextLevel;
+        woodSlider.value = skills.WoodProductionExp;
+        stoneSlider.maxValue = skills.StoneExpUntilNextLevel;
+        stoneSlider.value = skills.StoneProductionExp;
+        metalSlider.maxValue = skills.MetalExpUntlNextLevel;
+        metalSlider.value = skills.MetalProductionExp;
     }
 
     private void UpdateSliderValueLabels()
@@ -72,6 +74,15 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         woodExp.text = woodSlider.value.ToString();
         stoneExp.text = stoneSlider.value.ToString();
         metalExp.text = metalSlider.value.ToString();
+    }
+
+    private void UpdateLevels(Skills skills)
+    {
+        goldLevel.text = "Gold Level: \t\t" + skills.goldProductionLevel.ToString();
+        foodLevel.text = "Food Level: \t\t" + skills.foodProductionLevel.ToString();
+        woodLevel.text = "Wood Level: \t" + skills.woodProductionLevel.ToString();
+        stoneLevel.text = "Stone Level: \t" + skills.stoneProductionLevel.ToString();
+        metalLevel.text = "Metal Level: \t" + skills.metalProductionLevel.ToString();
     }
 
     public void Show()
