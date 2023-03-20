@@ -17,7 +17,7 @@ public class PlayerSelectionState : PlayerState
         {
             case "Citizen":
                 this.gameManager.citizenAssignState.citizen = target;
-                this.gameManager.uiController.ToggleCitizenInteraction(true, target.GetComponent<Citizen>().citizenData);
+                this.gameManager.uiController.ToggleCitizenInteractionPanel(true, target.GetComponent<Citizen>().citizenData);
                 return;
             default:
                 break;
@@ -29,7 +29,7 @@ public class PlayerSelectionState : PlayerState
         else
         {
             this.gameManager.uiController.HideStructureInfo();
-            this.gameManager.uiController.ToggleCitizenInteraction(false);
+            this.gameManager.uiController.ToggleCitizenInteractionPanel(false);
         }
         return;
     }

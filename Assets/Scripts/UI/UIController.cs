@@ -49,20 +49,22 @@ public class UIController : MonoBehaviour
     void Start()
     {
         cancelConfirmActionPnl.SetActive(false);
+        prepareBuildMenu();
         buildingMenuPnl.SetActive(false);
         citizenPanelHelper.Hide();
 
         //buildResidentialAreaBtn.onClick.AddListener(OnBuildAreaCallback);
         cancelActionBtn.onClick.AddListener(OnCancelActionCallback);
         confirmActionBtn.onClick.AddListener(OnConfirmActionCallback);
-        openBuildMenuBtn.onClick.AddListener(OnOpenBuildMenu);
+        openBuildMenuBtn.onClick.AddListener(() => ToggleBuildPanel(true));
+        closeBuildMenuBtn.onClick.AddListener(() => ToggleBuildPanel(false));
         demolishBtn.onClick.AddListener(OnDemolishHandler);
-        closeBuildMenuBtn.onClick.AddListener(OnCloseMenuHandler);
 
         citizenPanelHelper.assignBtn.onClick.AddListener(OnCitizenAssignCallback);
+        citizenPanelHelper.cancelBtn.onClick.AddListener(OnCancelActionCallback);
     }
 
-    public void ToggleCitizenInteraction(bool toggle, CitizenData citizenData = null)
+    public void ToggleCitizenInteractionPanel(bool toggle, CitizenData citizenData = null)
     {
         if (toggle)
         {
@@ -74,7 +76,21 @@ public class UIController : MonoBehaviour
 
     public void ToggleCancelConfirmPanel(bool toggle)
     {
+        if (toggle)
+        {
+            ToggleBuildPanel(false);
+        }
         cancelConfirmActionPnl.SetActive(toggle);
+    }
+
+    private void ToggleBuildPanel(bool toggle)
+    {
+        if (toggle)
+        {
+            citizenPanelHelper.Hide();
+        }
+
+        buildingMenuPnl.SetActive(toggle);
     }
 
     public void DisplayStructureInfo(StructureBase structure)
@@ -82,23 +98,11 @@ public class UIController : MonoBehaviour
         structPanelHelper.DisplayStructureInfo(structure);
     }
 
-    private void OnCloseMenuHandler()
-    {
-        buildingMenuPnl.SetActive(false);
-    }
-
     private void OnDemolishHandler()
     {
         OnDemolishActionHandler?.Invoke();
         cancelConfirmActionPnl.SetActive(true);
-        OnCloseMenuHandler();
-    }
-
-    private void OnOpenBuildMenu()
-    {
-        citizenPanelHelper.Hide();
-        buildingMenuPnl.SetActive(true);
-        prepareBuildMenu();
+        ToggleBuildPanel(false);
     }
 
     private void prepareBuildMenu()
@@ -110,13 +114,10 @@ public class UIController : MonoBehaviour
 
     private void CreateButtonsInPanel(Transform panelTransform, List<string> dataToShow, Action<string> callback)
     {
-        if (dataToShow.Count > panelTransform.childCount)
+        int diff = dataToShow.Count - panelTransform.childCount;
+        for (int i = 0; i < diff; i++)
         {
-            int diff = dataToShow.Count - panelTransform.childCount;
-            for (int i = 0; i < diff; i++)
-            {
-                Instantiate(structureButtonPrefab, panelTransform);
-            }
+            Instantiate(structureButtonPrefab, panelTransform);
         }
 
         for (int i = 0; i < panelTransform.childCount; i++)
@@ -139,26 +140,20 @@ public class UIController : MonoBehaviour
 
     private void OnBuildSingleStructureCallback(string structureName)
     {
-        PrepareUIForBuilding();
+        ToggleCancelConfirmPanel(true);
         OnBuildSingleStructureHandler?.Invoke(structureName);
     }
 
     private void OnBuildRoadCallback(string structureName)
     {
-        PrepareUIForBuilding();
+        ToggleCancelConfirmPanel(true);
         OnBuildRoadHandler?.Invoke(structureName);
     }
 
     private void OnBuildResidentialCallback(string structureName)
     {
-        PrepareUIForBuilding();
+        ToggleCancelConfirmPanel(true);
         OnBuildResidentialHandler?.Invoke(structureName);
-    }
-
-    private void PrepareUIForBuilding()
-    {
-        cancelConfirmActionPnl.SetActive(true);
-        OnCloseMenuHandler();
     }
 
     private void OnConfirmActionCallback()
@@ -171,6 +166,25 @@ public class UIController : MonoBehaviour
     {
         cancelConfirmActionPnl.SetActive(false);
         OnCancelActionHandler?.Invoke();
+    }
+
+    public void UpdateResourceValues(Cost cost)
+    {
+        goldAmountTxt.text = cost.gold.ToString();
+        foodAmountTxt.text = cost.food.ToString();
+        woodAmountTxt.text = cost.wood.ToString();
+        stoneAmountTxt.text = cost.stone.ToString();
+        metalAmountTxt.text = cost.metal.ToString();
+    }
+
+    public void HideStructureInfo()
+    {
+        structPanelHelper.Hide();
+    }
+
+    public void UpdateDebugDisplay(string playerState)
+    {
+        debugPanelHelper.UpdateDisplay(playerState);
     }
 
     public void AddListenerOnCitizenAssignEvent(Action listener)
@@ -238,22 +252,4 @@ public class UIController : MonoBehaviour
         OnDemolishActionHandler -= listener;
     }
 
-    public void UpdateResourceValues(Cost cost)
-    {
-        goldAmountTxt.text = cost.gold.ToString();
-        foodAmountTxt.text = cost.food.ToString();
-        woodAmountTxt.text = cost.wood.ToString();
-        stoneAmountTxt.text = cost.stone.ToString();
-        metalAmountTxt.text = cost.metal.ToString();
-    }
-
-    public void HideStructureInfo()
-    {
-        structPanelHelper.Hide();
-    }
-
-    public void UpdateDebugDisplay(string playerState)
-    {
-        debugPanelHelper.UpdateDisplay(playerState);
-    }
 }

@@ -12,7 +12,7 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         goldExp, foodExp, woodExp, stoneExp, metalExp;
     public TMP_InputField foodAmount, energyAmount;
     public Slider healthSlider, happinessSlider, goldSlider, foodSlider, woodSlider, stoneSlider, metalSlider;
-    public Button assignBtn;
+    public Button assignBtn, cancelBtn;
 
     private CitizenData currentData;
 
