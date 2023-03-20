@@ -61,7 +61,7 @@ public class UIController : MonoBehaviour
         demolishBtn.onClick.AddListener(OnDemolishHandler);
 
         citizenPanelHelper.assignBtn.onClick.AddListener(OnCitizenAssignCallback);
-        citizenPanelHelper.cancelBtn.onClick.AddListener(OnCancelActionCallback);
+        citizenPanelHelper.cancelBtn.onClick.AddListener(() => ToggleCitizenInteractionPanel(false));
     }
 
     public void ToggleCitizenInteractionPanel(bool toggle, CitizenData citizenData = null)
