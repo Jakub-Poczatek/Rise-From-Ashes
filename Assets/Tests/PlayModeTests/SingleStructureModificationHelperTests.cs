@@ -22,20 +22,24 @@ public class SingleStructureModificationHelperTests
     {
         StructureRepository structureRepository = TestHelpers.CreateStructureRepositoryContainingRoad();
         //IPlacementManager placementManager = Substitute.For<IPlacementManager>();
-        PlacementManager placementManager = PlacementManager.Instance;
+        //PlacementManager placementManager = PlacementManager.Instance;
         ResourceManager resourceManager = ResourceManager.Instance;
+        GameObject resourceManagerObject = new GameObject();
+        resourceManagerObject.AddComponent<ResourceManager>();
+        //resourceManager.SetUpForTests();
         //PlacementManager placementManager = Substitute.For<PlacementManager>();
         tempObject = new GameObject();
         tempObject.AddComponent<MeshRenderer>();
         //placementManager.CreateGhostStructure(default, default, default)
         //    .Returns((tempObject, gridPosition1, tempObject), (tempObject, gridPosition2, tempObject));
         gridStructure = new GridStructure(1, 10, 10);
-        helper = new SingleStructurePlacementHelper(structureRepository, gridStructure);
+        helper = new ResGenModificationHelper(structureRepository, gridStructure);
     }
 
-    [Test]
-    public void AddPositionPass()
+    [UnityTest]
+    public IEnumerator AddPositionPass()
     {
+        yield return new WaitForEndOfFrame();
         helper.PrepareStructureForModification(gridPosition1, structureName, structureType);
         GameObject objectInDictionary = helper.GetStructureToBeModified(gridPosition1);
         Assert.AreEqual(tempObject, objectInDictionary);

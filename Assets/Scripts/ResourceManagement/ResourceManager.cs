@@ -200,4 +200,15 @@ public class ResourceManager : MonoBehaviour
     {
         CancelInvoke();
     }
+    
+
+    // Testing Purposes
+    public void SetUpForTests()
+    {
+        goldHelper = new GoldHelper(1000);
+        foodHelper = new BasicResourceHelper(1000);
+        woodHelper = new BasicResourceHelper(1000);
+        stoneHelper = new BasicResourceHelper(1000);
+        metalHelper = new BasicResourceHelper(1000);
+    }
 }
