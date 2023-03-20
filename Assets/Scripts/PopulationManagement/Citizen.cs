@@ -16,6 +16,9 @@ public class Citizen : MonoBehaviour
     private bool stateRunning = false;
     public CitizenData citizenData;
 
+    private readonly int baseSleep = 8;
+    private readonly int baseFood = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,7 @@ public class Citizen : MonoBehaviour
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         agent = this.GetComponent<NavMeshAgent>();
         townHallPos = GameObject.FindGameObjectWithTag("Town Hall").transform.position;
+        InvokeRepeating(nameof(UpdateHappiness), 0, 5);
     }
 
     // Update is called once per frame
@@ -133,6 +137,13 @@ public class Citizen : MonoBehaviour
                 citizenData.skills.MetalProductionExp++;
                 break;
         }
+    }
+
+    private void UpdateHappiness()
+    {
+        citizenData.happiness +=
+            (citizenData.dailySleep - baseSleep) +
+            (citizenData.dailyFood - baseFood);
     }
 
     private enum State

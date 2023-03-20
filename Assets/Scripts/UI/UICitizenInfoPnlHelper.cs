@@ -12,7 +12,7 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         goldExp, foodExp, woodExp, stoneExp, metalExp;
     public TMP_InputField foodAmount, energyAmount;
     public Slider healthSlider, happinessSlider, goldSlider, foodSlider, woodSlider, stoneSlider, metalSlider;
-    public Button assignBtn, cancelBtn;
+    public Button assignBtn, cancelBtn, foodDecreaseBtn, foodIncreaseBtn, sleepDecreaseBtn, sleepIncreaseBtn;
 
     private CitizenData currentData;
 
@@ -41,6 +41,11 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         UpdateSliders(data.skills);
         UpdateSliderValueLabels();
         UpdateLevels(data.skills);
+
+        foodDecreaseBtn.onClick.AddListener(() => UpdateFood(-1));
+        foodIncreaseBtn.onClick.AddListener(() => UpdateFood(1));
+        sleepDecreaseBtn.onClick.AddListener(() => UpdateSleep(-1));
+        sleepIncreaseBtn.onClick.AddListener(() => UpdateSleep(1));
     }
 
     // Update is called once per frame
@@ -83,6 +88,18 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         woodLevel.text = "Wood Level: \t" + skills.woodProductionLevel.ToString();
         stoneLevel.text = "Stone Level: \t" + skills.stoneProductionLevel.ToString();
         metalLevel.text = "Metal Level: \t" + skills.metalProductionLevel.ToString();
+    }
+
+    private void UpdateFood(int amount)
+    {
+        currentData.dailyFood += amount;
+        foodAmount.text = currentData.dailyFood.ToString();
+    }
+
+    private void UpdateSleep(int amount)
+    {
+        currentData.dailySleep += amount;
+        energyAmount.text = currentData.dailySleep.ToString();
     }
 
     public void Show()
