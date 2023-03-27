@@ -1,0 +1,52 @@
+# Blender 3.3.1 MTL File: 'Castle.blend'
+# www.blender.org
+
+newmtl Black
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.500000
+illum 9
+
+newmtl BricksHighScale
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd -s 50 20 1 C:/Bricks060_2K_Color.jpg
+map_Ns -s 50 20 1 C:/Bricks060_2K_Roughness.jpg
+
+newmtl BricksLowScale
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd -s 0.25 0.1 1 C:/Bricks060_2K_Color.jpg
+map_Ns -s 0.25 0.1 1 C:/Bricks060_2K_Roughness.jpg
+
+newmtl CastleBricks
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Ns C:/Bricks_1_roughness.jpg
+
+newmtl Iron
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.044452 0.044452 0.044452
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
