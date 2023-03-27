@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Structure">
+    <Position X="4.25" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgABACIAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\Structure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResidentialPlacementHelper">
+    <Position X="11.5" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAgAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\ResidentialPlacementHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoadManager" Collapsed="true">
+    <Position X="22.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAIACAAAAEAAAAAAAAAAAAAAAAEOAAEAACAAAgAgA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\RoadManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoadPlacementModificationHelper">
+    <Position X="13.75" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAJAAAAAAAAAAABAAAAQAAAAAAgAQBAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\RoadPlacementModificationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoadStructureHelper" Collapsed="true">
+    <Position X="24.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\RoadStructureHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingleStructurePlacementHelper">
+    <Position X="16" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAgAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\SingleStructurePlacementHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StructureDemolishingHelper">
+    <Position X="18.25" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAgAQBAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\StructureDemolishingHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StructureModificationFactory" Collapsed="true">
+    <Position X="29.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAABAABAAAAAAABIACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\StructureModificationFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StructureModificationHelper">
+    <Position X="14.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAACAAAAAQkABAAAAAABAAAAAAgAQBAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\StructurePlacement\StructureModificationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorkableStructure">
+    <Position X="4.25" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAABECAAAEBIAAAASAAAAAAAADAAAAgQAACAAIA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManagement\WorkableStructure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingManager" Collapsed="true">
+    <Position X="20.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQCAAAAAIkAAAAAAAgQAASQAAoAIIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraMovement" Collapsed="true">
+    <Position X="22.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQiABBAQDCCABAAgACGAAAAkAAAAMAQAABAJAQgEAE=</HashCode>
+      <FileName>Assets\Scripts\CameraMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cell" Collapsed="true">
+    <Position X="24.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAABgAAAAJQAAAAGQAABAAAAAQAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CitizenData" Collapsed="true">
+    <Position X="27.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABCABAAAAIAAAAAAEAAAAAAEAAAAAAAAAAEAAAg=</HashCode>
+      <FileName>Assets\Scripts\CitizenData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FollowMouse" Collapsed="true">
+    <Position X="24.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\FollowMouse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="26" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgRQABiABCAAQAAAwAAAQIIAABAEAAAkEAJAiAAAREA=</HashCode>
+      <FileName>Assets\Scripts\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridStructure" Collapsed="true">
+    <Position X="27.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAJAAAAgQECQwAQAEQAABEAAEBQIAABAAAE=</HashCode>
+      <FileName>Assets\Scripts\GridStructure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="29.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAwCIACAAIRShAEgkQABAAAABYhAAAIAASQACoAAAEA=</HashCode>
+      <FileName>Assets\Scripts\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NameData" Collapsed="true">
+    <Position X="20.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAACAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\JsonData\NameData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NavMeshManager" Collapsed="true">
+    <Position X="22.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAIAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\NavMeshManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlacementManager" Collapsed="true">
+    <Position X="24.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgAQAACABAAABAAACAQAAAAAAgAAAgAAQAQAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\PlacementManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Citizen" Collapsed="true">
+    <Position X="26" Y="5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Citizen.State" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\PopulationManagement\Citizen.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAACAAMQAAIEAAAAAAgAAAACAEQQAAEAAgAEI=</HashCode>
+      <FileName>Assets\Scripts\PopulationManagement\Citizen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PopulationManagement" Collapsed="true">
+    <Position X="26" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAACBAAAAAAAAAEAAAABAAAAAIAABAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PopulationManagement\PopulationManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicResourceHelper">
+    <Position X="1.25" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAMAAAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResourceManagement\BasicResourceHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cost" Collapsed="true">
+    <Position X="29.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQABAAAAAAAAAAAACAAAAAAQAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\ResourceManagement\Cost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GoldHelper">
+    <Position X="1.25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResourceManagement\GoldHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceException" Collapsed="true">
+    <Position X="27.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResourceManagement\ResourceException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager" Collapsed="true">
+    <Position X="29.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAQABCBAACQAAAAAAABBIABAAERkIEAIQAYACBgABGA=</HashCode>
+      <FileName>Assets\Scripts\ResourceManagement\ResourceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceProcGen" Collapsed="true">
+    <Position X="20.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACIAAABAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResourceProcGen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NullStructure">
+    <Position X="8.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\NullStructure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResidentialStruct">
+    <Position X="1.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\ResidentialStruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceGenStruct">
+    <Position X="3.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAEAAAAAAAAAwAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\ResourceGenStruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoadStruct">
+    <Position X="6" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\RoadStruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StructPool" Collapsed="true">
+    <Position X="27.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\StructPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StructureBase">
+    <Position X="4.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAACAAAAAAAAAAAIAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\StructureBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skills" Collapsed="true">
+    <Position X="26" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgYAAgAIAAAAAAAAQABAAIEIAEABABAABAAAgIKOAoI=</HashCode>
+      <FileName>Assets\Scripts\Skills.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerBuildingResidentialState">
+    <Position X="1.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\States\PlayerBuildingResidentialState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerBuildingRoadState">
+    <Position X="4" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\States\PlayerBuildingRoadState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerBuildingSingleStructureState">
+    <Position X="6.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\States\PlayerBuildingSingleStructureState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerCitizenAssignState">
+    <Position X="8.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\States\PlayerCitizenAssignState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerDemolishingState">
+    <Position X="10.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\States\PlayerDemolishingState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerSelectionState">
+    <Position X="13" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\States\PlayerSelectionState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerState">
+    <Position X="7.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAACBAgAAAAABAAgAgAAAQQAAAABAAAEAJSAAIEAE=</HashCode>
+      <FileName>Assets\Scripts\States\PlayerState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StructureRepository" Collapsed="true">
+    <Position X="20.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAQgCCAAAAAAAAAAAAAAAAAAAAAQAAAEAABAIA=</HashCode>
+      <FileName>Assets\Scripts\StructureRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestHelpers" Collapsed="true">
+    <Position X="22.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\TestHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UICitizenInfoPnlHelper" Collapsed="true">
+    <Position X="24.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAQAIEBABDAAoACAEQEAwACAAACEAABABEAAIYAgEBA=</HashCode>
+      <FileName>Assets\Scripts\UI\UICitizenInfoPnlHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIController" Collapsed="true">
+    <Position X="26" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAwMGwQGhghgQAZCSgJ2AYEIIABCAgBASI4CYBQAI=</HashCode>
+      <FileName>Assets\Scripts\UI\UIController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIDebugPnl" Collapsed="true">
+    <Position X="27.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\UIDebugPnl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIStructInfoPnlHelper" Collapsed="true">
+    <Position X="29.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQIEACEoAAAAAYAAAMBAAAAAAAAAFAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\UIStructInfoPnlHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GlobalData.Directions" Collapsed="true">
+    <Position X="22.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GlobalData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GlobalData.Direction" Collapsed="true">
+    <Position X="20.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GlobalData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="UpgradeType" Collapsed="true">
+    <Position X="20.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAQAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\ResourceGenStruct.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="Occupation" Collapsed="true">
+    <Position X="22.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAIAAAAAAAAAAAAAAAAAgAAAACAAAAAAAgA=</HashCode>
+      <FileName>Assets\Scripts\CitizenData.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NeighbourDirection" Collapsed="true">
+    <Position X="20.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\GridStructure.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ResourceType" Collapsed="true">
+    <Position X="24.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAgAAAAAEAAAAgAAAAE=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\ResourceGenStruct.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RotationValue" Collapsed="true">
+    <Position X="26" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIEAAAAAAACAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\RoadStruct.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="StructureType" Collapsed="true">
+    <Position X="27.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAABAAAAAAAAAAAAIAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\StructureRepository.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

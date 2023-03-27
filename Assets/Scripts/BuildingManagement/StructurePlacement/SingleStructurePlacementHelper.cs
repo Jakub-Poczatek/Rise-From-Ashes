@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SingleStructurePlacementHelper : StructureModificationHelper
 {
-    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, IResourceManager resourceManager) 
-        : base(structureRepository, gridStructure, placementManager, resourceManager) { }
+    public SingleStructurePlacementHelper(StructureRepository structureRepository, GridStructure gridStructure) 
+        : base(structureRepository, gridStructure) { }
 
     public override void PrepareStructureForModification(Vector3 position, string structureName, StructureType structureType)
     {
@@ -28,7 +28,7 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
     {
         // Add preview structure
         // ghostReturn = (structure, position, gridOutline)
-        (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostStructure(gridPosition, myStructureBase, gridStructure);
+        (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostResGen(gridPosition, myStructureBase, gridStructure);
         if (ghostReturn != null)
         {
             gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);
@@ -49,10 +49,18 @@ public class SingleStructurePlacementHelper : StructureModificationHelper
 
     public override void CancelModifications()
     {
-        foreach (var structure in structuresToBeModified)
+        /*foreach (var structure in structuresToBeModified)
         {
             resourceManager.EarnResources(structureBase.buildCost);
-        }
+        }*/
+        int structAmount = structuresToBeModified.Count;
+        resourceManager.EarnResources(new Cost(
+            structAmount * structureBase.buildCost.gold,
+            structAmount * structureBase.buildCost.food,
+            structAmount * structureBase.buildCost.wood,
+            structAmount * structureBase.buildCost.stone,
+            structAmount * structureBase.buildCost.metal
+            ));
         base.CancelModifications();
     }
 }

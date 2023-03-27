@@ -20,7 +20,7 @@ public class GoldHelper : BasicResourceHelper
         {
             if(structure.CompareTag("Structure"))
             {
-                resource -= Mathf.FloorToInt(structure.GetComponent<WorkableStructure>().MaintenanceCost);
+                resource -= Mathf.FloorToInt(structure.GetComponent<Structure>().MaintenanceCost);
             }
         }
     }

@@ -9,19 +9,25 @@ public class Citizen : MonoBehaviour
     private NavMeshAgent agent;
     private Vector3 target;
     private State state = State.Idle;
-    private GameObject workBuildingPosition;
+    private GameObject workBuilding;
     public float workingTime = 5f;
     private bool isWorking = false;
     private Vector3 townHallPos;
     private bool stateRunning = false;
+    public CitizenData citizenData;
+
+    private readonly int baseSleep = 8;
+    private readonly int baseFood = 5;
 
     // Start is called before the first frame update
     void Start()
     {
+        CreateCitizenData();
         anim = this.GetComponent<Animator>();
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         agent = this.GetComponent<NavMeshAgent>();
         townHallPos = GameObject.FindGameObjectWithTag("Town Hall").transform.position;
+        InvokeRepeating(nameof(UpdateHappiness), 0, 5);
     }
 
     // Update is called once per frame
@@ -66,16 +72,18 @@ public class Citizen : MonoBehaviour
                     if (info.IsName("TravelToWork"))
                     {
                         anim.SetBool("isWorking", true);
-                        workBuildingPosition.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
+                        workBuilding.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
+                        InvokeRepeating(nameof(UpdateExperience), 0, 1);
                         yield return new WaitForSeconds(workingTime);
-                        workBuildingPosition.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
+                        CancelInvoke(nameof(UpdateExperience));
+                        workBuilding.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
                         anim.SetBool("isWorking", false);
                         target = townHallPos;
                     }
                     else
                     {
                         anim.SetTrigger("triggerWorking");
-                        target = workBuildingPosition.transform.position;
+                        target = workBuilding.transform.position;
                     }
                     agent.SetDestination(target);
                 }
@@ -88,13 +96,54 @@ public class Citizen : MonoBehaviour
 
     public void AssignWork(GameObject building)
     {
-        workBuildingPosition = building;
-        target = workBuildingPosition.transform.position;
-        anim.SetTrigger("triggerWorking");
-        state = State.Working;
-        agent.SetDestination(target);
-        building.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
-        stateRunning = false;
+        if (building.GetComponent<WorkableStructure>().HasCapacity())
+        {
+
+            // Remove previous workplace
+            if (workBuilding != null)
+            {
+                workBuilding.GetComponent<WorkableStructure>().RemoveWorker(this.gameObject);
+            }
+
+            workBuilding = building;
+            target = workBuilding.transform.position;
+            anim.SetTrigger("triggerWorking");
+            state = State.Working;
+            agent.SetDestination(target);
+            workBuilding.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
+            AssignNewOccupation(workBuilding.GetComponent<WorkableStructure>().ResourceType);
+            stateRunning = false;
+        }
+    }
+
+    private void UpdateExperience()
+    {
+        ResourceType workResType = workBuilding.GetComponent<WorkableStructure>().ResourceType;
+        switch (workResType)
+        {
+            case ResourceType.Gold:
+                citizenData.skills.GoldProductionExp++;
+                break;
+            case ResourceType.Food:
+                citizenData.skills.FoodProductionExp++;
+                break;
+            case ResourceType.Wood:
+                citizenData.skills.WoodProductionExp++;
+                break;
+            case ResourceType.Stone:
+                citizenData.skills.StoneProductionExp++;
+                break;
+            case ResourceType.Metal:
+                citizenData.skills.MetalProductionExp++;
+                break;
+        }
+    }
+
+    private void UpdateHappiness()
+    {
+        citizenData.happiness +=
+            (citizenData.dailySleep - baseSleep) +
+            (citizenData.dailyFood - baseFood);
     }
 
     private enum State
@@ -102,6 +151,47 @@ public class Citizen : MonoBehaviour
         Idle,
         Roaming,
         Working
+    }
+
+    private void AssignNewOccupation(ResourceType resourceType)
+    {
+        switch (resourceType)
+        {
+            case ResourceType.Gold:
+                citizenData.occupation = Occupation.Merchant;
+                break;
+            case ResourceType.Food:
+                citizenData.occupation = Occupation.Farmer;
+                break;
+            case ResourceType.Wood:
+                citizenData.occupation = Occupation.Logger;
+                break;
+            case ResourceType.Stone:
+                citizenData.occupation = Occupation.Miner;
+                break;
+            case ResourceType.Metal:
+                citizenData.occupation = Occupation.Miner;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void CreateCitizenData()
+    {
+        string firstName = NameData.firstNames[Random.Range(0, NameData.firstNames.Length)];
+        string lastName = NameData.lastNames[Random.Range(0, NameData.lastNames.Length)];
+        Skills skills = new(1, 1, 1, 1, 1);
+        citizenData = new(
+            firstName + " " + lastName,
+            Occupation.Citizen,
+            100,
+            5,
+            8,
+            0,
+            500,
+            skills
+        );
     }
 }
 

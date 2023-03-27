@@ -15,7 +15,8 @@ public class BuildingManagerTest
     [SetUp]
     public void Init()
     {
-        PlacementManager placementManager = Substitute.For<PlacementManager>();
+        //PlacementManager placementManager = Substitute.For<PlacementManager>();
+        PlacementManager placementManager = PlacementManager.Instance;
         transparentMaterial = new(Shader.Find("Standard"));
         placementManager.transparentMaterial = transparentMaterial;
         GameObject ground = new();
@@ -32,8 +33,9 @@ public class BuildingManagerTest
         roadStruct.prefab = road;
         structPool.roadStruct = roadStruct;
         structureRepository.modelDataPool = structPool;
-        ResourceManager resourceManager = Substitute.For<ResourceManager>();
-        buildingManager = new(placementManager, structureRepository, resourceManager, 1, 10, 10);
+        //ResourceManager resourceManager = Substitute.For<ResourceManager>();
+        ResourceManager resourceManager = ResourceManager.Instance;
+        buildingManager = new(structureRepository, 1, 10, 10);
     }
 
     [UnityTest]

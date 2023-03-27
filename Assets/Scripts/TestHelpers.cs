@@ -12,6 +12,7 @@ public static class TestHelpers
         RoadStruct roadStruct = ScriptableObject.CreateInstance<RoadStruct>();
         roadStruct.name = "Road";
         roadStruct.prefab = GetGameObjectWithMaterial();
+        roadStruct.buildCost = new Cost(0, 0, 0, 0, 0);
         structPool.roadStruct = roadStruct;
         structureRepository.modelDataPool = structPool;
         return structureRepository;

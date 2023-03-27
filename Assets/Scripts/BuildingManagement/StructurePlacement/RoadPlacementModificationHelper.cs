@@ -9,8 +9,8 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
 {
     Dictionary<Vector3Int, GameObject> existingRoadStructuresToBeModified = new Dictionary<Vector3Int, GameObject>();
 
-    public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure, 
-        IPlacementManager placementManager, IResourceManager resourceManager) : base(structureRepository, gridStructure, placementManager, resourceManager)
+    public RoadPlacementModificationHelper(StructureRepository structureRepository, GridStructure gridStructure) 
+        : base(structureRepository, gridStructure)
     {
 
     }
@@ -32,7 +32,7 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
         else if (!gridStructure.IsCellTaken(gridPosition) && resourceManager.CanIAffordIt(structureBase.buildCost))
         {
             RoadStructureHelper road = RoadManager.GetCorrectRoadPrefab(gridPosition, structureBase, structuresToBeModified, gridStructure);
-            gridPositionInt = RoadManager.PlaceNewRoad(road, gridPosition, gridPositionInt, placementManager, gridStructure, structuresToBeModified, structureBase);
+            gridPositionInt = RoadManager.PlaceNewRoad(road, gridPosition, gridPositionInt, gridStructure, structuresToBeModified, structureBase);
             resourceManager.Purchase(structureBase.buildCost);
         }
         AdjustNeighboursIfAreRoadStructures(gridPosition);
@@ -77,7 +77,7 @@ public class RoadPlacementModificationHelper : StructureModificationHelper
                 gridStructure.RemoveStructureFromTheGrid(neighbourPositionInt);
                 //structuresToBeModified.Remove(gridPositionInt);
                 RoadStructureHelper neighboursStructure = RoadManager.GetCorrectRoadPrefab(neighbourPositionInt, structureBase, structuresToBeModified, gridStructure);
-                RoadManager.PlaceNewRoad(neighboursStructure, neighbourPositionInt, neighbourPositionInt, placementManager, gridStructure, structuresToBeModified, structureBase);
+                RoadManager.PlaceNewRoad(neighboursStructure, neighbourPositionInt, neighbourPositionInt, gridStructure, structuresToBeModified, structureBase);
                 //StructureBase neighbourStructureData = gridStructure.GetStructureDataFromGrid(neighbourGridPosition.Value);
                 //if (neighbourStructureData != null && neighbourStructureData.GetType() == typeof(RoadStruct) && !existingRoadStructuresToBeModified.ContainsKey(neighbourPositionInt))
                 //{

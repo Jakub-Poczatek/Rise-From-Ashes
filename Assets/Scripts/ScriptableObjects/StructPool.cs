@@ -7,4 +7,5 @@ public class StructPool : ScriptableObject
 {
     public RoadStruct roadStruct;
     public List<ResourceGenStruct> resourceGenStructs;
+    public ResidentialStruct residentialStruct;
 }

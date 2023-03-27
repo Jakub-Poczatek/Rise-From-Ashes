@@ -6,13 +6,14 @@ public class PopulationManagement : MonoBehaviour
 {
     public float citizenSpawnRate = 10.0f;
     public GameObject citizenPrefab;
-    public int citizenLimit = 2;
     private List<GameObject> citizens = new List<GameObject>();
     public GameObject townHall;
+    private ResourceManager resourceManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        resourceManager = ResourceManager.Instance;
         InvokeRepeating("spawnCitizen", 0, citizenSpawnRate);
     }
 
@@ -24,8 +25,9 @@ public class PopulationManagement : MonoBehaviour
 
     void spawnCitizen()
     {
-        if (citizens.Count < citizenLimit) {
+        if (resourceManager.CanIHouseCitizen()) {
             GameObject citizen = Instantiate(citizenPrefab, townHall.transform.position + new Vector3(5, 0, 5), Quaternion.identity);
+            resourceManager.CurrentCitizenCapacity++;
             citizens.Add(citizen);
         }
     }

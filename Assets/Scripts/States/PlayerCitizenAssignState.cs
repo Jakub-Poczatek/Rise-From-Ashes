@@ -11,11 +11,13 @@ public class PlayerCitizenAssignState : PlayerState
     public override void OnInputPointerDown(Vector3 position)
     {
         GameObject structure = buildingManager.GetStructureFromGrid(position);
-        if (structure.CompareTag("Structure"))
+        if (structure != null)
         {
-            citizen.GetComponent<Citizen>().AssignWork(structure);
+            if (structure.CompareTag("ResGenStructure"))
+            {
+                citizen.GetComponent<Citizen>().AssignWork(structure);
+                OnConfirmAction();
+            }
         }
-        gameManager.uiController.ToggleCitizenInteraction(false);
-        OnConfirmAction();
     }
 }

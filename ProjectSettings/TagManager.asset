@@ -7,6 +7,7 @@ TagManager:
   - Citizen
   - Structure
   - Town Hall
+  - ResGenStructure
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Ground
   - Resources
   - Structures
-  - 
+  - Citizen
   - 
   - 
   - 

@@ -19,3 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7fe7d08b4d82c83428267f99aca04dc8, type: 2}
   - {fileID: 11400000, guid: dc5378be2d16ffd4b8625d15f49512e9, type: 2}
   - {fileID: 11400000, guid: 6fd57de62933a0c44b149390972e8593, type: 2}
+  residentialStruct: {fileID: 11400000, guid: 46c1a5a17fb12814790fa9f91debd587, type: 2}

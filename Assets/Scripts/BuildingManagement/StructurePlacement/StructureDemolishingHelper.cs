@@ -7,8 +7,8 @@ public class StructureDemolishingHelper : StructureModificationHelper
 {
     Dictionary<Vector3Int, GameObject> roadsToDemolish = new Dictionary<Vector3Int, GameObject>();
 
-    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure, IPlacementManager placementManager, IResourceManager resourceManager) 
-        : base(structureRepository, gridStructure, placementManager, resourceManager) { }
+    public StructureDemolishingHelper(StructureRepository structureRepository, GridStructure gridStructure) 
+        : base(structureRepository, gridStructure) { }
     public override void CancelModifications()
     {
         this.placementManager.DisplayStructureOnMap(structuresToBeModified.Values);
@@ -28,7 +28,7 @@ public class StructureDemolishingHelper : StructureModificationHelper
             if(neighbours.Count > 0)
             {
                 var structureBase = gridStructure.GetStructureBaseFromGrid(neighbours.Keys.First());
-                RoadManager.modifyRoadCellsOnGrid(neighbours, structureBase, new Dictionary<Vector3Int, GameObject>(), gridStructure, placementManager);
+                RoadManager.modifyRoadCellsOnGrid(neighbours, structureBase, new Dictionary<Vector3Int, GameObject>(), gridStructure);
             }
         }
         this.placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
