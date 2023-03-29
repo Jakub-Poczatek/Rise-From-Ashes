@@ -13,6 +13,11 @@ public class NavMeshManager : MonoBehaviour
         else Instance = this;
     }
 
+    private void Start()
+    {
+        Rebake();
+    }
+
     public static NavMeshManager Instance { get; private set; }
 
     private NavMeshManager() { }

@@ -27,11 +27,6 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: RoofBlueTiles2
-    second: {fileID: 2100000, guid: 6b0e749e315bcea4799226ad3f52f9f7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: WhitePlaster
     second: {fileID: 2100000, guid: 598a426ac2bff854a8e0eb41ab45367d, type: 2}
   - first:
@@ -39,11 +34,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: WindowBlue
     second: {fileID: 2100000, guid: a3f855393545a164396ac32d44a6d8d4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: WindowBlue2
-    second: {fileID: 2100000, guid: fcba2356965e90b479d3513a2146ab1a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
