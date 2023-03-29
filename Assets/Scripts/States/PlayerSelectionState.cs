@@ -9,8 +9,9 @@ public class PlayerSelectionState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        Physics.Raycast(position + (Vector3.up * 5), Vector3.down, out hit, 10);
+        Physics.Raycast(cameraRay.origin, cameraRay.direction, out hit, Mathf.Infinity);
         GameObject target = hit.collider.transform.parent.gameObject;
 
         switch (target.tag)
