@@ -1711,7 +1711,7 @@ GameObject:
   - component: {fileID: 643732452}
   - component: {fileID: 643732451}
   - component: {fileID: 643732450}
-  - component: {fileID: 643732449}
+  - component: {fileID: 643732454}
   m_Layer: 5
   m_Name: StructureInteractionPnl
   m_TagString: Untagged
@@ -1741,47 +1741,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &643732449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643732447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa24b05f15071b24a8b54a0300482ff4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  citizenName: {fileID: 1674815650}
-  citizenOccupation: {fileID: 1919947123}
-  healthAmount: {fileID: 0}
-  happinessAmount: {fileID: 0}
-  goldLevel: {fileID: 0}
-  foodLevel: {fileID: 0}
-  woodLevel: {fileID: 0}
-  stoneLevel: {fileID: 0}
-  metalLevel: {fileID: 0}
-  goldExp: {fileID: 0}
-  foodExp: {fileID: 0}
-  woodExp: {fileID: 0}
-  stoneExp: {fileID: 0}
-  metalExp: {fileID: 0}
-  foodAmount: {fileID: 0}
-  energyAmount: {fileID: 0}
-  healthSlider: {fileID: 0}
-  happinessSlider: {fileID: 0}
-  goldSlider: {fileID: 0}
-  foodSlider: {fileID: 0}
-  woodSlider: {fileID: 0}
-  stoneSlider: {fileID: 0}
-  metalSlider: {fileID: 0}
-  assignBtn: {fileID: 145358756}
-  cancelBtn: {fileID: 776585977}
-  foodDecreaseBtn: {fileID: 0}
-  foodIncreaseBtn: {fileID: 0}
-  sleepDecreaseBtn: {fileID: 0}
-  sleepIncreaseBtn: {fileID: 0}
 --- !u!114 &643732450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1860,6 +1819,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643732447}
   m_CullTransparentMesh: 1
+--- !u!114 &643732454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643732447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508bd046aa66c474c88affe1b3eef569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoPnlStructName: {fileID: 0}
+  infoPnlStructCost: {fileID: 0}
+  infoPnlStructLevel: {fileID: 0}
+  infoPnlStructType: {fileID: 0}
+  infoPnlStructIncome: {fileID: 0}
+  infoPnlStructCapacity: {fileID: 0}
 --- !u!1 &713726321
 GameObject:
   m_ObjectHideFlags: 0
