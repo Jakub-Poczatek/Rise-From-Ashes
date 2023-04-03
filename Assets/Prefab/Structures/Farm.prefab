@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9190729660647959996}
   - component: {fileID: 4190549891292604989}
   - component: {fileID: 2934570225554410641}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 1702772387462968134}
   - component: {fileID: 1221135730984730546}
   - component: {fileID: 9095190352347987009}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Farm
   m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7607514041704122858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b53343e45007e46804d74169af3c44, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c0f252a906ee844ca3c838ada2676a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &9095190352347987009
@@ -690,7 +690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1447542646422568678}
   - component: {fileID: 7468435014800380723}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NavMeshFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

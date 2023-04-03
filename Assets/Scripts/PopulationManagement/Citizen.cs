@@ -102,7 +102,7 @@ public class Citizen : MonoBehaviour
             // Remove previous workplace
             if (workBuilding != null)
             {
-                workBuilding.GetComponent<WorkableStructure>().RemoveWorker(this.gameObject);
+                workBuilding.GetComponent<WorkableStructure>().RemoveCitizen(this.gameObject);
             }
 
             workBuilding = building;
@@ -110,7 +110,7 @@ public class Citizen : MonoBehaviour
             anim.SetTrigger("triggerWorking");
             state = State.Working;
             agent.SetDestination(target);
-            workBuilding.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
+            workBuilding.GetComponent<WorkableStructure>().AddCitizen(this.gameObject);
             AssignNewOccupation(workBuilding.GetComponent<WorkableStructure>().ResourceType);
             stateRunning = false;
         }

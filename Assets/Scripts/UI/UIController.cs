@@ -93,7 +93,7 @@ public class UIController : MonoBehaviour
         buildingMenuPnl.SetActive(toggle);
     }
 
-    public void DisplayStructureInfo(StructureBase structure)
+    public void DisplayStructureInfo(Structure structure)
     {
         structPanelHelper.DisplayStructureInfo(structure);
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4287525891221390454}
   - component: {fileID: -7689355597385531605}
   - component: {fileID: 6856793129149500849}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MetalMine
   m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 361282805584930587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b53343e45007e46804d74169af3c44, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c0f252a906ee844ca3c838ada2676a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6856793129149500849
@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8570022411010997543}
   - component: {fileID: 4540724924071661084}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NavMeshFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 5413970790280682950}
   - component: {fileID: 3949857633767489030}
   - component: {fileID: 3756846773863355127}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Structure
   m_Icon: {fileID: 0}

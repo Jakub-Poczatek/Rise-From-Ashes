@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 3127805039803421545}
   - component: {fileID: 4611127288018052082}
   - component: {fileID: 1909252676079467660}
-  - component: {fileID: 3963555716717524813}
-  - component: {fileID: 1921228528945065467}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -3007,49 +3005,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144240982400411436}
   m_Mesh: {fileID: 0}
---- !u!64 &3963555716717524813
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144240982400411436}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
---- !u!65 &1921228528945065467
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144240982400411436}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 3.0000007, y: 2.8873372, z: 3.0000007}
-  m_Center: {x: -0.00000023841858, y: 0.4436686, z: -0.00000023841858}
 --- !u!1 &2833789723873276210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,7 +3072,7 @@ GameObject:
   - component: {fileID: 4127490424750799349}
   - component: {fileID: 3969236172522088874}
   - component: {fileID: 6618824932859009002}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pillar
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -3469,7 +3424,7 @@ GameObject:
   - component: {fileID: 5844558121357963516}
   - component: {fileID: 5292186426768153315}
   - component: {fileID: 2724875623081839143}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pillar
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -3818,7 +3773,7 @@ GameObject:
   - component: {fileID: 9034957550091374261}
   - component: {fileID: -5428979140791934517}
   - component: {fileID: 116489055495056573}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bank
   m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
@@ -3851,7 +3806,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5044072459351066130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b53343e45007e46804d74169af3c44, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c0f252a906ee844ca3c838ada2676a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &116489055495056573
@@ -3882,7 +3837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8734725131506350734}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pillars
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -3917,7 +3872,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6439925956800057882}
-  m_Layer: 0
+  - component: {fileID: 3161527736991656826}
+  m_Layer: 11
   m_Name: ModelParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3940,6 +3896,27 @@ Transform:
   m_Father: {fileID: 9034957550091374261}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3161527736991656826
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7566569989718962629}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.1988711, y: 3.0010338, z: 3.2594995}
+  m_Center: {x: 0.010308027, y: 1.4549, z: 0.05495882}
 --- !u!1 &7590027676599814766
 GameObject:
   m_ObjectHideFlags: 0
@@ -3954,7 +3931,7 @@ GameObject:
   - component: {fileID: 231257328002571676}
   - component: {fileID: 9158481867434548736}
   - component: {fileID: 4173223385056779858}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pillar
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -4306,7 +4283,7 @@ GameObject:
   - component: {fileID: 5741576390531106483}
   - component: {fileID: 9088638593445112718}
   - component: {fileID: 1786000899546988079}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RoofSphere
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -6601,7 +6578,7 @@ GameObject:
   - component: {fileID: 831983814217195089}
   - component: {fileID: 7305882631005647981}
   - component: {fileID: 4247290779902546351}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pillar
   m_TagString: Structure
   m_Icon: {fileID: 0}

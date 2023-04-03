@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 820674131126788519}
   - component: {fileID: 820674131126788518}
   - component: {fileID: 3966187160518453932}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -3265,7 +3265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4376305731755281363}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Logs
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -3303,7 +3303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7867924476109136718}
   - component: {fileID: 352573706609089715}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NavMeshFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3360,7 +3360,7 @@ GameObject:
   - component: {fileID: 5999487280693670571}
   - component: {fileID: 8135278300337402079}
   - component: {fileID: 4044337427188731891}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chopping Log
   m_TagString: Structure
   m_Icon: {fileID: 0}
@@ -3948,7 +3948,7 @@ GameObject:
   - component: {fileID: 5970517571382224692}
   - component: {fileID: -4288583584783771118}
   - component: {fileID: 6948987358878191845}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Logger's Hut
   m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
@@ -3981,7 +3981,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5165217977655863059}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b53343e45007e46804d74169af3c44, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c0f252a906ee844ca3c838ada2676a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6948987358878191845
@@ -4017,7 +4017,7 @@ GameObject:
   - component: {fileID: 1197956674182806033}
   - component: {fileID: 9091619355697802422}
   - component: {fileID: 2226893280375819164}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4691,7 +4691,7 @@ GameObject:
   - component: {fileID: 1118655857369156070}
   - component: {fileID: 4823915072852774849}
   - component: {fileID: 7290630193519561202}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5365,7 +5365,7 @@ GameObject:
   - component: {fileID: 4888665560888143728}
   - component: {fileID: 630589944235743379}
   - component: {fileID: 1943945022745914482}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6039,7 +6039,7 @@ GameObject:
   - component: {fileID: 6278744387517950786}
   - component: {fileID: 9137341665967763256}
   - component: {fileID: 2064192935971742308}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6713,7 +6713,7 @@ GameObject:
   - component: {fileID: 5771393300437251760}
   - component: {fileID: 7467631550236272013}
   - component: {fileID: 8755268278402866090}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7387,7 +7387,7 @@ GameObject:
   - component: {fileID: 4140268940897949680}
   - component: {fileID: 5409070480977879751}
   - component: {fileID: 3989176596810798710}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}

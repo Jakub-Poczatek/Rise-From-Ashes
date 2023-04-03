@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3934824996474477390}
   - component: {fileID: 5362422001405524801}
   - component: {fileID: 5586637976122122614}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Posts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 907095525003399890}
   - component: {fileID: 5434738838480486795}
   - component: {fileID: 7151028444247239372}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,7 +1026,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7626123480534282521}
   - component: {fileID: 598934578577560583}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NavMeshFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1084,7 +1084,7 @@ GameObject:
   - component: {fileID: 4179493712243088038}
   - component: {fileID: 4179493712243088039}
   - component: {fileID: 2782163791375434433}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2686,7 +2686,7 @@ GameObject:
   - component: {fileID: 4179493713652239927}
   - component: {fileID: -5867316119885113430}
   - component: {fileID: 9187600849461832989}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mine
   m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
@@ -2719,7 +2719,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4179493713652239928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b53343e45007e46804d74169af3c44, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c0f252a906ee844ca3c838ada2676a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &9187600849461832989
@@ -2755,7 +2755,7 @@ GameObject:
   - component: {fileID: 5031303144360353530}
   - component: {fileID: 362628489071201498}
   - component: {fileID: 6321889944701995307}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3346,7 +3346,7 @@ GameObject:
   - component: {fileID: 8217554453695412236}
   - component: {fileID: 1333460552862943564}
   - component: {fileID: 7618355414848184577}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Posts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3854,7 +3854,7 @@ GameObject:
   - component: {fileID: 1242143490921563590}
   - component: {fileID: 8482641259429976796}
   - component: {fileID: 2880088821845446410}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Posts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4362,7 +4362,7 @@ GameObject:
   - component: {fileID: 7631669052277079634}
   - component: {fileID: 4434077185963157126}
   - component: {fileID: 1702984367956043850}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4865,7 +4865,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8707297267332943499}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4904,7 +4904,7 @@ GameObject:
   - component: {fileID: 7893714195996490700}
   - component: {fileID: 6662906932336316126}
   - component: {fileID: 2611099581014161452}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5495,7 +5495,7 @@ GameObject:
   - component: {fileID: 3043977083325671898}
   - component: {fileID: 85262959137191722}
   - component: {fileID: 9129232465885817402}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6003,7 +6003,7 @@ GameObject:
   - component: {fileID: 7206370012458409336}
   - component: {fileID: 5315359837799723487}
   - component: {fileID: 4342467580070356524}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6835,7 +6835,7 @@ GameObject:
   - component: {fileID: 6012958197765811673}
   - component: {fileID: 1242315429835356405}
   - component: {fileID: 7488900182516430408}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7426,7 +7426,7 @@ GameObject:
   - component: {fileID: 9093835535632167459}
   - component: {fileID: 1127580080057852198}
   - component: {fileID: 3399639153484604128}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7934,7 +7934,7 @@ GameObject:
   - component: {fileID: 7057515221635007688}
   - component: {fileID: 7590531351167736080}
   - component: {fileID: 4714710489259936020}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Posts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8437,7 +8437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2921413322289087873}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7368374245837029753}
   - component: {fileID: -422943946192531258}
   - component: {fileID: -8095733950040538462}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Citizen
   m_TagString: Citizen
   m_Icon: {fileID: 0}
