@@ -29,6 +29,12 @@ public class WorkableStructure : Structure
         resourceType = data.resourceType;
     }
 
+    public override void Upgrade()
+    {
+        base.Upgrade();
+        baseGenAmount = data.resourceGenAmount * (1f  + (0.25f * (StructureLevel-1)));
+    }
+
     public void StartWorking(GameObject worker)
     {
         Citizens[worker] = true;

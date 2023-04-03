@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class Structure : MonoBehaviour
 {
     private StructureBase baseData;
     private Dictionary<GameObject, bool> citizens;
+    private Cost upgradeCost;
     private string structureName;
     private int structureLevel;
     private float maintenanceCost;
@@ -17,6 +19,7 @@ public class Structure : MonoBehaviour
     public int StructureLevel { get => structureLevel; set => structureLevel = value; }
     public Dictionary<GameObject, bool> Citizens { get => citizens; set => citizens = value; }
     public int MaxCitizenCapacity { get => maxCitizenCapacity; set => maxCitizenCapacity = value; }
+    public Cost UpgradeCost { get => upgradeCost; set => upgradeCost = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +34,17 @@ public class Structure : MonoBehaviour
         maxCitizenCapacity = baseData.maxCitizenCapacity;
         structureLevel = 1;
         citizens = new Dictionary<GameObject, bool>();
+        upgradeCost = BaseData.buildCost * 1.5f;
+    }
+
+    public virtual void Upgrade()
+    {
+        if (ResourceManager.Instance.Purchase(upgradeCost))
+        {
+            upgradeCost *= 1.5f;
+            structureLevel += 1;
+            maxCitizenCapacity++;
+        }
     }
 
     public void AddCitizen(GameObject citizen)

@@ -48,6 +48,12 @@ public class UIStructInfoPnlHelper : MonoBehaviour
         structureLevel.text = "Level " + structure.StructureLevel;
         citizenListLbl.text = "List of Citizens " + structure.Citizens.Count + "/" + structure.MaxCitizenCapacity;
         DisplayCitizenList(structure);
+        upgradeBtn.onClick.AddListener(() =>
+        {
+            upgradeBtn.onClick.RemoveAllListeners();
+            structure.Upgrade();
+            DisplayStructureInfo(structure);
+        });
 
         if (structure.GetType() == typeof(WorkableStructure))
             DisplayWorkableStructure((WorkableStructure) structure);

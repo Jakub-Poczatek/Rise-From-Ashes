@@ -7,7 +7,7 @@ using UnityEngine;
 public class GoldHelper : BasicResourceHelper
 {
 
-    public GoldHelper(int initialAmount) : base(initialAmount) { }
+    public GoldHelper(float initialAmount) : base(initialAmount) { }
 
     public override void CollectResource(float amount)
     {

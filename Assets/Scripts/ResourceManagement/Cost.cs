@@ -5,18 +5,30 @@ using UnityEngine;
 [System.Serializable]
 public class Cost
 {
-    public int gold = 0;
-    public int food = 0;
-    public int wood = 0;
-    public int stone = 0;
-    public int metal = 0;
+    public float gold = 0;
+    public float food = 0;
+    public float wood = 0;
+    public float stone = 0;
+    public float metal = 0;
 
-    public Cost(int gold, int food, int wood, int stone, int metal)
+    public Cost(float gold, float food, float wood, float stone, float metal)
     {
         this.gold = gold;
         this.food = food;
         this.wood = wood;
         this.stone = stone;
         this.metal = metal;
+    }
+
+    public static Cost operator *(Cost cost, float multiplier)
+    {
+        return new Cost
+        (
+            cost.gold * multiplier,
+            cost.food * multiplier,
+            cost.wood * multiplier,
+            cost.stone * multiplier,
+            cost.metal * multiplier
+        );
     }
 }
