@@ -14,6 +14,9 @@ public class UIStructInfoPnlHelper : MonoBehaviour
     public GameObject citizenList, resourceGenParent;
 
     private GameObject[] citizenButtons;
+    private Structure currentStructure;
+
+    public Structure CurrentStructure { get => currentStructure; set => currentStructure = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -42,21 +45,17 @@ public class UIStructInfoPnlHelper : MonoBehaviour
 
     public void DisplayStructureInfo(Structure structure)
     {
-        Show();
         resourceGenParent.SetActive(false);
         structureName.text = structure.StructureName;
         structureLevel.text = "Level " + structure.StructureLevel;
         citizenListLbl.text = "List of Citizens " + structure.Citizens.Count + "/" + structure.MaxCitizenCapacity;
         DisplayCitizenList(structure);
-        upgradeBtn.onClick.AddListener(() =>
-        {
-            upgradeBtn.onClick.RemoveAllListeners();
-            structure.Upgrade();
-            DisplayStructureInfo(structure);
-        });
 
         if (structure.GetType() == typeof(WorkableStructure))
             DisplayWorkableStructure((WorkableStructure) structure);
+
+        currentStructure = structure;
+        Show();
     }
 
     private void DisplayWorkableStructure(WorkableStructure structure)

@@ -126,25 +126,18 @@ public class PlacementManager : MonoBehaviour
 
     private void ChangeStructureMaterial(GameObject newStructure, Color colourToSet)
     {
-        foreach (Transform child in newStructure.transform)
+        Transform modelChild = newStructure.transform.Find("ModelParent").transform.Find("Model");
+        MeshRenderer meshRenderer = modelChild.GetComponent<MeshRenderer>();
+        if (!originalMaterials.ContainsKey(modelChild.gameObject))
+            originalMaterials.Add(modelChild.gameObject, meshRenderer.materials);
+        Material[] materialsToSet = new Material[meshRenderer.materials.Length];
+        colourToSet.a = 0.5f;
+        for (int i = 0; i < materialsToSet.Length; i++)
         {
-            if (child.GetComponent<MeshRenderer>() != null)
-            {
-                MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
-                if (originalMaterials.ContainsKey(child.gameObject) == false)
-                {
-                    originalMaterials.Add(child.gameObject, meshRenderer.materials);
-                }
-                Material[] materialsToSet = new Material[meshRenderer.materials.Length];
-                colourToSet.a = 0.5f;
-                for (int i = 0; i < materialsToSet.Length; i++)
-                {
-                    materialsToSet[i] = transparentMaterial;
-                    materialsToSet[i].color = colourToSet;
-                }
-                meshRenderer.materials = materialsToSet;
-            }
+            materialsToSet[i] = transparentMaterial;
+            materialsToSet[i].color = colourToSet;
         }
+        meshRenderer.materials = materialsToSet;
     }
 
     public void DisplayStructureOnMap(IEnumerable<GameObject> structureCollection)
@@ -158,14 +151,10 @@ public class PlacementManager : MonoBehaviour
 
     public void ResetBuildingMaterial(GameObject structure)
     {
-        foreach (Transform child in structure.transform)
-        {
-            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
-            if (originalMaterials.ContainsKey(child.gameObject))
-            {
-                meshRenderer.materials = originalMaterials[child.gameObject];
-            }
-        }
+        Transform modelChild = structure.transform.Find("ModelParent").transform.Find("Model");
+        MeshRenderer meshRenderer = modelChild.GetComponent<MeshRenderer>();
+        if (originalMaterials.ContainsKey(modelChild.gameObject))
+            meshRenderer.materials = originalMaterials[modelChild.gameObject];
     }
 
     public void DestroyDisplayedStructures(IEnumerable<GameObject> structureCollection)

@@ -62,14 +62,23 @@ public class UIController : MonoBehaviour
 
         citizenPanelHelper.assignBtn.onClick.AddListener(OnCitizenAssignCallback);
         citizenPanelHelper.cancelBtn.onClick.AddListener(() => ToggleCitizenInteractionPanel(false));
+
+        structPanelHelper.upgradeBtn.onClick.AddListener(() =>
+        {
+            structPanelHelper.CurrentStructure.Upgrade();
+            DisplayStructureInfo(structPanelHelper.CurrentStructure);
+        });
+        structPanelHelper.cancelBtn.onClick.AddListener(() => ToggleStructureInteractionPanel(false));
     }
 
     public void ToggleCitizenInteractionPanel(bool toggle, CitizenData citizenData = null)
     {
         if (toggle)
         {
+            ToggleCancelConfirmPanel(false);
+            ToggleBuildPanel(false);
+            ToggleStructureInteractionPanel(false);
             citizenPanelHelper.DisplayCitizenMenu(citizenData);
-            citizenPanelHelper.Show();
         }
         else citizenPanelHelper.Hide();
     }
@@ -87,10 +96,23 @@ public class UIController : MonoBehaviour
     {
         if (toggle)
         {
-            citizenPanelHelper.Hide();
+            ToggleCitizenInteractionPanel(false);
+            ToggleCancelConfirmPanel(false);
+            ToggleStructureInteractionPanel(false);
         }
-
         buildingMenuPnl.SetActive(toggle);
+    }
+
+    private void ToggleStructureInteractionPanel(bool toggle, Structure structure = null)
+    {
+        if (toggle)
+        {
+            ToggleCitizenInteractionPanel(false);
+            ToggleCancelConfirmPanel(false);
+            ToggleBuildPanel(false);
+            structPanelHelper.DisplayStructureInfo(structure);
+        }
+        else structPanelHelper.Hide();
     }
 
     public void DisplayStructureInfo(Structure structure)
