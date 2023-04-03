@@ -31,4 +31,13 @@ public class Cost
             cost.metal * multiplier
         );
     }
+
+    public override string ToString()
+    {
+        return "Gold: " + gold + "\n" +
+            "Food: " + food + "\n" +
+            "Wood: " + wood + "\n" +
+            "Stone: " + stone + "\n" +
+            "Metal: " + metal;
+    }
 }

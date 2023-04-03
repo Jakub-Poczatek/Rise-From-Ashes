@@ -55,6 +55,8 @@ public class UIStructInfoPnlHelper : MonoBehaviour
             DisplayWorkableStructure((WorkableStructure) structure);
 
         currentStructure = structure;
+
+        upgradeBtn.gameObject.GetComponent<HoverTip>().tipToShow = structure.UpgradeCost.ToString();
         Show();
     }
 
