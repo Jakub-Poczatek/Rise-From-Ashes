@@ -1,0 +1,98 @@
+# Blender 3.3.1 MTL File: 'Farm.blend'
+# www.blender.org
+
+newmtl BasicBrownWood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_refl textures/Wood Wall Slits Var01_metallic.jpeg
+
+newmtl DarkBurntWood
+Ka 1.000000 1.000000 1.000000
+Ks 0.254545 0.254545 0.254545
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd -s 0.1 0.1 0.1 textures/burn_wood_BaseColor.png
+map_Ns -s 0.1 0.1 0.1 textures/burn_wood_Roughness.png
+map_refl -s 0.1 0.1 0.1 textures/burn_wood_Metallic.png
+
+newmtl DoorBrownWood
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl OldAshWood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl RoofBlueTiles
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_refl textures/Tiles_09_metallic.jpg
+
+newmtl Soil
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures/grey and brown soil_albedo.jpg
+map_Ns textures/grey and brown soil_roughness.jpg
+map_Bump -bm 1.000000 textures/grey and brown soil_normal.jpg
+
+newmtl WhiteCloth
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures/Wash_Cloth_Base_Color.jpg
+map_Ns textures/Wash_Cloth_Roughness.jpg
+
+newmtl WhitePlaster
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl WindowBlue
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_refl textures/murble_metal.jpg
+map_Bump -bm 0.020000 textures/murble_normal.jpg

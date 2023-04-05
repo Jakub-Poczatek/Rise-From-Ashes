@@ -62,6 +62,10 @@ public class UIController : MonoBehaviour
 
         citizenPanelHelper.assignBtn.onClick.AddListener(OnCitizenAssignCallback);
         citizenPanelHelper.cancelBtn.onClick.AddListener(() => ToggleCitizenInteractionPanel(false));
+        citizenPanelHelper.foodDecreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateFood(-1));
+        citizenPanelHelper.foodIncreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateFood(1));
+        citizenPanelHelper.sleepDecreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateSleep(-1));
+        citizenPanelHelper.sleepIncreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateSleep(1));
 
         structPanelHelper.upgradeBtn.onClick.AddListener(() =>
         {
