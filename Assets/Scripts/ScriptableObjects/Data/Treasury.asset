@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e77ca10fa2731ae45a0fdc4de872b98e, type: 3}
-  m_Name: Bank
+  m_Name: Treasury
   m_EditorClassIdentifier: 
-  structureName: Bank
+  structureName: Treasury
   prefab: {fileID: 5044072459351066130, guid: 347768c8844747845b2495c04c95f861, type: 3}
   buildCost:
     gold: 125
