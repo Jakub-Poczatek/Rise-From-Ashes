@@ -12,7 +12,11 @@ public class ChallengeManager : MonoBehaviour
     void Start()
     {
         LoadChallenges();
-        Invoke(nameof(CheckChallenges), 5);
+    }
+
+    private void Update()
+    {
+        CheckChallenges();
     }
 
     private void LoadChallenges()
@@ -69,7 +73,15 @@ public class ChallengeManager : MonoBehaviour
 
     private bool CheckStructureLevel(string structureName, int level)
     {
-        return true;
+        foreach (GameObject structure in BuildingManager.Instance.GetAllStructures())
+        {
+            if (structure.name.Contains(structureName))
+            {
+                if (structure.GetComponent<Structure>().StructureLevel >= level)
+                    return true;
+            }
+        }
+        return false;
     }
 
     private bool CheckResourceAmount(ResourceType resourceType, int amount)

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerSelectionState : PlayerState
 {
-    public PlayerSelectionState(GameManager gameManager, BuildingManager buildingManager) 
-        : base(gameManager, buildingManager) {}
+    public PlayerSelectionState(GameManager gameManager) 
+        : base(gameManager) {}
 
     public override void OnInputPointerDown(Vector3 position)
     {

@@ -3,7 +3,7 @@
 	<challenge message="Upgrade Castle to level 2">
 		<reward gold="100" food="0" wood="0" stone="0" metal="0"/>
 		<conditions>
-			<condition type="structureLevel" structure="Castle" level="2"/>
+			<condition type="structureLevel" structure="Treasury" level="2"/>
 		</conditions>
 	</challenge>
 </challenges>

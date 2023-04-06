@@ -6,19 +6,18 @@ public class PlayerBuildingResidentialState : PlayerState
 {
     string structureName;
 
-    public PlayerBuildingResidentialState(GameManager gameManager, BuildingManager buildingManager)
-        : base(gameManager, buildingManager) { }
+    public PlayerBuildingResidentialState(GameManager gameManager) : base(gameManager) { }
 
     public override void EnterState(string structureName)
     {
         base.EnterState(structureName);
-        this.buildingManager.PrepareBuildingManager(this.GetType());
+        BuildingManager.Instance.PrepareBuildingManager(this.GetType());
         this.structureName = structureName;
         //this.buildingManager.PreviewStructure(structureName, StructureType.ResidentialStructure);
     }
 
     public override void OnInputPointerDown(Vector3 position)
     {
-        this.buildingManager.PrepareStructureForModification(position, structureName, StructureType.ResidentialStructure);
+        BuildingManager.Instance.PrepareStructureForModification(position, structureName, StructureType.ResidentialStructure);
     }
 }

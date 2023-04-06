@@ -15,7 +15,6 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] private int currentCitizenCapacity = 0;
     
     public UIController uiController;
-    private BuildingManager buildingManager;
     private GoldHelper goldHelper;
     private BasicResourceHelper foodHelper;
     private BasicResourceHelper woodHelper;
@@ -64,9 +63,8 @@ public class ResourceManager : MonoBehaviour
 
     private ResourceManager() { }
 
-    public void PrepareResourceManager(BuildingManager buildingManager)
+    public void PrepareResourceManager()
     {
-        this.buildingManager = buildingManager;
         InvokeRepeating(nameof(CalculateResources), 0, resourceCalculationInterval);
     }
 
@@ -117,7 +115,7 @@ public class ResourceManager : MonoBehaviour
     public void CalculateResources()
     {
         //IEnumerable<StructureBase> structures = buildingManager.GetAllStructuresData();
-        IEnumerable<GameObject> structures = buildingManager.GetAllStructures();
+        IEnumerable<GameObject> structures = BuildingManager.Instance.GetAllStructures();
         CollectResourceGains(structures);
         goldHelper.Maintain(structures);
         UpdateMoneyValueUI();

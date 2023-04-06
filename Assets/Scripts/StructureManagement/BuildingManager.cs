@@ -6,11 +6,23 @@ using UnityEngine;
 
 public class BuildingManager
 {
+    private static BuildingManager instance;
+    private BuildingManager() { }
+
     private GridStructure gridStructure;
     private StructureRepository structureRepository;
     private StructureModificationHelper helper;
 
-    public BuildingManager(StructureRepository structureRepository,
+    public static BuildingManager Instance
+    {
+        get
+        {
+            if (instance == null) instance = new BuildingManager();
+            return instance;
+        }
+    }
+
+    public void PrepareBuildingManager(StructureRepository structureRepository,
         int cellSize, int width, int length)
     {
         this.gridStructure = new GridStructure(cellSize, width, length);
