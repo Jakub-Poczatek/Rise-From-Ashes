@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3912152457476058766}
   - component: {fileID: 3046498340027707722}
+  - component: {fileID: 878658697009602827}
   m_Layer: 0
   m_Name: NavMeshFloor
   m_TagString: Untagged
@@ -51,8 +52,27 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.830633, y: 0.05, z: 4.7891026}
-  m_Center: {x: 0.47761393, y: 0, z: -0.020765781}
+  m_Size: {x: 4.841936, y: 0.05, z: 4.8004055}
+  m_Center: {x: 0.019832015, y: 0, z: 0.48222923}
+--- !u!114 &878658697009602827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833789723873276210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 3
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &5044072459351066130
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +83,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9034957550091374261}
   - component: {fileID: -5428979140791934517}
-  - component: {fileID: 116489055495056573}
   m_Layer: 11
   m_Name: Treasury
   m_TagString: ResGenStructure
@@ -100,25 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0f252a906ee844ca3c838ada2676a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &116489055495056573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5044072459351066130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 3
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 0
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
 --- !u!1001 &5466208131519666904
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -73,10 +73,11 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    public (GameObject, Vector3, GameObject)? CreateGhostRoad(Vector3 gridPosition, GameObject structure,
+    public (GameObject, Vector3, GameObject)? CreateGhostRoad(Vector3 gridPosition, GameObject structure, StructureBase structureBase, 
         GridStructure gridStructure, RotationValue rotationValue = RotationValue.R0)
     {
         GameObject newStructure = InstantiateRoad(gridPosition, structure, rotationValue);
+        newStructure.GetComponent<Structure>().BaseData = structureBase;
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x
