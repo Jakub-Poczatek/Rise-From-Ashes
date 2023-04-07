@@ -6,7 +6,19 @@ using UnityEngine;
 
 public class ChallengeManager : MonoBehaviour
 {
+    private static ChallengeManager instance;
+    private ChallengeManager() {}
+
     public List<Challenge> challenges;
+
+    public static ChallengeManager Instance
+    {
+        get
+        {
+            if (instance == null) instance = new();
+            return instance;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +69,17 @@ public class ChallengeManager : MonoBehaviour
                             int.Parse(c.Attributes.GetNamedItem("level").Value)
                         ));
                     break;
+                case "structureCount":
+                    challenge.AddCondition(() => CheckStructureCount(
+                            c.Attributes.GetNamedItem("structure").Value,
+                            int.Parse(c.Attributes.GetNamedItem("count").Value)
+                        ));
+                    break;
+                case "resourceCount":
+                    challenge.AddCondition(() => CheckResourceAmount(
+                            (ResourceType) Enum.Parse(typeof(ResourceType), c.Attributes.GetNamedItem("resource").Value),
+                            int.Parse(c.Attributes.GetNamedItem("count").Value)));
+                    break;
                 default:
                     break;
             }
@@ -86,6 +109,11 @@ public class ChallengeManager : MonoBehaviour
 
     private bool CheckResourceAmount(ResourceType resourceType, int amount)
     {
-        return true;
+        return false;
+    }
+
+    private bool CheckStructureCount(string structureName, int count)
+    {
+        return false;
     }
 }

@@ -17,7 +17,7 @@ public class BuildingManager
     {
         get
         {
-            if (instance == null) instance = new BuildingManager();
+            if (instance == null) instance = new();
             return instance;
         }
     }
