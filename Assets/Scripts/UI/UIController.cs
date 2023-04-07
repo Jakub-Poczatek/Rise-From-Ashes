@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     public Button demolishBtn;
     public Button confirmActionBtn;
     public Button closeBuildMenuBtn;
+    public Button openChallengeMenuBtn;
     public GameObject cancelConfirmActionPnl;
     public GameObject buildingMenuPnl;
     public GameObject resourceGenStructsPnl;
@@ -36,6 +37,7 @@ public class UIController : MonoBehaviour
     public UIStructInfoPnlHelper structPanelHelper;
     public UICitizenInfoPnlHelper citizenPanelHelper;
     public UIDebugPnlHelper debugPanelHelper;
+    public UIChallengePnlHelper challengePanelHelper;
 
     /*public TMP_Text infoPnlStructName;
     public TMP_Text infoPnlStructCost;
@@ -49,7 +51,7 @@ public class UIController : MonoBehaviour
     void Start()
     {
         cancelConfirmActionPnl.SetActive(false);
-        prepareBuildMenu();
+        PrepareBuildMenu();
         buildingMenuPnl.SetActive(false);
         citizenPanelHelper.Hide();
 
@@ -70,9 +72,12 @@ public class UIController : MonoBehaviour
         structPanelHelper.upgradeBtn.onClick.AddListener(() =>
         {
             structPanelHelper.CurrentStructure.Upgrade();
-            DisplayStructureInfo(structPanelHelper.CurrentStructure);
+            ToggleStructureInteractionPanel(true, structPanelHelper.CurrentStructure);
         });
         structPanelHelper.cancelBtn.onClick.AddListener(() => ToggleStructureInteractionPanel(false));
+
+        openChallengeMenuBtn.onClick.AddListener(() => ToggleChallengesPanel(true));
+        challengePanelHelper.cancelBtn.onClick.AddListener(() => ToggleChallengesPanel(false));
     }
 
     public void ToggleCitizenInteractionPanel(bool toggle, CitizenData citizenData = null)
@@ -82,6 +87,7 @@ public class UIController : MonoBehaviour
             ToggleCancelConfirmPanel(false);
             ToggleBuildPanel(false);
             ToggleStructureInteractionPanel(false);
+            ToggleChallengesPanel(false);
             citizenPanelHelper.DisplayCitizenMenu(citizenData);
         }
         else citizenPanelHelper.Hide();
@@ -103,23 +109,38 @@ public class UIController : MonoBehaviour
             ToggleCitizenInteractionPanel(false);
             ToggleCancelConfirmPanel(false);
             ToggleStructureInteractionPanel(false);
+            ToggleChallengesPanel(false);
         }
         buildingMenuPnl.SetActive(toggle);
     }
 
-    private void ToggleStructureInteractionPanel(bool toggle, Structure structure = null)
+    public void ToggleStructureInteractionPanel(bool toggle, Structure structure = null)
     {
         if (toggle)
         {
             ToggleCitizenInteractionPanel(false);
             ToggleCancelConfirmPanel(false);
             ToggleBuildPanel(false);
+            ToggleChallengesPanel(false);
             structPanelHelper.DisplayStructureInfo(structure);
         }
         else structPanelHelper.Hide();
     }
 
-    public void DisplayStructureInfo(Structure structure)
+    private void ToggleChallengesPanel(bool toggle)
+    {
+        if (toggle)
+        {
+            ToggleCitizenInteractionPanel(false);
+            ToggleCancelConfirmPanel(false);
+            ToggleBuildPanel(false);
+            ToggleStructureInteractionPanel(false);
+            challengePanelHelper.DisplayChallengesMenu();
+        }
+        else challengePanelHelper.Hide();
+    }
+
+    public void ADisplayStructureInfo(Structure structure)
     {
         structPanelHelper.DisplayStructureInfo(structure);
     }
@@ -131,7 +152,7 @@ public class UIController : MonoBehaviour
         ToggleBuildPanel(false);
     }
 
-    private void prepareBuildMenu()
+    private void PrepareBuildMenu()
     {
         CreateButtonsInPanel(resourceGenStructsPnl.transform, structureRepository.GetResourceGenStructNames(), OnBuildSingleStructureCallback);
         CreateButtonsInPanel(roadStructsPnl.transform, new List<string>() { structureRepository.GetRoadStructName() }, OnBuildRoadCallback);

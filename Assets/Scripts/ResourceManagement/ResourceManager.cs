@@ -83,6 +83,19 @@ public class ResourceManager : MonoBehaviour
         return false;
     }
 
+    public bool CanIAffordItSingle(ResourceType resourceType, int amount)
+    {
+        return resourceType switch
+        {
+            ResourceType.Gold => goldHelper.Resource >= amount,
+            ResourceType.Food => foodHelper.Resource >= amount,
+            ResourceType.Wood => woodHelper.Resource >= amount,
+            ResourceType.Stone => stoneHelper.Resource >= amount,
+            ResourceType.Metal => metalHelper.Resource >= amount,
+            _ => false,
+        };
+    }
+
     public bool CanIAffordIt(Cost cost)
     {
         return (goldHelper.Resource >= cost.gold
@@ -152,37 +165,6 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    /*private void CollectResourceGains(IEnumerable<StructureBase> structures)
-    {
-        foreach (StructureBase structure in structures)
-        {
-            if (structure.GetType() == typeof(ResourceGenStruct))
-            {
-                ResourceGenStruct tempStruct = (ResourceGenStruct)structure;
-                switch (tempStruct.resourceType)
-                {
-                    case ResourceType.Gold:
-                        goldHelper.CollectResource(tempStruct.resourceGenAmount);
-                        break;
-                    case ResourceType.Food:
-                        foodHelper.CollectResource(tempStruct.resourceGenAmount);
-                        break;
-                    case ResourceType.Wood:
-                        woodHelper.CollectResource(tempStruct.resourceGenAmount);
-                        break;
-                    case ResourceType.Stone:
-                        stoneHelper.CollectResource(tempStruct.resourceGenAmount);
-                        break;
-                    case ResourceType.Metal:
-                        metalHelper.CollectResource(tempStruct.resourceGenAmount);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }*/
-
     private void UpdateMoneyValueUI()
     {
         uiController.UpdateResourceValues(new Cost(
@@ -198,7 +180,6 @@ public class ResourceManager : MonoBehaviour
     {
         CancelInvoke();
     }
-    
 
     // Testing Purposes
     public void SetUpForTests()

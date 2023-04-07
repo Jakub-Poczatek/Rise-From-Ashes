@@ -22,7 +22,7 @@ public class PlayerSelectionState : PlayerState
                 this.gameManager.uiController.HideStructureInfo();
                 return;
             case "Structure" or "ResGenStructure":
-                this.gameManager.uiController.DisplayStructureInfo(target.GetComponent<Structure>());
+                this.gameManager.uiController.ToggleStructureInteractionPanel(true, target.GetComponent<Structure>());
                 this.gameManager.uiController.ToggleCitizenInteractionPanel(false);
                 return;
             default:

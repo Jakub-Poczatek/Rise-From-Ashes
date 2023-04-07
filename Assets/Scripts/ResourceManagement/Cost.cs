@@ -34,7 +34,8 @@ public class Cost
 
     public override string ToString()
     {
-        return "Gold: " + gold + "\n" +
+        return 
+            "Gold: " + gold + "\n" +
             "Food: " + food + "\n" +
             "Wood: " + wood + "\n" +
             "Stone: " + stone + "\n" +
