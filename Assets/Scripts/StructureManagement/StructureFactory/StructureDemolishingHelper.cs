@@ -31,6 +31,13 @@ public class StructureDemolishingHelper : StructureModificationHelper
                 RoadManager.modifyRoadCellsOnGrid(neighbours, structureBase, new Dictionary<Vector3Int, GameObject>(), gridStructure);
             }
         }
+        foreach (KeyValuePair<Vector3Int, GameObject> kvp in structuresToBeModified)
+        {
+            if (kvp.Value.name.Contains("House"))
+            {
+                resourceManager.MaxCitizenCapacity-= kvp.Value.GetComponent<Structure>().Citizens.Count;
+            }
+        }
         this.placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);
         structuresToBeModified.Clear();
     }

@@ -10,25 +10,42 @@ public class PopulationManagement : MonoBehaviour
     public GameObject townHall;
     private ResourceManager resourceManager;
 
+    public static PopulationManagement Instance { get; private set; }
+    public List<GameObject> Citizens { get => citizens; set => citizens = value; }
+
+    private PopulationManagement() {}
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         resourceManager = ResourceManager.Instance;
-        InvokeRepeating("spawnCitizen", 0, citizenSpawnRate);
+        InvokeRepeating(nameof(SpawnCitizen), 0, citizenSpawnRate);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void spawnCitizen()
+    private void SpawnCitizen()
     {
         if (resourceManager.CanIHouseCitizen()) {
-            GameObject citizen = Instantiate(citizenPrefab, townHall.transform.position + new Vector3(5, 0, 5), Quaternion.identity);
+            GameObject citizen = Instantiate(citizenPrefab, townHall.transform.position, Quaternion.identity);
             resourceManager.CurrentCitizenCapacity++;
             citizens.Add(citizen);
+            foreach (GameObject structure in BuildingManager.Instance.GetAllStructures())
+            {
+                if (structure.name.Contains("House"))
+                {
+                    if (structure.GetComponent<Structure>().HasCapacity())
+                    {
+                        structure.GetComponent<Structure>().AddCitizen(citizen);
+                        citizen.GetComponent<Citizen>().HouseBuilding = structure;
+                        break;
+                    }
+                }
+            }
         }
     }
 

@@ -182,7 +182,7 @@ public static class RoadManager
         GridStructure gridStructure, Dictionary<Vector3Int, GameObject> structuresToBeModified, StructureBase structureBase)
     {
 
-        (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostRoad(gridPosition, road.RoadPrefab, gridStructure, road.RoadPrefabRotation);
+        (GameObject, Vector3, GameObject)? ghostReturn = placementManager.CreateGhostRoad(gridPosition, road.RoadPrefab, structureBase, gridStructure, road.RoadPrefabRotation);
         if (ghostReturn != null)
         {
             gridPositionInt = Vector3Int.FloorToInt(ghostReturn.Value.Item2);

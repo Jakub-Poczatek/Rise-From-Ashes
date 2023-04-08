@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1766337024509681081}
-  - component: {fileID: 3245657276128637754}
   - component: {fileID: -738232936839717217}
   m_Layer: 11
   m_Name: House
@@ -35,25 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3245657276128637754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890749091245025512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 3
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 0
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
 --- !u!114 &-738232936839717217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1890749091245025512}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94b327ff3dc6fda4abe1e4dd268ae5e6, type: 3}
+  m_Script: {fileID: 11500000, guid: dff25a0121245034f8169a7e318a36e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4437408813238500392
@@ -76,7 +56,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7025941931588773776}
   - component: {fileID: 6116803656596027925}
-  m_Layer: 11
+  - component: {fileID: 8893499366327065878}
+  m_Layer: 0
   m_Name: NavMeshFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +100,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.103482, y: 0.05, z: 2.9955215}
   m_Center: {x: -0.2594725, y: 0, z: 0.15904236}
+--- !u!114 &8893499366327065878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437408813238500392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 3
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &3392491865275761285
 PrefabInstance:
   m_ObjectHideFlags: 0

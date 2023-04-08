@@ -8,7 +8,6 @@ public class ResourceGenStruct : StructureBase
     public float resourceGenAmount;
     public ResourceType resourceType;
     public bool upgradable;
-    public int maxWorkerCapacity;
     public UpgradeType[] availableUpgrades;
 }
 

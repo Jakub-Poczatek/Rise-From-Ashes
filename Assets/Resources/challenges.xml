@@ -1,0 +1,125 @@
+<?xml version ="1.0" encoding="utf-8"?>
+<challenges>
+	<!-- Structure Level Challenges -->
+	<challenge name="Upgrades People, Upgrades (1)" message="Upgrade a structure to level 2">
+		<reward gold="100" food="0" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="structureLevel" structure="" level="2"/>
+		</conditions>
+	</challenge>
+	<challenge name="Upgrades People, Upgrades (2)" message="Upgrade a structure to level 3">
+		<reward gold="250" food="0" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="structureLevel" structure="" level="3"/>
+		</conditions>
+	</challenge>
+	<challenge name="Upgrades People, Upgrades (3)" message="Upgrade a structure to level 4">
+		<reward gold="500" food="0" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="structureLevel" structure="" level="4"/>
+		</conditions>
+	</challenge>
+	<challenge name="Upgrades People, Upgrades (4)" message="Upgrade a structure to level 5">
+		<reward gold="1000" food="0" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="structureLevel" structure="" level="5"/>
+		</conditions>
+	</challenge>
+	<challenge name="The Necessities" message="Own a level 3 treasury and farm">
+		<reward gold="550" food="300" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="structureLevel" structure="Treasury" level="3"/>
+			<condition type="structureLevel" structure="Farm" level="3"/>
+		</conditions>
+	</challenge>
+	<challenge name="Resource Tycoon" message="Own a level 5 loggers hut, quarry and mine">
+		<reward gold="1000" food="0" wood="333" stone="333" metal="333"/>
+		<conditions>
+			<condition type="structureLevel" structure="Logger" level="5"/>
+			<condition type="structureLevel" structure="Quarry" level="5"/>
+			<condition type="structureLevel" structure="Mine" level="5"/>
+		</conditions>
+	</challenge>
+	<!-- Structure Count Challenges -->
+	<challenge name="The Great Rebuilding (1)" message="Own 3 Structures">
+		<reward gold="101" food="0" wood="55" stone="0" metal="15"/>
+		<conditions>
+			<condition type="structureCount" structure="" count="3"/>
+		</conditions>
+	</challenge>
+	<challenge name="The Great Rebuilding (2)" message="Own 6 Structures">
+		<reward gold="255" food="55" wood="0" stone="55" metal="0"/>
+		<conditions>
+			<condition type="structureCount" structure="" count="6"/>
+		</conditions>
+	</challenge>
+	<challenge name="The Great Rebuilding (3)" message="Own 12 Structures">
+		<reward gold="0" food="101" wood="101" stone="101" metal="101"/>
+		<conditions>
+			<condition type="structureCount" structure="" count="12"/>
+		</conditions>
+	</challenge>
+	<challenge name="The Great Rebuilding (4)" message="Own 24 Structures">
+		<reward gold="0" food="999" wood="999" stone="999" metal="999"/>
+		<conditions>
+			<condition type="structureCount" structure="" count="24"/>
+		</conditions>
+	</challenge>
+	<challenge name="Jack of All Trades" message="Own one of each resource structures">
+		<reward gold="100" food="100" wood="100" stone="100" metal="100"/>
+		<conditions>
+			<condition type="structureCount" structure="Treasury" count="1"/>
+			<condition type="structureCount" structure="Farm" count="1"/>
+			<condition type="structureCount" structure="Logger" count="1"/>
+			<condition type="structureCount" structure="Quarry" count="1"/>
+			<condition type="structureCount" structure="Mine" count="1"/>
+		</conditions>
+	</challenge>
+	<challenge name="Free Real Estate" message="Own 5 Houses">
+		<reward gold="555" food="0" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="structureCount" structure="House" count="5"/>
+		</conditions>
+	</challenge>
+	<!-- Resource Count Challenges -->
+	<challenge name="Growing Riches" message="Own 1000 gold">
+		<reward gold="1000" food="0" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="resourceCount" resource="Gold" count="1000"/>
+		</conditions>
+	</challenge>
+	<challenge name="Feeding The Population" message="Own 1000 food">
+		<reward gold="0" food="1000" wood="0" stone="0" metal="0"/>
+		<conditions>
+			<condition type="resourceCount" resource="Food" count="1000"/>
+		</conditions>
+	</challenge>
+	<challenge name="Deforestation" message="Own 1000 wood">
+		<reward gold="0" food="0" wood="1000" stone="0" metal="0"/>
+		<conditions>
+			<condition type="resourceCount" resource="Wood" count="1000"/>
+		</conditions>
+	</challenge>
+	<challenge name="Digging Deeper" message="Own 1000 stone">
+		<reward gold="0" food="0" wood="0" stone="1000" metal="0"/>
+		<conditions>
+			<condition type="resourceCount" resource="Stone" count="1000"/>
+		</conditions>
+	</challenge>
+	<challenge name="Forging The Future" message="Own 1000 metal">
+		<reward gold="0" food="0" wood="0" stone="0" metal="1000"/>
+		<conditions>
+			<condition type="resourceCount" resource="Metal" count="1000"/>
+		</conditions>
+		<challenge message="Own 2500 of each resource">
+			<reward gold="1250" food="1250" wood="1250" stone="1250" metal="1250"/>
+			<conditions>
+				<condition type="resourceCount" resource="Gold" count="2500"/>
+				<condition type="resourceCount" resource="Food" count="2500"/>
+				<condition type="resourceCount" resource="Wood" count="2500"/>
+				<condition type="resourceCount" resource="Stone" count="2500"/>
+				<condition type="resourceCount" resource="Metal" count="2500"/>
+			</conditions>
+		</challenge>
+	</challenge>
+</challenges>

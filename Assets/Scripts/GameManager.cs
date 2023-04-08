@@ -11,9 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject groundModel;
     private bool buildingModeIsActive = false;
     private GridStructure gridStructure;
-    private BuildingManager buildingManager;
     private PlayerState playerState;
-    private int width, lenght;
+    private int width, length;
     //public IInputManager inputManager;
     //public InputManager inputManagerConcrete;
     public InputManager inputManager;
@@ -54,7 +53,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         width = (int)groundModel.GetComponent<MeshRenderer>().bounds.size.x;
-        lenght = (int)groundModel.GetComponent<MeshRenderer>().bounds.size.z;
+        length = (int)groundModel.GetComponent<MeshRenderer>().bounds.size.z;
         //placementManager = placementManagerGameObject.GetComponent<IPlacementManager>();
         //resourceManager = resourceManagerGameObject.GetComponent<IResourceManager>();
         PrepareStates();
@@ -65,14 +64,14 @@ public class GameManager : MonoBehaviour
 
     private void PrepareStates()
     {
-        buildingManager = new BuildingManager(structureRepository, cellSize, width, lenght);
-        resourceManager.PrepareResourceManager(buildingManager);
-        selectionState = new PlayerSelectionState(this, buildingManager);
-        removeBuildingState = new PlayerDemolishingState(this, buildingManager);
-        buildingSingleStructureState = new PlayerBuildingSingleStructureState(this, buildingManager);
-        buildingRoadState = new PlayerBuildingRoadState(this, buildingManager);
-        buildingResidentialState = new PlayerBuildingResidentialState(this, buildingManager);
-        citizenAssignState = new PlayerCitizenAssignState(this, buildingManager);
+        BuildingManager.Instance.PrepareBuildingManager(structureRepository, cellSize, width, length);
+        resourceManager.PrepareResourceManager();
+        selectionState = new PlayerSelectionState(this);
+        removeBuildingState = new PlayerDemolishingState(this);
+        buildingSingleStructureState = new PlayerBuildingSingleStructureState(this);
+        buildingRoadState = new PlayerBuildingRoadState(this);
+        buildingResidentialState = new PlayerBuildingResidentialState(this);
+        citizenAssignState = new PlayerCitizenAssignState(this);
         playerState = selectionState;
     }
 
@@ -85,7 +84,7 @@ public class GameManager : MonoBehaviour
     private void PrepareGameComponents()
     {
         inputManager.MouseInputMask = mouseInputMask;
-        cameraMovement.SetCameraBounds(0, width, 0, lenght);
+        cameraMovement.SetCameraBounds(0, width, 0, length);
     }
 
     private void AssignUiControllerListeners()
