@@ -18,13 +18,38 @@ public class Structure : MonoBehaviour
     public string StructureName { get => structureName; set => structureName = value; }
     public int StructureLevel { get => structureLevel; set => structureLevel = value; }
     public Dictionary<GameObject, bool> Citizens { get => citizens; set => citizens = value; }
-    public int MaxCitizenCapacity { get => maxCitizenCapacity; set => maxCitizenCapacity = value; }
+    public int MaxCitizenCapacity { 
+        get => maxCitizenCapacity;
+        set {
+            maxCitizenCapacity = value;
+            if (structureName.Contains("House"))
+                ResourceManager.Instance.MaxCitizenCapacity++;
+            HouseCitizenMaybe();
+        }
+    }
     public Cost UpgradeCost { get => upgradeCost; set => upgradeCost = value; }
 
     // Start is called before the first frame update
     void Start()
     {
         SetData();
+        HouseCitizenMaybe();
+    }
+
+    private void HouseCitizenMaybe()
+    {
+        if (structureName.Contains("House"))
+        {
+            foreach (GameObject citizen in PopulationManagement.Instance.Citizens)
+            {
+                if (citizen.GetComponent<Citizen>().HouseBuilding == null)
+                {
+                    citizen.GetComponent<Citizen>().HouseBuilding = this.gameObject;
+                    AddCitizen(citizen);
+                    return;
+                }
+            }
+        }
     }
 
     protected virtual void SetData()
@@ -39,11 +64,11 @@ public class Structure : MonoBehaviour
 
     public virtual void Upgrade()
     {
-        if (ResourceManager.Instance.Purchase(upgradeCost))
+        if (structureLevel < 5 && ResourceManager.Instance.Purchase(upgradeCost))
         {
             upgradeCost *= 1.5f;
             structureLevel += 1;
-            maxCitizenCapacity++;
+            MaxCitizenCapacity++;
         }
     }
 

@@ -10,6 +10,7 @@ public class Citizen : MonoBehaviour
     private Vector3 target;
     private State state = State.Idle;
     private GameObject workBuilding;
+    private GameObject houseBuilding = null;
     public float workingTime = 5f;
     private bool isWorking = false;
     private Vector3 townHallPos;
@@ -18,6 +19,8 @@ public class Citizen : MonoBehaviour
 
     private readonly int baseSleep = 8;
     private readonly int baseFood = 5;
+
+    public GameObject HouseBuilding { get => houseBuilding; set => houseBuilding = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +49,7 @@ public class Citizen : MonoBehaviour
         switch (state)
         {
             case State.Idle:
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(0.1f);
                 anim.SetTrigger("triggerRoaming");
                 state = State.Roaming;
                 break;
