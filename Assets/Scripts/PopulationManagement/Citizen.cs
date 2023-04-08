@@ -11,7 +11,7 @@ public class Citizen : MonoBehaviour
     private State state = State.Idle;
     private GameObject workBuilding;
     private GameObject houseBuilding = null;
-    public float workingTime = 5f;
+    private float workingTime = 60f;
     private bool isWorking = false;
     private Vector3 townHallPos;
     private bool stateRunning = false;

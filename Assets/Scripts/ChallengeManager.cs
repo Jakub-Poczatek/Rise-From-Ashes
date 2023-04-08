@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System;
 using UnityEngine;
-using System.Linq;
-using log4net.Core;
 
 public class ChallengeManager : MonoBehaviour
 {

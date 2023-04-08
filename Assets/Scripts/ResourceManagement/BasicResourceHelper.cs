@@ -1,8 +1,3 @@
-using Codice.CM.Client.Differences;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BasicResourceHelper
 {
     protected float resource;

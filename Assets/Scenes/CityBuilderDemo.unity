@@ -2113,11 +2113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046acd466ce178644b2133cbee94e2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialGold: 9999
-  initialFood: 9999
-  initialWood: 9999
-  initialStone: 9999
-  initialMetal: 9999
+  initialGold: 500
+  initialFood: 500
+  initialWood: 500
+  initialStone: 500
+  initialMetal: 500
   resourceCalculationInterval: 1
   maxCitizenCapacity: 0
   currentCitizenCapacity: 0

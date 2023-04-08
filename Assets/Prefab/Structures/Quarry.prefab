@@ -2738,7 +2738,7 @@ GameObject:
   - component: {fileID: 4179493713652239927}
   - component: {fileID: -5867316119885113430}
   m_Layer: 11
-  m_Name: Mine
+  m_Name: Quarry
   m_TagString: ResGenStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
