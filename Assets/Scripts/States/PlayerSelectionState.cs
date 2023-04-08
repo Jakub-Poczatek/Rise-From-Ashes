@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerSelectionState : PlayerState
 {
-    public PlayerSelectionState(GameManager gameManager, BuildingManager buildingManager) 
-        : base(gameManager, buildingManager) {}
+    public PlayerSelectionState(GameManager gameManager) 
+        : base(gameManager) {}
 
     public override void OnInputPointerDown(Vector3 position)
     {
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        Physics.Raycast(position + (Vector3.up * 5), Vector3.down, out hit, 10);
+        Physics.Raycast(cameraRay.origin, cameraRay.direction, out hit, Mathf.Infinity);
         GameObject target = hit.collider.transform.parent.gameObject;
 
         switch (target.tag)
@@ -18,20 +19,17 @@ public class PlayerSelectionState : PlayerState
             case "Citizen":
                 this.gameManager.citizenAssignState.citizen = target;
                 this.gameManager.uiController.ToggleCitizenInteractionPanel(true, target.GetComponent<Citizen>().citizenData);
+                this.gameManager.uiController.HideStructureInfo();
+                return;
+            case "Structure" or "ResGenStructure":
+                this.gameManager.uiController.ToggleStructureInteractionPanel(true, target.GetComponent<Structure>());
+                this.gameManager.uiController.ToggleCitizenInteractionPanel(false);
                 return;
             default:
-                break;
+                this.gameManager.uiController.HideStructureInfo();
+                this.gameManager.uiController.ToggleCitizenInteractionPanel(false);
+                return;
         }
-
-        StructureBase structure = buildingManager.GetStructureBaseFromPosition(position);
-        if (structure != null)
-            this.gameManager.uiController.DisplayStructureInfo(structure);
-        else
-        {
-            this.gameManager.uiController.HideStructureInfo();
-            this.gameManager.uiController.ToggleCitizenInteractionPanel(false);
-        }
-        return;
     }
 
     public override void EnterState(string structureName)

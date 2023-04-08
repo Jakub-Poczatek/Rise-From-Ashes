@@ -5,12 +5,10 @@ using UnityEngine;
 public class WorkableStructure : Structure
 {
     private ResourceGenStruct data;
-    private Dictionary<GameObject, bool> workers;
     private Dictionary<GameObject, float> workersProdRate;
     private ResourceType resourceType;
     private float baseGenAmount;
     private float genAmount = 0;
-    private int maxWorkerCapacity;
 
     public ResourceGenStruct Data { get => data; set => data = value; }
     public float GenAmount { get => genAmount; }
@@ -21,7 +19,6 @@ public class WorkableStructure : Structure
     {
         data = (ResourceGenStruct) BaseData;
         SetData();
-        workers = new Dictionary<GameObject, bool>();
         workersProdRate = new Dictionary<GameObject, float>();
     }
 
@@ -30,29 +27,24 @@ public class WorkableStructure : Structure
         base.SetData();
         baseGenAmount = data.resourceGenAmount;
         resourceType = data.resourceType;
-        maxWorkerCapacity = data.maxWorkerCapacity;
     }
 
-    public void AddWorker(GameObject worker)
+    public override void Upgrade()
     {
-        workers.Add(worker, false);
-    }
-
-    public void RemoveWorker(GameObject worker)
-    {
-        workers.Remove(worker);
+        base.Upgrade();
+        baseGenAmount = data.resourceGenAmount * (1f  + (0.25f * (StructureLevel-1)));
     }
 
     public void StartWorking(GameObject worker)
     {
-        workers[worker] = true;
+        Citizens[worker] = true;
         workersProdRate[worker] = GetWorkerLevelBonus(worker);
         genAmount += workersProdRate[worker];
     }
 
     public void StopWorking(GameObject worker)
     {
-        workers[worker] = false;
+        Citizens[worker] = false;
         genAmount -= workersProdRate[worker];
     }
 
@@ -74,10 +66,5 @@ public class WorkableStructure : Structure
             default:
                 return 0;
         }
-    }
-
-    public bool HasCapacity()
-    {
-        return workers.Count < maxWorkerCapacity;
     }
 }

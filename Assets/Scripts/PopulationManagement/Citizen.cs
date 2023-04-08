@@ -10,7 +10,8 @@ public class Citizen : MonoBehaviour
     private Vector3 target;
     private State state = State.Idle;
     private GameObject workBuilding;
-    public float workingTime = 5f;
+    private GameObject houseBuilding = null;
+    private float workingTime = 60f;
     private bool isWorking = false;
     private Vector3 townHallPos;
     private bool stateRunning = false;
@@ -18,6 +19,8 @@ public class Citizen : MonoBehaviour
 
     private readonly int baseSleep = 8;
     private readonly int baseFood = 5;
+
+    public GameObject HouseBuilding { get => houseBuilding; set => houseBuilding = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +49,7 @@ public class Citizen : MonoBehaviour
         switch (state)
         {
             case State.Idle:
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(0.1f);
                 anim.SetTrigger("triggerRoaming");
                 state = State.Roaming;
                 break;
@@ -102,7 +105,7 @@ public class Citizen : MonoBehaviour
             // Remove previous workplace
             if (workBuilding != null)
             {
-                workBuilding.GetComponent<WorkableStructure>().RemoveWorker(this.gameObject);
+                workBuilding.GetComponent<WorkableStructure>().RemoveCitizen(this.gameObject);
             }
 
             workBuilding = building;
@@ -110,7 +113,7 @@ public class Citizen : MonoBehaviour
             anim.SetTrigger("triggerWorking");
             state = State.Working;
             agent.SetDestination(target);
-            workBuilding.GetComponent<WorkableStructure>().AddWorker(this.gameObject);
+            workBuilding.GetComponent<WorkableStructure>().AddCitizen(this.gameObject);
             AssignNewOccupation(workBuilding.GetComponent<WorkableStructure>().ResourceType);
             stateRunning = false;
         }

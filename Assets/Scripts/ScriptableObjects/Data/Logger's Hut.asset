@@ -21,8 +21,8 @@ MonoBehaviour:
     stone: 0
     metal: 0
   maintenanceGoldCost: 0
+  maxCitizenCapacity: 1
   resourceGenAmount: 2
   resourceType: 2
   upgradable: 1
-  maxWorkerCapacity: 1
   availableUpgrades: []

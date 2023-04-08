@@ -1,18 +1,13 @@
-using Codice.CM.Client.Differences;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BasicResourceHelper
 {
-    protected int resource;
+    protected float resource;
 
-    public BasicResourceHelper(int initialResource)
+    public BasicResourceHelper(float initialResource)
     {
         resource = initialResource;
     }
 
-    public virtual int Resource
+    public virtual float Resource
     {
         get => resource;
         private set
@@ -26,13 +21,13 @@ public class BasicResourceHelper
         }
     }
 
-    public virtual void AdjustResource(int amount)
+    public virtual void AdjustResource(float amount)
     {
         Resource += amount;
     }
 
     public virtual void CollectResource(float amount)
     {
-        resource += Mathf.FloorToInt(amount);
+        resource += amount;
     }
 }

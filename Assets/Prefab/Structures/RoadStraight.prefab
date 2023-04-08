@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5501927805159285181}
   - component: {fileID: 6443985774231875522}
+  - component: {fileID: 2927672817785406504}
   m_Layer: 0
   m_Name: NavMeshFloor
   m_TagString: Untagged
@@ -51,8 +52,59 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 0.05, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.7389252, y: 0.05, z: 0.36337805}
+  m_Center: {x: -0.03639923, y: 0, z: 0.0008404255}
+--- !u!114 &2927672817785406504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650758463988273830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 4
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!1 &3771811695706475359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5449244157459991362}
+  m_Layer: 11
+  m_Name: ModelParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5449244157459991362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3771811695706475359}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6235133946633472138}
+  m_Father: {fileID: 6235133946525543279}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6235133946525543276
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,8 +114,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6235133946525543279}
-  - component: {fileID: 3886233942992588572}
-  m_Layer: 0
+  - component: {fileID: 2320645085590126006}
+  m_Layer: 11
   m_Name: RoadStraight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,12 +134,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6235133946633472138}
+  - {fileID: 5449244157459991362}
   - {fileID: 5501927805159285181}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3886233942992588572
+--- !u!114 &2320645085590126006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,16 +148,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6235133946525543276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: dff25a0121245034f8169a7e318a36e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 3
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 0
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
 --- !u!1 &6235133946633472139
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +165,7 @@ GameObject:
   - component: {fileID: 6235133946633472135}
   - component: {fileID: 6235133946633472132}
   - component: {fileID: 6235133946633472133}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +184,7 @@ Transform:
   m_LocalScale: {x: 0.999, y: 1, z: 0.999}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6235133946525543279}
+  m_Father: {fileID: 5449244157459991362}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6235133946633472129

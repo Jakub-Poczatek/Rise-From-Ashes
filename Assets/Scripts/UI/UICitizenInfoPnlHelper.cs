@@ -41,11 +41,6 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         UpdateSliders(data.skills);
         UpdateSliderValueLabels();
         UpdateLevels(data.skills);
-
-        foodDecreaseBtn.onClick.AddListener(() => UpdateFood(-1));
-        foodIncreaseBtn.onClick.AddListener(() => UpdateFood(1));
-        sleepDecreaseBtn.onClick.AddListener(() => UpdateSleep(-1));
-        sleepIncreaseBtn.onClick.AddListener(() => UpdateSleep(1));
     }
 
     // Update is called once per frame
@@ -90,13 +85,13 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         metalLevel.text = "Metal Level: \t" + skills.metalProductionLevel.ToString();
     }
 
-    private void UpdateFood(int amount)
+    public void UpdateFood(int amount)
     {
         currentData.dailyFood += amount;
         foodAmount.text = currentData.dailyFood.ToString();
     }
 
-    private void UpdateSleep(int amount)
+    public void UpdateSleep(int amount)
     {
         currentData.dailySleep += amount;
         energyAmount.text = currentData.dailySleep.ToString();

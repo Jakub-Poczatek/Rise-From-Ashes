@@ -8,4 +8,5 @@ public abstract class StructureBase : ScriptableObject
     public GameObject prefab;
     public Cost buildCost;
     public int maintenanceGoldCost;
+    public int maxCitizenCapacity;
 }

@@ -34,7 +34,6 @@ public class ResidentialModificationHelper : StructureModificationHelper
             structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
             gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, myStructureBase, ghostReturn.Value.Item3);
             resourceManager.Purchase(structureBase.buildCost);
-            resourceManager.MaxCitizenCapacity++;
         }
     }
 
@@ -46,7 +45,6 @@ public class ResidentialModificationHelper : StructureModificationHelper
         gridStructure.RemoveStructureFromTheGrid(gridPosition);
         structuresToBeModified.Remove(gridPositionInt);
         resourceManager.EarnResources(structureBase.buildCost);
-        resourceManager.MaxCitizenCapacity--;
     }
 
     public override void CancelModifications()
@@ -64,8 +62,12 @@ public class ResidentialModificationHelper : StructureModificationHelper
             structAmount * structureBase.buildCost.stone,
             structAmount * structureBase.buildCost.metal
             ));
-        for (int i = 0; i < structAmount; i++)
-            resourceManager.MaxCitizenCapacity--;
         base.CancelModifications();
+    }
+
+    public override void ConfirmModifications()
+    {
+        resourceManager.MaxCitizenCapacity += structuresToBeModified.Count;
+        base.ConfirmModifications();
     }
 }

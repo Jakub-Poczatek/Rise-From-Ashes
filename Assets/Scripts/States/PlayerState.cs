@@ -5,14 +5,12 @@ using UnityEngine;
 public abstract class PlayerState
 {
     protected GameManager gameManager;
-    protected BuildingManager buildingManager;
     protected CameraMovement cameraMovement;
 
-    public PlayerState(GameManager gameManager, BuildingManager buildingManager)
+    public PlayerState(GameManager gameManager)
     {
         this.gameManager = gameManager;
         cameraMovement = gameManager.cameraMovement;
-        this.buildingManager = buildingManager;
     }
 
     public virtual void OnInputPointerDown(Vector3 position)
@@ -56,43 +54,43 @@ public abstract class PlayerState
 
     public virtual void OnCancel()
     {
-        this.buildingManager.CancelModification();
+        BuildingManager.Instance.CancelModification();
         this.gameManager.TransitionToState(this.gameManager.selectionState, null);
     }
 
     public virtual void OnConfirmAction()
     {
-        this.buildingManager.ConfirmModification();
+        BuildingManager.Instance.ConfirmModification();
         this.gameManager.TransitionToState(this.gameManager.selectionState, null);
     }
 
     public virtual void OnBuildSingleStructure(string structureName)
     {
-        this.buildingManager.CancelModification();
+        BuildingManager.Instance.CancelModification();
         this.gameManager.TransitionToState(this.gameManager.buildingSingleStructureState, structureName);
     }
 
     public virtual void OnBuildRoad(string structureName)
     {
-        this.buildingManager.CancelModification();
+        BuildingManager.Instance.CancelModification();
         this.gameManager.TransitionToState(this.gameManager.buildingRoadState, structureName);
     }
 
     public virtual void OnBuildResidential(string structureName)
     {
-        this.buildingManager.CancelModification();
+        BuildingManager.Instance.CancelModification();
         this.gameManager.TransitionToState(this.gameManager.buildingResidentialState, structureName);
     }
 
     public virtual void OnCitizenAssign()
     {
-        this.buildingManager.CancelModification();
+        BuildingManager.Instance.CancelModification();
         this.gameManager.TransitionToState(this.gameManager.citizenAssignState, null);
     }
 
     public virtual void OnDemolish()
     {
-        this.buildingManager.CancelModification();
+        BuildingManager.Instance.CancelModification();
         this.gameManager.TransitionToState(this.gameManager.removeBuildingState, null);
     }
 }
