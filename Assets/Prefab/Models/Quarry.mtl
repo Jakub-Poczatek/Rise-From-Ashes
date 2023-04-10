@@ -1,0 +1,43 @@
+# Blender 3.3.1 MTL File: 'Quarry.blend'
+# www.blender.org
+
+newmtl BasicBrownWood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_refl textures/Wood Wall Slits Var01_metallic.jpeg
+
+newmtl Dark_Raffia_Rope_4k_PBR
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures/RaffiaRopeDark4k_Diffuse.jpg
+map_Ns textures/RaffiaRope4k_Roughness.jpg
+
+newmtl DoorBrownWood
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Stylized_stones_with_dirt
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.350000
+d 1.000000
+illum 2
