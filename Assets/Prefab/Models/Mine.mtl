@@ -1,0 +1,74 @@
+# Blender 3.3.1 MTL File: 'Mine.blend'
+# www.blender.org
+
+newmtl Black
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.500000
+illum 9
+
+newmtl CastleBricks
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Ns C:/Bricks_1_roughness.jpg
+
+newmtl DarkBurntWood
+Ka 1.000000 1.000000 1.000000
+Ks 0.254545 0.254545 0.254545
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd -s 0.1 0.1 0.1 C:/burn_wood_BaseColor.png
+map_Ns -s 0.1 0.1 0.1 C:/burn_wood_Roughness.png
+map_refl -s 0.1 0.1 0.1 C:/burn_wood_Metallic.png
+
+newmtl Iron
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.044452 0.044452 0.044452
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl OldAshWood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Stylized_stones_with_dirt
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.350000
+d 1.000000
+illum 2
+
+newmtl stone_granite
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd -s 0.1 0.1 1 C:/stone granite_albedo.jpg
+map_Ns -s 0.1 0.1 1 C:/stone granite_roughness.jpg
+map_Bump -s 0.1 0.1 1 -bm 1.000000 C:/stone granite_normal.jpg
