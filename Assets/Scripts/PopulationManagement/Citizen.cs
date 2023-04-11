@@ -34,6 +34,19 @@ public class Citizen : MonoBehaviour
     void Update()
     {
         info = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (state == State.Working && workBuilding == null)
+        {
+            CancelInvoke();
+            StopAllCoroutines();
+            target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+            transform.localScale = Vector3.one;
+            citizenData.occupation = Occupation.Citizen;
+            state = State.Roaming;
+            anim.SetTrigger("triggerRoaming");
+            stateRunning = false;
+        }
+
         if (!stateRunning)
         {
             stateRunning = true;
@@ -51,6 +64,7 @@ public class Citizen : MonoBehaviour
                 state = State.Roaming;
                 break;
             case State.Roaming:
+                print("Beginning to roam");
                 if (Vector3.Distance(this.transform.position, target) < 1.0f)
                 {
                     Vector3 destination;
