@@ -30,7 +30,7 @@ public class PlacementManager : MonoBehaviour
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x
-        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.z));
+        Vector3 diff = new Vector3(CalculateOffset(size.x), 0, CalculateOffset(size.z));
         newStructure.transform.position += diff;
         gridPosition += diff;
 
@@ -56,7 +56,7 @@ public class PlacementManager : MonoBehaviour
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x
-        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.z));
+        Vector3 diff = new Vector3(CalculateOffset(size.x), 0, CalculateOffset(size.z));
         newStructure.transform.position += diff;
         gridPosition += diff;
 
@@ -81,7 +81,7 @@ public class PlacementManager : MonoBehaviour
         Vector3 size = newStructure.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         // Maybe change size.z to size.x
-        Vector3 diff = new Vector3(calculateOffset(size.x), 0, calculateOffset(size.z));
+        Vector3 diff = new Vector3(CalculateOffset(size.x), 0, CalculateOffset(size.z));
         newStructure.transform.position += diff;
         gridPosition += diff;
 
@@ -173,7 +173,7 @@ public class PlacementManager : MonoBehaviour
         ChangeStructureMaterial(structureToDemolish, colourToSet);
     }
 
-    private float calculateOffset(float vector)
+    private float CalculateOffset(float vector)
     {
         if (vector > 1)
         {

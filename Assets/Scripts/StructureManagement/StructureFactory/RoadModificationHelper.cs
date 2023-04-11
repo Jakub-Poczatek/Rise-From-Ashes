@@ -22,7 +22,7 @@ public class RoadModificationHelper : StructureModificationHelper
         Vector3 gridPosition = gridStructure.CalculateGridPosition(position);
         Vector3Int gridPositionInt = Vector3Int.FloorToInt(gridPosition);
 
-        if (!structuresToBeModified.ContainsKey(gridPositionInt) && gridStructure.IsCellTaken(gridPosition)) return;
+        //if (!structuresToBeModified.ContainsKey(gridPositionInt) && gridStructure.IsCellTaken(gridPosition)) return;
 
         if (structuresToBeModified.ContainsKey(gridPositionInt))
         {
