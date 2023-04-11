@@ -11,9 +11,8 @@ public class Citizen : MonoBehaviour
     private State state = State.Idle;
     private GameObject workBuilding;
     private GameObject houseBuilding = null;
-    private float workingTime = 60f;
+    private float workingTime = 100f;
     private bool isWorking = false;
-    private Vector3 townHallPos;
     private bool stateRunning = false;
     public CitizenData citizenData;
 
@@ -29,8 +28,6 @@ public class Citizen : MonoBehaviour
         anim = this.GetComponent<Animator>();
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         agent = this.GetComponent<NavMeshAgent>();
-        townHallPos = GameObject.FindGameObjectWithTag("Town Hall").transform.position;
-        InvokeRepeating(nameof(UpdateHappiness), 0, 5);
     }
 
     // Update is called once per frame
@@ -78,16 +75,19 @@ public class Citizen : MonoBehaviour
                         anim.SetBool("isWorking", true);
                         workBuilding.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
                         InvokeRepeating(nameof(UpdateExperience), 0, 1);
-                        yield return new WaitForSeconds(workingTime);
+                        yield return new WaitForSeconds(citizenData.WorkRestRatio.Item1);
                         CancelInvoke(nameof(UpdateExperience));
                         workBuilding.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
                         anim.SetBool("isWorking", false);
                         transform.localScale = Vector3.one;
-                        target = townHallPos;
+                        target = houseBuilding.transform.position;
                     }
                     else
                     {
+                        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                        yield return new WaitForSeconds(citizenData.WorkRestRatio.Item2);
                         anim.SetTrigger("triggerWorking");
+                        transform.localScale = Vector3.one;
                         target = workBuilding.transform.position;
                     }
                     agent.SetDestination(target);
@@ -144,11 +144,11 @@ public class Citizen : MonoBehaviour
         }
     }
 
-    private void UpdateHappiness()
+    public void UpdateHappiness()
     {
-        citizenData.happiness +=
-            (citizenData.dailySleep - baseSleep) +
-            (citizenData.dailyFood - baseFood);
+        citizenData.happiness =
+            (50 - citizenData.WorkRestRatio.Item1) +
+            ((baseFood - citizenData.food) * 5);
     }
 
     private enum State
@@ -192,10 +192,11 @@ public class Citizen : MonoBehaviour
             Occupation.Citizen,
             100,
             5,
-            8,
+            (50, 50),
             0,
             500,
-            skills
+            skills,
+            this
         );
     }
 }

@@ -153,7 +153,7 @@ public class ResourceManager : MonoBehaviour
         // Consume food
         foreach (GameObject c in PopulationManagement.Instance.Citizens)
         {
-            foodHelper.AdjustResource(-c.GetComponent<Citizen>().citizenData.dailyFood);
+            foodHelper.AdjustResource(-c.GetComponent<Citizen>().citizenData.food);
         }
 
         UpdateMoneyValueUI();
