@@ -131,6 +131,13 @@ public class ResourceManager : MonoBehaviour
         IEnumerable<GameObject> structures = BuildingManager.Instance.GetAllStructures();
         CollectResourceGains(structures);
         goldHelper.Maintain(structures);
+
+        // Consume food
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            foodHelper.AdjustResource(-c.GetComponent<Citizen>().citizenData.dailyFood);
+        }
+
         UpdateMoneyValueUI();
     }
 
@@ -144,19 +151,19 @@ public class ResourceManager : MonoBehaviour
                 switch (workableStructure.ResourceType)
                 {
                     case ResourceType.Gold:
-                        goldHelper.CollectResource(workableStructure.GenAmount);
+                        goldHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Food:
-                        foodHelper.CollectResource(workableStructure.GenAmount);
+                        foodHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Wood:
-                        woodHelper.CollectResource(workableStructure.GenAmount);
+                        woodHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Stone:
-                        stoneHelper.CollectResource(workableStructure.GenAmount);
+                        stoneHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Metal:
-                        metalHelper.CollectResource(workableStructure.GenAmount);
+                        metalHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     default:
                         break;

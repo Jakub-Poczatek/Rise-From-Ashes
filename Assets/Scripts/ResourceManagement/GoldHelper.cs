@@ -9,11 +9,6 @@ public class GoldHelper : BasicResourceHelper
 
     public GoldHelper(float initialAmount) : base(initialAmount) { }
 
-    public override void CollectResource(float amount)
-    {
-        base.CollectResource(amount);
-    }
-
     public void Maintain(IEnumerable<GameObject> structures)
     {
         foreach (GameObject structure in structures)

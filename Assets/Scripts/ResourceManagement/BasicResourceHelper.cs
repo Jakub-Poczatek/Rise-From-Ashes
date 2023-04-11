@@ -25,9 +25,4 @@ public class BasicResourceHelper
     {
         Resource += amount;
     }
-
-    public virtual void CollectResource(float amount)
-    {
-        resource += amount;
-    }
 }
