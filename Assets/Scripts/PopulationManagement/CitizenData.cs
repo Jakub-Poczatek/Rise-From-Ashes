@@ -8,7 +8,8 @@ public class CitizenData
 {
     public string name;
     public Occupation occupation;
-    public float health, food, happiness, loyalty;
+    public float health, happiness, loyalty;
+    private int food;
     private (int, int) workRestRatio;
     public Skills skills;
     public Citizen parentCitizen;
@@ -26,7 +27,17 @@ public class CitizenData
         }
     }
 
-    public CitizenData(string name, Occupation occupation, float health, float food, (int, int) workRestRatio, float happiness, float loyalty, Skills skills, Citizen parentCitizen)
+    public int Food { 
+        get => food;
+        set
+        {
+            food = value;
+            if(value < 0) food = 0;
+            if(value > 10) food = 10;
+        }
+    }
+
+    public CitizenData(string name, Occupation occupation, float health, int food, (int, int) workRestRatio, float happiness, float loyalty, Skills skills, Citizen parentCitizen)
     {
         this.name = name;
         this.occupation = occupation;

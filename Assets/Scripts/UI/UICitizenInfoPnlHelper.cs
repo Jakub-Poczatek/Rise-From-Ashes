@@ -28,7 +28,7 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         // Set stat info
         healthSlider.value = data.health;
         happinessSlider.value = data.happiness;
-        foodAmount.text = data.food.ToString();
+        foodAmount.text = data.Food.ToString();
         energyAmount.text = data.WorkRestRatio.Item1 + ":" + currentData.WorkRestRatio.Item2;
 
         goldLevel.text = "Gold Level: \t\t" + data.skills.goldProductionLevel.ToString();
@@ -87,8 +87,10 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
 
     public void UpdateFood(int amount)
     {
-        currentData.food += amount;
-        foodAmount.text = currentData.food.ToString();
+        currentData.Food += amount;
+        foodAmount.text = currentData.Food.ToString();
+        currentData.parentCitizen.UpdateHappiness();
+        DisplayCitizenMenu(currentData);
     }
 
     public void UpdateSleep(int amount)

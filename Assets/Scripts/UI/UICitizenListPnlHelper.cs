@@ -55,8 +55,8 @@ public class UICitizenListPnlHelper : MonoBehaviour
             citizen.citizenData.name + " - " + citizen.citizenData.occupation;
         citizenGO.transform.Find("CitizenDetails").GetComponent<TMP_Text>().text =
             "Happiness: " + citizen.citizenData.happiness + "    " +
-            "Food: " + citizen.citizenData.food + "   " +
-            "Work - Rest Ratio: " + citizen.citizenData.WorkRestRatio + ":" + citizen.citizenData.WorkRestRatio;
+            "Food: " + citizen.citizenData.Food + "    " +
+            "Work - Rest Ratio: " + citizen.citizenData.WorkRestRatio.Item1 + ":" + citizen.citizenData.WorkRestRatio.Item2;
         citizenGO.transform.Find("HomeStatus").GetComponent<Toggle>().isOn = citizen.HouseBuilding != null;
         citizenGO.transform.Find("LocateBtn").GetComponent<Button>()
                 .onClick.AddListener(() => LocateCitizen(citizen.gameObject.transform));

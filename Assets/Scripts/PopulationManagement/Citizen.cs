@@ -16,7 +16,7 @@ public class Citizen : MonoBehaviour
     private bool stateRunning = false;
     public CitizenData citizenData;
 
-    private readonly int baseSleep = 8;
+    private readonly int baseWorkRestSplit = 50;
     private readonly int baseFood = 5;
 
     public GameObject HouseBuilding { get => houseBuilding; set => houseBuilding = value; }
@@ -147,8 +147,8 @@ public class Citizen : MonoBehaviour
     public void UpdateHappiness()
     {
         citizenData.happiness =
-            (50 - citizenData.WorkRestRatio.Item1) +
-            ((baseFood - citizenData.food) * 5);
+            (baseWorkRestSplit - citizenData.WorkRestRatio.Item1) +
+            ((citizenData.Food - baseFood) * 5);
     }
 
     private enum State
