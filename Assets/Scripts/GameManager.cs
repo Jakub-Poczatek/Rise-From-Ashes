@@ -9,53 +9,44 @@ public class GameManager : MonoBehaviour
 {
     public int cellSize = 1;
     public GameObject groundModel;
-    private bool buildingModeIsActive = false;
-    private GridStructure gridStructure;
     private PlayerState playerState;
     private int width, length;
-    //public IInputManager inputManager;
-    //public InputManager inputManagerConcrete;
     public InputManager inputManager;
     public LayerMask mouseInputMask;
     public CameraMovement cameraMovement;
     public GameObject placementManagerGameObject;
     public UIController uiController;
     public StructureRepository structureRepository;
-    //public GameObject resourceManagerGameObject;
-    //private IResourceManager resourceManager;
     private ResourceManager resourceManager;
 
     public PlayerSelectionState selectionState;
-    public PlayerBuildingSingleStructureState buildingSingleStructureState;
+    public PlayerBuildingResGenStructureState buildingResGenStructureState;
     public PlayerBuildingRoadState buildingRoadState;
     public PlayerBuildingResidentialState buildingResidentialState;
     public PlayerDemolishingState removeBuildingState;
     public PlayerCitizenAssignState citizenAssignState;
 
-    //private IPlacementManager placementManager;
     private PlacementManager placementManager;
-
 
     public PlayerState PlayerState { get => playerState; }
 
     private void Awake()
     {
-        /*#if (UNITY_EDITOR && TEST) || !(UNITY_IOS || UNITY_ANDROID)
-        inputManager = gameObject.AddComponent<InputManager>();
-        inputManager = inputManagerConcrete;
-        #endif*/
-        //inputManager = inputManagerConcrete;
-        //inputManager = gameObject.AddComponent<InputManager>();
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+
         resourceManager = ResourceManager.Instance;
         placementManager = PlacementManager.Instance;
     }
+
+    public static GameManager Instance { get; private set; }
+
+    private GameManager() {}
 
     void Start()
     {
         width = (int)groundModel.GetComponent<MeshRenderer>().bounds.size.x;
         length = (int)groundModel.GetComponent<MeshRenderer>().bounds.size.z;
-        //placementManager = placementManagerGameObject.GetComponent<IPlacementManager>();
-        //resourceManager = resourceManagerGameObject.GetComponent<IResourceManager>();
         PrepareStates();
         PrepareGameComponents();
         AssignInputListener();
@@ -68,7 +59,7 @@ public class GameManager : MonoBehaviour
         resourceManager.PrepareResourceManager();
         selectionState = new PlayerSelectionState(this);
         removeBuildingState = new PlayerDemolishingState(this);
-        buildingSingleStructureState = new PlayerBuildingSingleStructureState(this);
+        buildingResGenStructureState = new PlayerBuildingResGenStructureState(this);
         buildingRoadState = new PlayerBuildingRoadState(this);
         buildingResidentialState = new PlayerBuildingResidentialState(this);
         citizenAssignState = new PlayerCitizenAssignState(this);
@@ -104,7 +95,7 @@ public class GameManager : MonoBehaviour
         inputManager.AddListenerOnMouseRightChangeEvent((position) => playerState.OnInputPanChange(position));
         inputManager.AddListenerOnMouseRightUpEvent(() => playerState.OnInputPanUp());
         inputManager.AddListenerOnMouseChangeEvent((position) => playerState.OnInputPointerChange(position));
-        inputManager.AddListenerOnCameraRotatePerformedEvent((angle) => PlayerState.OnCameraRotate(angle));
+        inputManager.AddListenerOnCameraRotatePerformedEvent((angle) => PlayerState.OnRotate(angle));
         inputManager.AddListenerOnCameraZoomPerformedEvent((zoom) => PlayerState.OnCameraZoom(zoom));
         inputManager.AddListenerOnCameraMoveChangeEvent((direction) => playerState.OnCameraMove(direction));
     }

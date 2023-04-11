@@ -35,6 +35,7 @@ public class ResGenModificationHelper : StructureModificationHelper
             structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
             gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, myStructureBase, ghostReturn.Value.Item3);
             resourceManager.Purchase(structureBase.buildCost);
+            GameManager.Instance.buildingResGenStructureState.structureModel = ghostReturn.Value.Item1;
         }
     }
 

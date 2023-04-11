@@ -32,7 +32,7 @@ public abstract class PlayerState
         cameraMovement.StopCameraMovement();
     }
 
-    public virtual void OnCameraRotate(float angle)
+    public virtual void OnRotate(float angle)
     {
         cameraMovement.RotateCamera(angle);
     }
@@ -49,7 +49,6 @@ public abstract class PlayerState
 
     public virtual void EnterState(string structureName)
     {
-        Time.timeScale = 1.0f;
         gameManager.uiController.ToggleStructureInteractionPanel(false);
     }
 
@@ -68,7 +67,7 @@ public abstract class PlayerState
     public virtual void OnBuildSingleStructure(string structureName)
     {
         BuildingManager.Instance.CancelModification();
-        this.gameManager.TransitionToState(this.gameManager.buildingSingleStructureState, structureName);
+        this.gameManager.TransitionToState(this.gameManager.buildingResGenStructureState, structureName);
     }
 
     public virtual void OnBuildRoad(string structureName)

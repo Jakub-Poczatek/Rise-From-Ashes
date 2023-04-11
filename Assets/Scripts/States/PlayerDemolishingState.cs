@@ -16,7 +16,6 @@ public class PlayerDemolishingState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
-        Time.timeScale = 0;
         BuildingManager.Instance.PrepareStructureForDemolishing(position);
     }
 }

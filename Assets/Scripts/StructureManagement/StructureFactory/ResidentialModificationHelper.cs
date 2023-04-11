@@ -34,6 +34,7 @@ public class ResidentialModificationHelper : StructureModificationHelper
             structuresToBeModified.Add(gridPositionInt, ghostReturn.Value.Item1);
             gridStructure.PlaceStructureOnTheGrid(ghostReturn.Value.Item1, ghostReturn.Value.Item2, myStructureBase, ghostReturn.Value.Item3);
             resourceManager.Purchase(structureBase.buildCost);
+            GameManager.Instance.buildingResidentialState.structureModel = ghostReturn.Value.Item1;
         }
     }
 

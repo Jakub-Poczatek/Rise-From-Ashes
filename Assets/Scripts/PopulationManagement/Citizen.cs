@@ -74,6 +74,7 @@ public class Citizen : MonoBehaviour
                 if (Vector3.Distance(this.transform.position, target) < 1.0f) {
                     if (info.IsName("TravelToWork"))
                     {
+                        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         anim.SetBool("isWorking", true);
                         workBuilding.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
                         InvokeRepeating(nameof(UpdateExperience), 0, 1);
@@ -81,6 +82,7 @@ public class Citizen : MonoBehaviour
                         CancelInvoke(nameof(UpdateExperience));
                         workBuilding.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
                         anim.SetBool("isWorking", false);
+                        transform.localScale = Vector3.one;
                         target = townHallPos;
                     }
                     else

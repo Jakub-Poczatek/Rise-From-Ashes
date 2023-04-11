@@ -10,7 +10,6 @@ public class PlayerCitizenAssignState : PlayerState
     public override void EnterState(string structureName)
     {
         base.EnterState(structureName);
-        Time.timeScale = 0;
     }
 
     public override void OnInputPointerDown(Vector3 position)

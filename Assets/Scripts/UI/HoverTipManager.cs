@@ -12,6 +12,15 @@ public class HoverTipManager : MonoBehaviour
     public static Action<string, Vector2> OnMouseHover;
     public static Action OnMouseFocusLoss;
 
+    private HoverTipManager() {}
+    public static HoverTipManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +48,7 @@ public class HoverTipManager : MonoBehaviour
         tipParent.transform.position = new Vector2(mousePos.x, mousePos.y);
     }
 
-    private void HideTip()
+    public void HideTip()
     {
         tipTxt.text = default;
         tipParent.gameObject.SetActive(false);
