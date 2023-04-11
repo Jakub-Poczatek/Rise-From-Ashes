@@ -49,6 +49,7 @@ public abstract class PlayerState
 
     public virtual void EnterState(string structureName)
     {
+        Time.timeScale = 1.0f;
         gameManager.uiController.ToggleStructureInteractionPanel(false);
     }
 

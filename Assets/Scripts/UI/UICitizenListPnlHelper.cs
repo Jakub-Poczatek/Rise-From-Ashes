@@ -15,6 +15,7 @@ public class UICitizenListPnlHelper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Show();
         citizenList = new Dictionary<Citizen, GameObject>();
         originalCitizenGO = contentParent.GetChild(0).gameObject;
         contentParent.GetChild(0).gameObject.SetActive(false);

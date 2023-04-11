@@ -21,6 +21,8 @@ public class ResourceManager : MonoBehaviour
     private BasicResourceHelper stoneHelper;
     private BasicResourceHelper metalHelper;
 
+    private Cost previousCost;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(this);
@@ -35,6 +37,14 @@ public class ResourceManager : MonoBehaviour
         woodHelper = new BasicResourceHelper(initialWood);
         stoneHelper = new BasicResourceHelper(initialStone);
         metalHelper = new BasicResourceHelper(initialMetal);
+
+        previousCost = new Cost(
+            goldHelper.Resource,
+            foodHelper.Resource,
+            woodHelper.Resource,
+            stoneHelper.Resource,
+            metalHelper.Resource
+            );
 
         UpdateMoneyValueUI();
     }
@@ -127,6 +137,14 @@ public class ResourceManager : MonoBehaviour
 
     public void CalculateResources()
     {
+        previousCost = new Cost(
+            goldHelper.Resource,
+            foodHelper.Resource,
+            woodHelper.Resource,
+            stoneHelper.Resource,
+            metalHelper.Resource
+            );
+
         //IEnumerable<StructureBase> structures = buildingManager.GetAllStructuresData();
         IEnumerable<GameObject> structures = BuildingManager.Instance.GetAllStructures();
         CollectResourceGains(structures);
@@ -180,7 +198,7 @@ public class ResourceManager : MonoBehaviour
             woodHelper.Resource,
             stoneHelper.Resource,
             metalHelper.Resource
-            ));
+            ), previousCost);
     }
 
     private void OnDisable()

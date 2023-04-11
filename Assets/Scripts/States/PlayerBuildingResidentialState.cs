@@ -18,6 +18,7 @@ public class PlayerBuildingResidentialState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
+        Time.timeScale = 0;
         BuildingManager.Instance.PrepareStructureForModification(position, structureName, StructureType.ResidentialStructure);
     }
 }

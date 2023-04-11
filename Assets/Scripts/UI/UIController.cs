@@ -233,13 +233,13 @@ public class UIController : MonoBehaviour
         OnCancelActionHandler?.Invoke();
     }
 
-    public void UpdateResourceValues(Cost cost)
+    public void UpdateResourceValues(Cost cost, Cost previousCost)
     {
-        goldAmountTxt.text = cost.gold.ToString();
-        foodAmountTxt.text = cost.food.ToString();
-        woodAmountTxt.text = cost.wood.ToString();
-        stoneAmountTxt.text = cost.stone.ToString();
-        metalAmountTxt.text = cost.metal.ToString();
+        goldAmountTxt.text = cost.gold.ToString() + " (" + (cost.gold - previousCost.gold) + ")";
+        foodAmountTxt.text = cost.food.ToString() + " (" + (cost.food - previousCost.food) + ")";
+        woodAmountTxt.text = cost.wood.ToString() + " (" + (cost.wood - previousCost.wood) + ")";
+        stoneAmountTxt.text = cost.stone.ToString() + " (" + (cost.stone - previousCost.stone) + ")";
+        metalAmountTxt.text = cost.metal.ToString() + " (" + (cost.metal - previousCost.metal) + ")"; ;
     }
 
     public void UpdateDebugDisplay(string playerState)
