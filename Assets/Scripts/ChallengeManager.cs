@@ -99,6 +99,7 @@ public class ChallengeManager : MonoBehaviour
         int counter = 0;
         foreach (GameObject structure in BuildingManager.Instance.GetAllStructures())
         {
+            if (structureName == "" && structure.name.Contains("Road")) continue;
             if (structure.name.Contains(structureName))
             {
                 counter++;
