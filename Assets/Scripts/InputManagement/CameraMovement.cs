@@ -28,6 +28,16 @@ public class CameraMovement : MonoBehaviour
     public float minNearClip = -24;
     public float maxNearClip = -6;
 
+    private CameraMovement() {}
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+
+    public static CameraMovement Instance { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +74,11 @@ public class CameraMovement : MonoBehaviour
         newPosition = new Vector3(newPosition.x, 0, newPosition.y);
         transform.Translate(newPosition * Time.deltaTime * cameraPanSpeed);
         ClampPosition();
+    }
+
+    public void SnapCamera(Vector3 position)
+    {
+        transform.position = new Vector3(position.x, transform.position.y, position.z);
     }
 
     public void MoveCamera(Vector2 direction)

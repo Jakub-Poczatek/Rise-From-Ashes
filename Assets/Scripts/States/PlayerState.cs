@@ -49,7 +49,7 @@ public abstract class PlayerState
 
     public virtual void EnterState(string structureName)
     {
-        gameManager.uiController.HideStructureInfo();
+        gameManager.uiController.ToggleStructureInteractionPanel(false);
     }
 
     public virtual void OnCancel()

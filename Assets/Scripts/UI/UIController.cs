@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     public Button confirmActionBtn;
     public Button closeBuildMenuBtn;
     public Button openChallengeMenuBtn;
+    public Button openCitizenListMenuBtn;
     public GameObject cancelConfirmActionPnl;
     public GameObject buildingMenuPnl;
     public GameObject resourceGenStructsPnl;
@@ -38,6 +39,7 @@ public class UIController : MonoBehaviour
     public UICitizenInfoPnlHelper citizenPanelHelper;
     public UIDebugPnlHelper debugPanelHelper;
     public UIChallengePnlHelper challengePanelHelper;
+    public UICitizenListPnlHelper citizenListPanelHelper;
 
     /*public TMP_Text infoPnlStructName;
     public TMP_Text infoPnlStructCost;
@@ -78,6 +80,9 @@ public class UIController : MonoBehaviour
 
         openChallengeMenuBtn.onClick.AddListener(() => ToggleChallengesPanel(true));
         challengePanelHelper.cancelBtn.onClick.AddListener(() => ToggleChallengesPanel(false));
+
+        openCitizenListMenuBtn.onClick.AddListener(() => ToggleCitizenListPanel(true));
+        citizenListPanelHelper.cancelBtn.onClick.AddListener(() => ToggleCitizenListPanel(false));
     }
 
     public void ToggleCitizenInteractionPanel(bool toggle, CitizenData citizenData = null)
@@ -88,6 +93,7 @@ public class UIController : MonoBehaviour
             ToggleBuildPanel(false);
             ToggleStructureInteractionPanel(false);
             ToggleChallengesPanel(false);
+            ToggleCitizenListPanel(false);
             citizenPanelHelper.DisplayCitizenMenu(citizenData);
         }
         else citizenPanelHelper.Hide();
@@ -110,6 +116,7 @@ public class UIController : MonoBehaviour
             ToggleCancelConfirmPanel(false);
             ToggleStructureInteractionPanel(false);
             ToggleChallengesPanel(false);
+            ToggleCitizenListPanel(false);
         }
         buildingMenuPnl.SetActive(toggle);
     }
@@ -122,12 +129,13 @@ public class UIController : MonoBehaviour
             ToggleCancelConfirmPanel(false);
             ToggleBuildPanel(false);
             ToggleChallengesPanel(false);
+            ToggleCitizenListPanel(false);
             structPanelHelper.DisplayStructureInfo(structure);
         }
         else structPanelHelper.Hide();
     }
 
-    private void ToggleChallengesPanel(bool toggle)
+    public void ToggleChallengesPanel(bool toggle)
     {
         if (toggle)
         {
@@ -135,14 +143,24 @@ public class UIController : MonoBehaviour
             ToggleCancelConfirmPanel(false);
             ToggleBuildPanel(false);
             ToggleStructureInteractionPanel(false);
+            ToggleCitizenListPanel(false);
             challengePanelHelper.DisplayChallengesMenu();
         }
         else challengePanelHelper.Hide();
     }
 
-    public void ADisplayStructureInfo(Structure structure)
+    public void ToggleCitizenListPanel(bool toggle)
     {
-        structPanelHelper.DisplayStructureInfo(structure);
+        if (toggle)
+        {
+            ToggleCitizenInteractionPanel(false);
+            ToggleCancelConfirmPanel(false);
+            ToggleBuildPanel(false);
+            ToggleStructureInteractionPanel(false);
+            ToggleChallengesPanel(false);
+            citizenListPanelHelper.DisplayCitizensMenu();
+        }
+        else citizenListPanelHelper.Hide();
     }
 
     private void OnDemolishHandler()
@@ -222,11 +240,6 @@ public class UIController : MonoBehaviour
         woodAmountTxt.text = cost.wood.ToString();
         stoneAmountTxt.text = cost.stone.ToString();
         metalAmountTxt.text = cost.metal.ToString();
-    }
-
-    public void HideStructureInfo()
-    {
-        structPanelHelper.Hide();
     }
 
     public void UpdateDebugDisplay(string playerState)

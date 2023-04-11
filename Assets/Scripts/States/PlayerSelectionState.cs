@@ -19,15 +19,21 @@ public class PlayerSelectionState : PlayerState
             case "Citizen":
                 this.gameManager.citizenAssignState.citizen = target;
                 this.gameManager.uiController.ToggleCitizenInteractionPanel(true, target.GetComponent<Citizen>().citizenData);
-                this.gameManager.uiController.HideStructureInfo();
+                this.gameManager.uiController.ToggleStructureInteractionPanel(false);
+                this.gameManager.uiController.ToggleChallengesPanel(false);
+                this.gameManager.uiController.ToggleCitizenListPanel(false);
                 return;
             case "Structure" or "ResGenStructure":
                 this.gameManager.uiController.ToggleStructureInteractionPanel(true, target.GetComponent<Structure>());
                 this.gameManager.uiController.ToggleCitizenInteractionPanel(false);
+                this.gameManager.uiController.ToggleChallengesPanel(false);
+                this.gameManager.uiController.ToggleCitizenListPanel(false);
                 return;
             default:
-                this.gameManager.uiController.HideStructureInfo();
+                this.gameManager.uiController.ToggleStructureInteractionPanel(false);
                 this.gameManager.uiController.ToggleCitizenInteractionPanel(false);
+                this.gameManager.uiController.ToggleChallengesPanel(false);
+                this.gameManager.uiController.ToggleCitizenListPanel(false);
                 return;
         }
     }
