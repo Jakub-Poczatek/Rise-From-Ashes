@@ -15,10 +15,10 @@ MonoBehaviour:
   structureName: Farm
   prefab: {fileID: 7607514041704122858, guid: 59e4f03cfda8970499a8180aed396830, type: 3}
   buildCost:
-    gold: 15
+    gold: 25
     food: 0
-    wood: 30
-    stone: 0
+    wood: 15
+    stone: 10
     metal: 0
   maintenanceGoldCost: 0
   maxCitizenCapacity: 1

@@ -15,10 +15,10 @@ MonoBehaviour:
   structureName: Logger's Hut
   prefab: {fileID: 5165217977655863059, guid: 9cb38882ec89caf4292824f3b2bb7e62, type: 3}
   buildCost:
-    gold: 10
+    gold: 25
     food: 0
-    wood: 100
-    stone: 0
+    wood: 0
+    stone: 10
     metal: 0
   maintenanceGoldCost: 0
   maxCitizenCapacity: 1
