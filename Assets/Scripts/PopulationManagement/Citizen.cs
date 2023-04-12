@@ -160,7 +160,8 @@ public class Citizen : MonoBehaviour
 
     public void UpdateHappiness()
     {
-        citizenData.happiness =
+        citizenData.Happiness =
+            50 +
             (baseWorkRestSplit - citizenData.WorkRestRatio.Item1) +
             ((citizenData.Food - baseFood) * 5);
     }
@@ -207,7 +208,7 @@ public class Citizen : MonoBehaviour
             100,
             5,
             (50, 50),
-            0,
+            50,
             500,
             skills,
             this

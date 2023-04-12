@@ -33,6 +33,10 @@ public class StructureDemolishingHelper : StructureModificationHelper
         }
         foreach (KeyValuePair<Vector3Int, GameObject> kvp in structuresToBeModified)
         {
+
+            // Refund cost
+            ResourceManager.Instance.EarnResources(
+                kvp.Value.GetComponent<Structure>().BaseData.buildCost / 2);
             if (kvp.Value.name.Contains("House"))
             {
                 resourceManager.MaxCitizenCapacity-= kvp.Value.GetComponent<Structure>().Citizens.Count;
@@ -71,7 +75,6 @@ public class StructureDemolishingHelper : StructureModificationHelper
                     roadsToDemolish.Add(gridPositionInt, structure);
                 }
             }
-
         }
     }
 }

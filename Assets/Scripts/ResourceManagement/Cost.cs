@@ -41,4 +41,16 @@ public class Cost
             "\nStone:" + Mathf.Round(stone) +
             "\nMetal:" + Mathf.Round(metal);
     }
+
+    public static Cost operator /(Cost cost, float divisor)
+    {
+        return new Cost
+        (
+            cost.gold / divisor,
+            cost.food / divisor,
+            cost.wood / divisor,
+            cost.stone / divisor,
+            cost.metal / divisor
+        );
+    }
 }

@@ -27,7 +27,7 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
 
         // Set stat info
         healthSlider.value = data.Health;
-        happinessSlider.value = data.happiness;
+        happinessSlider.value = data.Happiness;
         foodAmount.text = data.Food.ToString();
         energyAmount.text = data.WorkRestRatio.Item1 + ":" + currentData.WorkRestRatio.Item2;
 

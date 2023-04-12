@@ -34,6 +34,8 @@ public class UIController : MonoBehaviour
     public TMP_Text woodAmountTxt;
     public TMP_Text stoneAmountTxt;
     public TMP_Text metalAmountTxt;
+    public TMP_Text happinessAmountTxt;
+    public TMP_Text citizenSpawnTimeTxt;
 
     public UIStructInfoPnlHelper structPanelHelper;
     public UICitizenInfoPnlHelper citizenPanelHelper;
@@ -234,13 +236,15 @@ public class UIController : MonoBehaviour
         OnCancelActionHandler?.Invoke();
     }
 
-    public void UpdateResourceValues(Cost cost, Cost previousCost)
+    public void UpdateResourceValues(Cost cost, Cost previousCost, float happiness)
     {
         goldAmountTxt.text = Mathf.Round(cost.gold) + " (" + Mathf.Round(cost.gold - previousCost.gold) + ")";
         foodAmountTxt.text = Mathf.Round(cost.food) + " (" + Mathf.Round(cost.food - previousCost.food) + ")";
         woodAmountTxt.text = Mathf.Round(cost.wood) + " (" + Mathf.Round(cost.wood - previousCost.wood) + ")";
         stoneAmountTxt.text = Mathf.Round(cost.stone) + " (" + Mathf.Round(cost.stone - previousCost.stone) + ")";
         metalAmountTxt.text = Mathf.Round(cost.metal) + " (" + Mathf.Round(cost.metal - previousCost.metal) + ")"; ;
+        happinessAmountTxt.text = Mathf.Round(happiness) + "%";
+        citizenSpawnTimeTxt.text = Mathf.Round(PopulationManagement.Instance.GetTimeUntilNewCitizen()) + " sec";
     }
 
     public void UpdateDebugDisplay(string playerState)

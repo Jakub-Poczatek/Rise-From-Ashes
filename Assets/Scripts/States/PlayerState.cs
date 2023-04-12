@@ -17,7 +17,9 @@ public abstract class PlayerState
     {}
 
     public virtual void OnInputPointerChange(Vector3 position)
-    {}
+    {
+        HoverTipManager.Instance.HideTip();
+    }
 
     public virtual void OnInputPointerUp()
     {}

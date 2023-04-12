@@ -55,7 +55,7 @@ public class UICitizenListPnlHelper : MonoBehaviour
         citizenGO.transform.Find("CitizenTitle").GetComponent<TMP_Text>().text =
             citizen.citizenData.name + " - " + citizen.citizenData.occupation;
         citizenGO.transform.Find("CitizenDetails").GetComponent<TMP_Text>().text =
-            "Happiness: " + citizen.citizenData.happiness + "    " +
+            "Happiness: " + citizen.citizenData.Happiness + "    " +
             "Food: " + citizen.citizenData.Food + "    " +
             "Work - Rest Ratio: " + citizen.citizenData.WorkRestRatio.Item1 + ":" + citizen.citizenData.WorkRestRatio.Item2;
         citizenGO.transform.Find("HomeStatus").GetComponent<Toggle>().isOn = citizen.HouseBuilding != null;

@@ -31,7 +31,6 @@ public class UIChallengePnlHelper : MonoBehaviour
     {
         ResourceManager.Instance.EarnResources(kvp.Key.reward);
         challenges.Remove(kvp.Key);
-        HoverTipManager.Instance.HideTip();
         Destroy(kvp.Value);
     }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class ResourceManager : MonoBehaviour
     private BasicResourceHelper metalHelper;
 
     private Cost previousCost;
+    private float avgHappiness = 0;
 
     private void Awake()
     {
@@ -68,6 +70,8 @@ public class ResourceManager : MonoBehaviour
             if (currentCitizenCapacity < 0) currentCitizenCapacity = 0;
         }
     }
+
+    public float AvgHappiness { get => avgHappiness; set => avgHappiness = value; }
 
     private ResourceManager() { }
 
@@ -156,6 +160,16 @@ public class ResourceManager : MonoBehaviour
 
         if (foodHelper.Resource <= 0) StarveCitizens();
 
+        float happinessCounter = 0;
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            happinessCounter += c.GetComponent<Citizen>().citizenData.Happiness;
+        }
+
+        if(PopulationManagement.Instance.Citizens.Count > 0)
+            avgHappiness = happinessCounter / PopulationManagement.Instance.Citizens.Count;
+        else avgHappiness = 0;
+
         UpdateMoneyValueUI();
     }
 
@@ -198,7 +212,7 @@ public class ResourceManager : MonoBehaviour
             woodHelper.Resource,
             stoneHelper.Resource,
             metalHelper.Resource
-            ), previousCost);
+            ), previousCost, avgHappiness);
     }
 
     private void StarveCitizens()
