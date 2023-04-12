@@ -71,9 +71,19 @@ public class UIStructInfoPnlHelper : MonoBehaviour
     {
         for (int i = 0; i < structure.Citizens.Count; i++)
         {
+            int index = i;
             citizenButtons[i].SetActive(true);
             citizenButtons[i].GetComponentInChildren<TMP_Text>().text = structure.Citizens.ElementAt(i).Key.GetComponent<Citizen>().citizenData.name;
+            citizenButtons[i].GetComponentInChildren<Button>().onClick.AddListener(() => 
+                LocateCitizen(structure.Citizens.ElementAt(index).Key.GetComponent<Citizen>()));
         }
+    }
+
+    private void LocateCitizen(Citizen citizen)
+    {
+        CameraMovement.Instance.SnapCamera(citizen.gameObject.transform.position);
+        GameManager.Instance.uiController.citizenPanelHelper.DisplayCitizenMenu(citizen.citizenData);
+        Hide();
     }
 
     private void HideCitizenList()

@@ -60,13 +60,14 @@ public class UICitizenListPnlHelper : MonoBehaviour
             "Work - Rest Ratio: " + citizen.citizenData.WorkRestRatio.Item1 + ":" + citizen.citizenData.WorkRestRatio.Item2;
         citizenGO.transform.Find("HomeStatus").GetComponent<Toggle>().isOn = citizen.HouseBuilding != null;
         citizenGO.transform.Find("LocateBtn").GetComponent<Button>()
-                .onClick.AddListener(() => LocateCitizen(citizen.gameObject.transform));
+                .onClick.AddListener(() => LocateCitizen(citizen));
         citizenGO.SetActive(true);
     }
 
-    private void LocateCitizen(Transform location)
+    private void LocateCitizen(Citizen citizen)
     {
-        CameraMovement.Instance.SnapCamera(location.position);
+        CameraMovement.Instance.SnapCamera(citizen.gameObject.transform.position);
+        GameManager.Instance.uiController.citizenPanelHelper.DisplayCitizenMenu(citizen.citizenData);
         Hide();
     }
 
