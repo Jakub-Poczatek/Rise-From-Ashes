@@ -35,10 +35,10 @@ public class Cost
     public override string ToString()
     {
         return 
-            "Gold: " + gold + "\n" +
-            "Food: " + food + "\n" +
-            "Wood: " + wood + "\n" +
-            "Stone: " + stone + "\n" +
-            "Metal: " + metal;
+            "Gold:" + Mathf.Round(gold) +
+            "\nFood:" + Mathf.Round(food) +
+            "\nWood:" + Mathf.Round(wood) +
+            "\nStone:" + Mathf.Round(stone) +
+            "\nMetal:" + Mathf.Round(metal);
     }
 }

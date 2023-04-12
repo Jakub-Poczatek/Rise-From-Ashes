@@ -235,11 +235,11 @@ public class UIController : MonoBehaviour
 
     public void UpdateResourceValues(Cost cost, Cost previousCost)
     {
-        goldAmountTxt.text = cost.gold.ToString() + " (" + (cost.gold - previousCost.gold) + ")";
-        foodAmountTxt.text = cost.food.ToString() + " (" + (cost.food - previousCost.food) + ")";
-        woodAmountTxt.text = cost.wood.ToString() + " (" + (cost.wood - previousCost.wood) + ")";
-        stoneAmountTxt.text = cost.stone.ToString() + " (" + (cost.stone - previousCost.stone) + ")";
-        metalAmountTxt.text = cost.metal.ToString() + " (" + (cost.metal - previousCost.metal) + ")"; ;
+        goldAmountTxt.text = Mathf.Round(cost.gold) + " (" + Mathf.Round(cost.gold - previousCost.gold) + ")";
+        foodAmountTxt.text = Mathf.Round(cost.food) + " (" + Mathf.Round(cost.food - previousCost.food) + ")";
+        woodAmountTxt.text = Mathf.Round(cost.wood) + " (" + Mathf.Round(cost.wood - previousCost.wood) + ")";
+        stoneAmountTxt.text = Mathf.Round(cost.stone) + " (" + Mathf.Round(cost.stone - previousCost.stone) + ")";
+        metalAmountTxt.text = Mathf.Round(cost.metal) + " (" + Mathf.Round(cost.metal - previousCost.metal) + ")"; ;
     }
 
     public void UpdateDebugDisplay(string playerState)
