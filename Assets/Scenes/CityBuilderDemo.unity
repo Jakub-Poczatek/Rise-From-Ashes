@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialGold: 9999
-  initialFood: 9999
+  initialFood: 0
   initialWood: 9999
   initialStone: 9999
   initialMetal: 9999

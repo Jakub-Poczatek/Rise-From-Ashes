@@ -213,6 +213,21 @@ public class Citizen : MonoBehaviour
             this
         );
     }
+
+    public void Die()
+    {
+        CancelInvoke();
+        StopAllCoroutines();
+        if (workBuilding != null)
+            if (workBuilding.CompareTag("ResGenStructure"))
+                workBuilding.GetComponent<WorkableStructure>().RemoveCitizen(this.gameObject);
+            else workBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
+        if (houseBuilding != null)
+            houseBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
+        GameManager.Instance.uiController.citizenListPanelHelper.DestroyCitizenEntry(this);
+        ResourceManager.Instance.CurrentCitizenCapacity--;
+        Destroy(this.gameObject);
+    }
 }
 
 

@@ -70,19 +70,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   citizenData:
-    name: 
+    name: CitizenName
     occupation: 0
-    health: 0
-    dailyFood: 0
-    dailySleep: 0
     happiness: 0
-    loyalty: 0
+    loyalty: 500
+    health: 100
     skills:
-      goldProductionLevel: 0
-      foodProductionLevel: 0
-      woodProductionLevel: 0
-      stoneProductionLevel: 0
-      metalProductionLevel: 0
+      goldProductionLevel: 1
+      foodProductionLevel: 1
+      woodProductionLevel: 1
+      stoneProductionLevel: 1
+      metalProductionLevel: 1
+    parentCitizen: {fileID: -422943946192531258}
 --- !u!95 &-8095733950040538462
 Animator:
   serializedVersion: 5

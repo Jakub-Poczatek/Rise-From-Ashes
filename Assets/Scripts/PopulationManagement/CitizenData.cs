@@ -8,8 +8,9 @@ public class CitizenData
 {
     public string name;
     public Occupation occupation;
-    public float health, happiness, loyalty;
+    public float happiness, loyalty;
     private int food;
+    public float health;
     private (int, int) workRestRatio;
     public Skills skills;
     public Citizen parentCitizen;
@@ -34,6 +35,15 @@ public class CitizenData
             food = value;
             if(value < 0) food = 0;
             if(value > 10) food = 10;
+        }
+    }
+
+    public float Health { 
+        get => health;
+        set
+        {
+            health = value;
+            if (health <= 0 && parentCitizen != null) parentCitizen.Die();
         }
     }
 

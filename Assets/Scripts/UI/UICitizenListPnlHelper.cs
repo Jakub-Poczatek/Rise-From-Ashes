@@ -41,6 +41,7 @@ public class UICitizenListPnlHelper : MonoBehaviour
         }
     }
 
+
     private void CreateCitizenEntry(Citizen citizen)
     {
         GameObject citizenGO = Instantiate(originalCitizenGO);
@@ -77,5 +78,11 @@ public class UICitizenListPnlHelper : MonoBehaviour
     public void Hide()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void DestroyCitizenEntry(Citizen citizen)
+    {
+        Destroy(citizenList[citizen]);
+        citizenList.Remove(citizen);
     }
 }

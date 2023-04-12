@@ -6,7 +6,7 @@ public class PopulationManagement : MonoBehaviour
 {
     public float citizenSpawnRate = 10.0f;
     public GameObject citizenPrefab;
-    private List<GameObject> citizens = new List<GameObject>();
+    private List<GameObject> citizens;
     public GameObject townHall;
     private ResourceManager resourceManager;
 
@@ -17,6 +17,7 @@ public class PopulationManagement : MonoBehaviour
 
     private void Awake()
     {
+        citizens = new List<GameObject>();
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
@@ -33,7 +34,7 @@ public class PopulationManagement : MonoBehaviour
         if (resourceManager.CanIHouseCitizen()) {
             GameObject citizen = Instantiate(citizenPrefab, townHall.transform.position, Quaternion.identity);
             resourceManager.CurrentCitizenCapacity++;
-            citizens.Add(citizen);
+            Citizens.Add(citizen);
             foreach (GameObject structure in BuildingManager.Instance.GetAllStructures())
             {
                 if (structure.name.Contains("House"))

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -156,6 +154,8 @@ public class ResourceManager : MonoBehaviour
             foodHelper.AdjustResource(-c.GetComponent<Citizen>().citizenData.Food);
         }
 
+        if (foodHelper.Resource <= 0) StarveCitizens();
+
         UpdateMoneyValueUI();
     }
 
@@ -199,6 +199,20 @@ public class ResourceManager : MonoBehaviour
             stoneHelper.Resource,
             metalHelper.Resource
             ), previousCost);
+    }
+
+    private void StarveCitizens()
+    {
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            print(c.GetComponent<Citizen>().citizenData.name);
+            c.GetComponent<Citizen>().citizenData.Health -= Random.Range(0f, 5f);
+            if (c.GetComponent<Citizen>().citizenData.Health <= 0)
+            {
+                PopulationManagement.Instance.Citizens.Remove(c);
+                break;
+            }
+        }
     }
 
     private void OnDisable()

@@ -75,7 +75,7 @@ public class Structure : MonoBehaviour
         citizens.Add(citizen, false);
     }
 
-    public void RemoveCitizen(GameObject citizen)
+    public virtual void RemoveCitizen(GameObject citizen)
     {
         citizens.Remove(citizen);
     }

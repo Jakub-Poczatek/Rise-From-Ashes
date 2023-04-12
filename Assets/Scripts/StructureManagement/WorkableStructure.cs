@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class WorkableStructure : Structure
 {
@@ -46,6 +47,13 @@ public class WorkableStructure : Structure
     {
         Citizens[worker] = false;
         genAmount -= workersProdRate[worker];
+    }
+
+    public override void RemoveCitizen(GameObject citizen)
+    {
+        base.RemoveCitizen(citizen);
+        genAmount -= workersProdRate[citizen];
+        workersProdRate.Remove(citizen);
     }
 
     private float GetWorkerLevelBonus(GameObject worker)
