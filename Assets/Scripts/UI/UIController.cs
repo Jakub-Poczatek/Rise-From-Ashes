@@ -172,12 +172,12 @@ public class UIController : MonoBehaviour
 
     private void PrepareBuildMenu()
     {
-        CreateButtonsInPanel(resourceGenStructsPnl.transform, structureRepository.GetResourceGenStructNames(), OnBuildSingleStructureCallback);
-        CreateButtonsInPanel(roadStructsPnl.transform, new List<string>() { structureRepository.GetRoadStructName() }, OnBuildRoadCallback);
-        CreateButtonsInPanel(residentialStructsPnl.transform, new List<string>() { structureRepository.GetResidentialStructName() }, OnBuildResidentialCallback);
+        CreateButtonsInPanel(resourceGenStructsPnl.transform, structureRepository.GetResourceGenStructNames(), OnBuildSingleStructureCallback, StructureType.ResourceGenStructure);
+        CreateButtonsInPanel(roadStructsPnl.transform, new List<string>() { structureRepository.GetRoadStructName() }, OnBuildRoadCallback, StructureType.RoadStructure);
+        CreateButtonsInPanel(residentialStructsPnl.transform, new List<string>() { structureRepository.GetResidentialStructName() }, OnBuildResidentialCallback, StructureType.ResidentialStructure);
     }
 
-    private void CreateButtonsInPanel(Transform panelTransform, List<string> dataToShow, Action<string> callback)
+    private void CreateButtonsInPanel(Transform panelTransform, List<string> dataToShow, Action<string> callback, StructureType structureType)
     {
         int diff = dataToShow.Count - panelTransform.childCount;
         for (int i = 0; i < diff; i++)
@@ -192,6 +192,7 @@ public class UIController : MonoBehaviour
             {
                 button.GetComponentInChildren<TextMeshProUGUI>().text = dataToShow[i];
                 button.onClick.AddListener(() => callback(button.GetComponentInChildren<TextMeshProUGUI>().text));
+                panelTransform.GetChild(i).GetComponent<HoverTip>().tipToShow = structureRepository.GetStructureByName(dataToShow[i], structureType).buildCost.ToString();
             }
         }
     }
