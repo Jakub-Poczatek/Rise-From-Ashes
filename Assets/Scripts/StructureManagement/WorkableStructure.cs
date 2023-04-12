@@ -62,15 +62,15 @@ public class WorkableStructure : Structure
         switch (resourceType)
         {
             case ResourceType.Gold:
-                return baseGenAmount + workerSkills.goldProductionLevel;
+                return baseGenAmount + workerSkills.Gold.productionLevel;
             case ResourceType.Food:
-                return baseGenAmount + workerSkills.foodProductionLevel;
+                return baseGenAmount + workerSkills.Food.productionLevel;
             case ResourceType.Wood:
-                return baseGenAmount + workerSkills.woodProductionLevel;
+                return baseGenAmount + workerSkills.Wood.productionLevel;
             case ResourceType.Stone:
-                return baseGenAmount + workerSkills.stoneProductionLevel;
+                return baseGenAmount + workerSkills.Stone.productionLevel;
             case ResourceType.Metal:
-                return baseGenAmount + workerSkills.metalProductionLevel;
+                return baseGenAmount + workerSkills.Metal.productionLevel;
             default:
                 return 0;
         }

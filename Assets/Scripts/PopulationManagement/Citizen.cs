@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -141,19 +142,19 @@ public class Citizen : MonoBehaviour
         switch (workResType)
         {
             case ResourceType.Gold:
-                citizenData.skills.GoldProductionExp++;
+                citizenData.skills.Gold.ProductionExp++;
                 break;
             case ResourceType.Food:
-                citizenData.skills.FoodProductionExp++;
+                citizenData.skills.Food.ProductionExp++;
                 break;
             case ResourceType.Wood:
-                citizenData.skills.WoodProductionExp++;
+                citizenData.skills.Wood.ProductionExp++;
                 break;
             case ResourceType.Stone:
-                citizenData.skills.StoneProductionExp++;
+                citizenData.skills.Stone.ProductionExp++;
                 break;
             case ResourceType.Metal:
-                citizenData.skills.MetalProductionExp++;
+                citizenData.skills.Metal.ProductionExp++;
                 break;
         }
     }
@@ -201,7 +202,7 @@ public class Citizen : MonoBehaviour
     {
         string firstName = NameData.firstNames[Random.Range(0, NameData.firstNames.Length)];
         string lastName = NameData.lastNames[Random.Range(0, NameData.lastNames.Length)];
-        Skills skills = new(1, 1, 1, 1, 1);
+        Skills skills = new();
         citizenData = new(
             firstName + " " + lastName,
             Occupation.Citizen,
@@ -213,6 +214,50 @@ public class Citizen : MonoBehaviour
             skills,
             this
         );
+        Skill[] skillList = new Skill[5] { 
+            citizenData.skills.Gold,
+            citizenData.skills.Food,
+            citizenData.skills.Wood,
+            citizenData.skills.Stone,
+            citizenData.skills.Metal,
+        };
+        skillList = RandomListShuffle(skillList);
+        float totalExpToAllocate = 50;
+        float tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[0]);
+        tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[1]);
+        tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[2]); ;
+        tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[3]);
+        IncreaseSkillExp(totalExpToAllocate, skillList[4]);
+    }
+
+    private Skill[] RandomListShuffle(Skill[] skills)
+    {
+        System.Random random = new();
+        for (int i = skills.Length - 1; i >= 1; i--)
+        {
+            int j = random.Next(i + 1);
+            (skills[i], skills[j]) = (skills[j], skills[i]);
+        }
+        return skills;
+    }
+
+    private void IncreaseSkillExp(float tempExp, Skill skill)
+    {
+        float tempDiff;
+        do
+        {
+            tempDiff = skill.GetExpDiff();
+            skill.ProductionExp += tempExp;
+            tempExp -= tempDiff;
+        } while (tempExp > 0);
     }
 
     public void Die()
