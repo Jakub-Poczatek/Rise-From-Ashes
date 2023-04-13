@@ -238,13 +238,13 @@ public class UIController : MonoBehaviour
 
     public void UpdateResourceValues(Cost cost, Cost previousCost, float happiness)
     {
-        goldAmountTxt.text = Mathf.Round(cost.gold) + " (" + Mathf.Round(cost.gold - previousCost.gold) + ")";
-        foodAmountTxt.text = Mathf.Round(cost.food) + " (" + Mathf.Round(cost.food - previousCost.food) + ")";
-        woodAmountTxt.text = Mathf.Round(cost.wood) + " (" + Mathf.Round(cost.wood - previousCost.wood) + ")";
-        stoneAmountTxt.text = Mathf.Round(cost.stone) + " (" + Mathf.Round(cost.stone - previousCost.stone) + ")";
-        metalAmountTxt.text = Mathf.Round(cost.metal) + " (" + Mathf.Round(cost.metal - previousCost.metal) + ")"; ;
-        happinessAmountTxt.text = Mathf.Round(happiness) + "%";
-        citizenSpawnTimeTxt.text = Mathf.Round(PopulationManagement.Instance.GetTimeUntilNewCitizen()) + " sec";
+        goldAmountTxt.text = Math.Round(cost.gold, 1) + " (" + Math.Round(cost.gold - previousCost.gold, 1) + ")";
+        foodAmountTxt.text = Math.Round(cost.food, 1) + " (" + Math.Round(cost.food - previousCost.food, 1) + ")";
+        woodAmountTxt.text = Math.Round(cost.wood, 1) + " (" + Math.Round(cost.wood - previousCost.wood, 1) + ")";
+        stoneAmountTxt.text = Math.Round(cost.stone, 1) + " (" + Math.Round(cost.stone - previousCost.stone, 1) + ")";
+        metalAmountTxt.text = Math.Round(cost.metal, 1) + " (" + Math.Round(cost.metal - previousCost.metal, 1) + ")"; ;
+        happinessAmountTxt.text = Math.Round(happiness) + "%";
+        citizenSpawnTimeTxt.text = Math.Round(PopulationManagement.Instance.GetTimeUntilNewCitizen()) + " sec";
     }
 
     public void UpdateDebugDisplay(string playerState)

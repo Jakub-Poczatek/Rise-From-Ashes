@@ -42,7 +42,6 @@ public class PopulationManagement : MonoBehaviour
         {
             SpawnCitizen();
         }
-        print(GetTimeUntilNewCitizen());
     }
 
     private void SpawnCitizen()

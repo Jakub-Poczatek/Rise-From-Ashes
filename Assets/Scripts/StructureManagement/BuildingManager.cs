@@ -104,6 +104,5 @@ public class BuildingManager
         preview.AddComponent<FollowMouse>();
 
         // Set preview materials
-
     }
 }

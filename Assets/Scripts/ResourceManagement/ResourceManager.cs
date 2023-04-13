@@ -22,6 +22,7 @@ public class ResourceManager : MonoBehaviour
 
     private Cost previousCost;
     private float avgHappiness = 0;
+    private Cost passiveResourceIncome = new(.5f, 1f, 0.5f, 0.5f, 0.5f); 
 
     private void Awake()
     {
@@ -150,6 +151,7 @@ public class ResourceManager : MonoBehaviour
         //IEnumerable<StructureBase> structures = buildingManager.GetAllStructuresData();
         IEnumerable<GameObject> structures = BuildingManager.Instance.GetAllStructures();
         CollectResourceGains(structures);
+        CollectPassiveIncome();
         goldHelper.Maintain(structures);
 
         // Consume food
@@ -171,6 +173,15 @@ public class ResourceManager : MonoBehaviour
         else avgHappiness = 0;
 
         UpdateMoneyValueUI();
+    }
+
+    private void CollectPassiveIncome()
+    {
+        goldHelper.AdjustResource(passiveResourceIncome.gold);
+        foodHelper.AdjustResource(passiveResourceIncome.food);
+        woodHelper.AdjustResource(passiveResourceIncome.wood);
+        stoneHelper.AdjustResource(passiveResourceIncome.stone);
+        metalHelper.AdjustResource(passiveResourceIncome.metal);
     }
 
     private void CollectResourceGains(IEnumerable<GameObject> structures)
