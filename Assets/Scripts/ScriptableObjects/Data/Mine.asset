@@ -15,14 +15,14 @@ MonoBehaviour:
   structureName: Mine
   prefab: {fileID: 361282805584930587, guid: 16dd5c860d2e7c548bee709bc5da4f34, type: 3}
   buildCost:
-    gold: 50
+    gold: 45
     food: 0
-    wood: 25
+    wood: 35
     stone: 50
     metal: 0
   maintenanceGoldCost: 0
   maxCitizenCapacity: 1
   resourceGenAmount: 1
   resourceType: 4
-  upgradable: 0
+  upgradable: 1
   availableUpgrades: []

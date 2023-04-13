@@ -14,7 +14,7 @@ public class BasicResourceHelper
         {
             if (value < 0)
             {
-                throw new ResourceException("Not enough resource");
+                resource = 0;
             }
             else
                 resource = value;
@@ -24,10 +24,5 @@ public class BasicResourceHelper
     public virtual void AdjustResource(float amount)
     {
         Resource += amount;
-    }
-
-    public virtual void CollectResource(float amount)
-    {
-        resource += amount;
     }
 }

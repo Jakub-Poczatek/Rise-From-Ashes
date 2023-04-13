@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 4437971531786917227}
   - component: {fileID: 8054784464291634956}
   - component: {fileID: 6580085119781515585}
+  - component: {fileID: 1037004023635992236}
   m_Layer: 5
   m_Name: StructureBtn
   m_TagString: Untagged
@@ -259,3 +260,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1037004023635992236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8682781001859205384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde5b94479737ac41a0b6e53f3dbfb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipToShow: default

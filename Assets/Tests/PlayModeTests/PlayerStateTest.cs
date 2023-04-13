@@ -46,7 +46,7 @@ public class PlayerStateTest
         yield return new WaitForEndOfFrame(); // start
         gameManager.PlayerState.OnBuildSingleStructure(null);
         yield return new WaitForEndOfFrame();
-        Assert.IsTrue(gameManager.PlayerState is PlayerBuildingSingleStructureState);
+        Assert.IsTrue(gameManager.PlayerState is PlayerBuildingResGenStructureState);
     }
 
     [UnityTest]

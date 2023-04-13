@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,13 +12,12 @@ public class Citizen : MonoBehaviour
     private State state = State.Idle;
     private GameObject workBuilding;
     private GameObject houseBuilding = null;
-    private float workingTime = 60f;
+    private float workingTime = 100f;
     private bool isWorking = false;
-    private Vector3 townHallPos;
     private bool stateRunning = false;
     public CitizenData citizenData;
 
-    private readonly int baseSleep = 8;
+    private readonly int baseWorkRestSplit = 50;
     private readonly int baseFood = 5;
 
     public GameObject HouseBuilding { get => houseBuilding; set => houseBuilding = value; }
@@ -29,14 +29,25 @@ public class Citizen : MonoBehaviour
         anim = this.GetComponent<Animator>();
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         agent = this.GetComponent<NavMeshAgent>();
-        townHallPos = GameObject.FindGameObjectWithTag("Town Hall").transform.position;
-        InvokeRepeating(nameof(UpdateHappiness), 0, 5);
     }
 
     // Update is called once per frame
     void Update()
     {
         info = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (state == State.Working && workBuilding == null)
+        {
+            CancelInvoke();
+            StopAllCoroutines();
+            target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+            transform.localScale = Vector3.one;
+            citizenData.occupation = Occupation.Citizen;
+            state = State.Roaming;
+            anim.SetTrigger("triggerRoaming");
+            stateRunning = false;
+        }
+
         if (!stateRunning)
         {
             stateRunning = true;
@@ -74,18 +85,23 @@ public class Citizen : MonoBehaviour
                 if (Vector3.Distance(this.transform.position, target) < 1.0f) {
                     if (info.IsName("TravelToWork"))
                     {
+                        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                         anim.SetBool("isWorking", true);
                         workBuilding.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
                         InvokeRepeating(nameof(UpdateExperience), 0, 1);
-                        yield return new WaitForSeconds(workingTime);
+                        yield return new WaitForSeconds(citizenData.WorkRestRatio.Item1);
                         CancelInvoke(nameof(UpdateExperience));
                         workBuilding.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
                         anim.SetBool("isWorking", false);
-                        target = townHallPos;
+                        transform.localScale = Vector3.one;
+                        target = houseBuilding.transform.position;
                     }
                     else
                     {
+                        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                        yield return new WaitForSeconds(citizenData.WorkRestRatio.Item2);
                         anim.SetTrigger("triggerWorking");
+                        transform.localScale = Vector3.one;
                         target = workBuilding.transform.position;
                     }
                     agent.SetDestination(target);
@@ -125,28 +141,29 @@ public class Citizen : MonoBehaviour
         switch (workResType)
         {
             case ResourceType.Gold:
-                citizenData.skills.GoldProductionExp++;
+                citizenData.skills.Gold.ProductionExp++;
                 break;
             case ResourceType.Food:
-                citizenData.skills.FoodProductionExp++;
+                citizenData.skills.Food.ProductionExp++;
                 break;
             case ResourceType.Wood:
-                citizenData.skills.WoodProductionExp++;
+                citizenData.skills.Wood.ProductionExp++;
                 break;
             case ResourceType.Stone:
-                citizenData.skills.StoneProductionExp++;
+                citizenData.skills.Stone.ProductionExp++;
                 break;
             case ResourceType.Metal:
-                citizenData.skills.MetalProductionExp++;
+                citizenData.skills.Metal.ProductionExp++;
                 break;
         }
     }
 
-    private void UpdateHappiness()
+    public void UpdateHappiness()
     {
-        citizenData.happiness +=
-            (citizenData.dailySleep - baseSleep) +
-            (citizenData.dailyFood - baseFood);
+        citizenData.Happiness =
+            50 +
+            (baseWorkRestSplit - citizenData.WorkRestRatio.Item1) +
+            ((citizenData.Food - baseFood) * 5);
     }
 
     private enum State
@@ -184,17 +201,75 @@ public class Citizen : MonoBehaviour
     {
         string firstName = NameData.firstNames[Random.Range(0, NameData.firstNames.Length)];
         string lastName = NameData.lastNames[Random.Range(0, NameData.lastNames.Length)];
-        Skills skills = new(1, 1, 1, 1, 1);
+        Skills skills = new();
         citizenData = new(
             firstName + " " + lastName,
             Occupation.Citizen,
             100,
             5,
-            8,
-            0,
+            (50, 50),
+            50,
             500,
-            skills
+            skills,
+            this
         );
+        Skill[] skillList = new Skill[5] { 
+            citizenData.skills.Gold,
+            citizenData.skills.Food,
+            citizenData.skills.Wood,
+            citizenData.skills.Stone,
+            citizenData.skills.Metal,
+        };
+        skillList = RandomListShuffle(skillList);
+        float totalExpToAllocate = 50;
+        float tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[0]);
+        tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[1]);
+        tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[2]); ;
+        tempExp = Random.Range(0, totalExpToAllocate);
+        totalExpToAllocate -= tempExp;
+        IncreaseSkillExp(tempExp, skillList[3]);
+        IncreaseSkillExp(totalExpToAllocate, skillList[4]);
+    }
+
+    private Skill[] RandomListShuffle(Skill[] skills)
+    {
+        System.Random random = new();
+        for (int i = skills.Length - 1; i >= 1; i--)
+        {
+            int j = random.Next(i + 1);
+            (skills[i], skills[j]) = (skills[j], skills[i]);
+        }
+        return skills;
+    }
+
+    private void IncreaseSkillExp(float tempExp, Skill skill)
+    {
+        float tempDiff;
+        do
+        {
+            tempDiff = skill.GetExpDiff();
+            skill.ProductionExp += tempExp;
+            tempExp -= tempDiff;
+        } while (tempExp > 0);
+    }
+
+    public void Die()
+    {
+        CancelInvoke();
+        StopAllCoroutines();
+        if (workBuilding != null)
+            workBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
+        if (houseBuilding != null)
+            houseBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
+        GameManager.Instance.uiController.citizenListPanelHelper.DestroyCitizenEntry(this);
+        ResourceManager.Instance.CurrentCitizenCapacity--;
+        Destroy(this.gameObject);
     }
 }
 

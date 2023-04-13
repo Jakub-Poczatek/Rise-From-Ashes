@@ -15,14 +15,14 @@ MonoBehaviour:
   structureName: Quarry
   prefab: {fileID: 4179493713652239928, guid: fd9c88922dd569740b36fcb085a64816, type: 3}
   buildCost:
-    gold: 20
+    gold: 50
     food: 0
-    wood: 5
+    wood: 45
     stone: 0
-    metal: 0
+    metal: 15
   maintenanceGoldCost: 0
   maxCitizenCapacity: 1
-  resourceGenAmount: 2
+  resourceGenAmount: 1
   resourceType: 3
   upgradable: 1
   availableUpgrades:

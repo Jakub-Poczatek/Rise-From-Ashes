@@ -17,7 +17,9 @@ public abstract class PlayerState
     {}
 
     public virtual void OnInputPointerChange(Vector3 position)
-    {}
+    {
+        HoverTipManager.Instance.HideTip();
+    }
 
     public virtual void OnInputPointerUp()
     {}
@@ -32,7 +34,7 @@ public abstract class PlayerState
         cameraMovement.StopCameraMovement();
     }
 
-    public virtual void OnCameraRotate(float angle)
+    public virtual void OnRotate(float angle)
     {
         cameraMovement.RotateCamera(angle);
     }
@@ -49,7 +51,7 @@ public abstract class PlayerState
 
     public virtual void EnterState(string structureName)
     {
-        gameManager.uiController.HideStructureInfo();
+        gameManager.uiController.ToggleStructureInteractionPanel(false);
     }
 
     public virtual void OnCancel()
@@ -67,7 +69,7 @@ public abstract class PlayerState
     public virtual void OnBuildSingleStructure(string structureName)
     {
         BuildingManager.Instance.CancelModification();
-        this.gameManager.TransitionToState(this.gameManager.buildingSingleStructureState, structureName);
+        this.gameManager.TransitionToState(this.gameManager.buildingResGenStructureState, structureName);
     }
 
     public virtual void OnBuildRoad(string structureName)

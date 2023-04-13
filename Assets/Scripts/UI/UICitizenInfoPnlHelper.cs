@@ -26,16 +26,16 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
         citizenOccupation.text = data.occupation.ToString();
 
         // Set stat info
-        healthSlider.value = data.health;
-        happinessSlider.value = data.happiness;
-        foodAmount.text = data.dailyFood.ToString();
-        energyAmount.text = data.dailySleep.ToString();
+        healthSlider.value = data.Health;
+        happinessSlider.value = data.Happiness;
+        foodAmount.text = data.Food.ToString();
+        energyAmount.text = data.WorkRestRatio.Item1 + ":" + currentData.WorkRestRatio.Item2;
 
-        goldLevel.text = "Gold Level: \t\t" + data.skills.goldProductionLevel.ToString();
-        foodLevel.text = "Food Level: \t\t" + data.skills.foodProductionLevel.ToString();
-        woodLevel.text = "Wood Level: \t" + data.skills.woodProductionLevel.ToString();
-        stoneLevel.text = "Stone Level: \t" + data.skills.stoneProductionLevel.ToString();
-        metalLevel.text = "Metal Level: \t" + data.skills.metalProductionLevel.ToString();
+        goldLevel.text = "Gold Level: \t\t" + data.skills.Gold.productionLevel.ToString();
+        foodLevel.text = "Food Level: \t\t" + data.skills.Food.productionLevel.ToString();
+        woodLevel.text = "Wood Level: \t" + data.skills.Wood.productionLevel.ToString();
+        stoneLevel.text = "Stone Level: \t" + data.skills.Stone.productionLevel.ToString();
+        metalLevel.text = "Metal Level: \t" + data.skills.Metal.productionLevel.ToString();
 
         // Set skill info
         UpdateSliders(data.skills);
@@ -53,16 +53,16 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
 
     private void UpdateSliders(Skills skills)
     {
-        goldSlider.maxValue = skills.GoldExpUntilNextLevel;
-        goldSlider.value = skills.GoldProductionExp;
-        foodSlider.maxValue = skills.FoodExpUntilNextLevel;
-        foodSlider.value = skills.FoodProductionExp;
-        woodSlider.maxValue = skills.WoodExpUntilNextLevel;
-        woodSlider.value = skills.WoodProductionExp;
-        stoneSlider.maxValue = skills.StoneExpUntilNextLevel;
-        stoneSlider.value = skills.StoneProductionExp;
-        metalSlider.maxValue = skills.MetalExpUntlNextLevel;
-        metalSlider.value = skills.MetalProductionExp;
+        goldSlider.maxValue = skills.Gold.ExpUntilNextLevel;
+        goldSlider.value = skills.Gold.ExpUntilNextLevel;
+        foodSlider.maxValue = skills.Food.ExpUntilNextLevel;
+        foodSlider.value = skills.Food.ProductionExp;
+        woodSlider.maxValue = skills.Wood.ExpUntilNextLevel;
+        woodSlider.value = skills.Wood.ProductionExp;
+        stoneSlider.maxValue = skills.Stone.ExpUntilNextLevel;
+        stoneSlider.value = skills.Stone.ProductionExp;
+        metalSlider.maxValue = skills.Metal.ExpUntilNextLevel;
+        metalSlider.value = skills.Metal.ProductionExp;
     }
 
     private void UpdateSliderValueLabels()
@@ -78,23 +78,29 @@ public class UICitizenInfoPnlHelper : MonoBehaviour
 
     private void UpdateLevels(Skills skills)
     {
-        goldLevel.text = "Gold Level: \t\t" + skills.goldProductionLevel.ToString();
-        foodLevel.text = "Food Level: \t\t" + skills.foodProductionLevel.ToString();
-        woodLevel.text = "Wood Level: \t" + skills.woodProductionLevel.ToString();
-        stoneLevel.text = "Stone Level: \t" + skills.stoneProductionLevel.ToString();
-        metalLevel.text = "Metal Level: \t" + skills.metalProductionLevel.ToString();
+        goldLevel.text = "Gold Level: \t\t" + skills.Gold.productionLevel.ToString();
+        foodLevel.text = "Food Level: \t\t" + skills.Food.productionLevel.ToString();
+        woodLevel.text = "Wood Level: \t" + skills.Wood.productionLevel.ToString();
+        stoneLevel.text = "Stone Level: \t" + skills.Stone.productionLevel.ToString();
+        metalLevel.text = "Metal Level: \t" + skills.Metal.productionLevel.ToString();
     }
 
     public void UpdateFood(int amount)
     {
-        currentData.dailyFood += amount;
-        foodAmount.text = currentData.dailyFood.ToString();
+        currentData.Food += amount;
+        foodAmount.text = currentData.Food.ToString();
+        currentData.parentCitizen.UpdateHappiness();
+        DisplayCitizenMenu(currentData);
     }
 
     public void UpdateSleep(int amount)
     {
-        currentData.dailySleep += amount;
-        energyAmount.text = currentData.dailySleep.ToString();
+        currentData.WorkRestRatio = (
+            currentData.WorkRestRatio.Item1 + amount,
+            currentData.WorkRestRatio.Item2 - amount);
+        energyAmount.text = currentData.WorkRestRatio.Item1 + ":" + currentData.WorkRestRatio.Item2;
+        currentData.parentCitizen.UpdateHappiness();
+        DisplayCitizenMenu(currentData);
     }
 
     public void Show()

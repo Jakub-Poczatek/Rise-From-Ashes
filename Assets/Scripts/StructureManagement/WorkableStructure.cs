@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class WorkableStructure : Structure
 {
@@ -39,13 +40,23 @@ public class WorkableStructure : Structure
     {
         Citizens[worker] = true;
         workersProdRate[worker] = GetWorkerLevelBonus(worker);
-        genAmount += workersProdRate[worker];
+        if(workersProdRate.ContainsKey(worker))
+            genAmount += workersProdRate[worker];
     }
 
     public void StopWorking(GameObject worker)
     {
         Citizens[worker] = false;
-        genAmount -= workersProdRate[worker];
+        if(workersProdRate.ContainsKey(worker))
+            genAmount -= workersProdRate[worker];
+    }
+
+    public override void RemoveCitizen(GameObject citizen)
+    {
+        if (Citizens[citizen])
+            genAmount -= workersProdRate[citizen];
+        workersProdRate.Remove(citizen);
+        base.RemoveCitizen(citizen);
     }
 
     private float GetWorkerLevelBonus(GameObject worker)
@@ -54,15 +65,15 @@ public class WorkableStructure : Structure
         switch (resourceType)
         {
             case ResourceType.Gold:
-                return baseGenAmount + workerSkills.goldProductionLevel;
+                return (baseGenAmount) + workerSkills.Gold.productionLevel;
             case ResourceType.Food:
-                return baseGenAmount + workerSkills.foodProductionLevel;
+                return baseGenAmount * workerSkills.Food.productionLevel;
             case ResourceType.Wood:
-                return baseGenAmount + workerSkills.woodProductionLevel;
+                return baseGenAmount + workerSkills.Wood.productionLevel;
             case ResourceType.Stone:
-                return baseGenAmount + workerSkills.stoneProductionLevel;
+                return baseGenAmount + workerSkills.Stone.productionLevel;
             case ResourceType.Metal:
-                return baseGenAmount + workerSkills.metalProductionLevel;
+                return baseGenAmount + workerSkills.Metal.productionLevel;
             default:
                 return 0;
         }

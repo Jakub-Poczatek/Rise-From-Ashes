@@ -9,20 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e77ca10fa2731ae45a0fdc4de872b98e, type: 3}
-  m_Name: Farm
+  m_Script: {fileID: 11500000, guid: 4dcefa0c05c4a8d48a38f3ad6d1705dd, type: 3}
+  m_Name: House
   m_EditorClassIdentifier: 
-  structureName: Farm
-  prefab: {fileID: 7607514041704122858, guid: 59e4f03cfda8970499a8180aed396830, type: 3}
+  structureName: House
+  prefab: {fileID: 1890749091245025512, guid: fe84ae9c31cb9ec4098354c9e5e57f63, type: 3}
   buildCost:
-    gold: 50
+    gold: 35
     food: 0
-    wood: 50
-    stone: 15
-    metal: 5
+    wood: 40
+    stone: 20
+    metal: 0
   maintenanceGoldCost: 0
   maxCitizenCapacity: 1
-  resourceGenAmount: 4
-  resourceType: 1
-  upgradable: 1
-  availableUpgrades: []

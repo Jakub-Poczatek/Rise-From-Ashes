@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
@@ -21,6 +20,10 @@ public class ResourceManager : MonoBehaviour
     private BasicResourceHelper stoneHelper;
     private BasicResourceHelper metalHelper;
 
+    private Cost previousCost;
+    private float avgHappiness = 0;
+    private Cost passiveResourceIncome = new(.5f, 1f, 0.5f, 0.5f, 0.5f); 
+
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(this);
@@ -35,6 +38,14 @@ public class ResourceManager : MonoBehaviour
         woodHelper = new BasicResourceHelper(initialWood);
         stoneHelper = new BasicResourceHelper(initialStone);
         metalHelper = new BasicResourceHelper(initialMetal);
+
+        previousCost = new Cost(
+            goldHelper.Resource,
+            foodHelper.Resource,
+            woodHelper.Resource,
+            stoneHelper.Resource,
+            metalHelper.Resource
+            );
 
         UpdateMoneyValueUI();
     }
@@ -60,6 +71,8 @@ public class ResourceManager : MonoBehaviour
             if (currentCitizenCapacity < 0) currentCitizenCapacity = 0;
         }
     }
+
+    public float AvgHappiness { get => avgHappiness; set => avgHappiness = value; }
 
     private ResourceManager() { }
 
@@ -127,11 +140,48 @@ public class ResourceManager : MonoBehaviour
 
     public void CalculateResources()
     {
+        previousCost = new Cost(
+            goldHelper.Resource,
+            foodHelper.Resource,
+            woodHelper.Resource,
+            stoneHelper.Resource,
+            metalHelper.Resource
+            );
+
         //IEnumerable<StructureBase> structures = buildingManager.GetAllStructuresData();
         IEnumerable<GameObject> structures = BuildingManager.Instance.GetAllStructures();
         CollectResourceGains(structures);
+        CollectPassiveIncome();
         goldHelper.Maintain(structures);
+
+        // Consume food
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            foodHelper.AdjustResource(-c.GetComponent<Citizen>().citizenData.Food);
+        }
+
+        if (foodHelper.Resource <= 0) StarveCitizens();
+
+        float happinessCounter = 0;
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            happinessCounter += c.GetComponent<Citizen>().citizenData.Happiness;
+        }
+
+        if(PopulationManagement.Instance.Citizens.Count > 0)
+            avgHappiness = happinessCounter / PopulationManagement.Instance.Citizens.Count;
+        else avgHappiness = 0;
+
         UpdateMoneyValueUI();
+    }
+
+    private void CollectPassiveIncome()
+    {
+        goldHelper.AdjustResource(passiveResourceIncome.gold);
+        foodHelper.AdjustResource(passiveResourceIncome.food);
+        woodHelper.AdjustResource(passiveResourceIncome.wood);
+        stoneHelper.AdjustResource(passiveResourceIncome.stone);
+        metalHelper.AdjustResource(passiveResourceIncome.metal);
     }
 
     private void CollectResourceGains(IEnumerable<GameObject> structures)
@@ -144,19 +194,19 @@ public class ResourceManager : MonoBehaviour
                 switch (workableStructure.ResourceType)
                 {
                     case ResourceType.Gold:
-                        goldHelper.CollectResource(workableStructure.GenAmount);
+                        goldHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Food:
-                        foodHelper.CollectResource(workableStructure.GenAmount);
+                        foodHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Wood:
-                        woodHelper.CollectResource(workableStructure.GenAmount);
+                        woodHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Stone:
-                        stoneHelper.CollectResource(workableStructure.GenAmount);
+                        stoneHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     case ResourceType.Metal:
-                        metalHelper.CollectResource(workableStructure.GenAmount);
+                        metalHelper.AdjustResource(workableStructure.GenAmount);
                         break;
                     default:
                         break;
@@ -173,7 +223,20 @@ public class ResourceManager : MonoBehaviour
             woodHelper.Resource,
             stoneHelper.Resource,
             metalHelper.Resource
-            ));
+            ), previousCost, avgHappiness);
+    }
+
+    private void StarveCitizens()
+    {
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            c.GetComponent<Citizen>().citizenData.Health -= Random.Range(0f, 5f);
+            if (c.GetComponent<Citizen>().citizenData.Health <= 0)
+            {
+                PopulationManagement.Instance.Citizens.Remove(c);
+                break;
+            }
+        }
     }
 
     private void OnDisable()

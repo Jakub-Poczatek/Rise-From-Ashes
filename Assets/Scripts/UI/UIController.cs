@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     public Button confirmActionBtn;
     public Button closeBuildMenuBtn;
     public Button openChallengeMenuBtn;
+    public Button openCitizenListMenuBtn;
     public GameObject cancelConfirmActionPnl;
     public GameObject buildingMenuPnl;
     public GameObject resourceGenStructsPnl;
@@ -33,11 +34,14 @@ public class UIController : MonoBehaviour
     public TMP_Text woodAmountTxt;
     public TMP_Text stoneAmountTxt;
     public TMP_Text metalAmountTxt;
+    public TMP_Text happinessAmountTxt;
+    public TMP_Text citizenSpawnTimeTxt;
 
     public UIStructInfoPnlHelper structPanelHelper;
     public UICitizenInfoPnlHelper citizenPanelHelper;
     public UIDebugPnlHelper debugPanelHelper;
     public UIChallengePnlHelper challengePanelHelper;
+    public UICitizenListPnlHelper citizenListPanelHelper;
 
     /*public TMP_Text infoPnlStructName;
     public TMP_Text infoPnlStructCost;
@@ -66,8 +70,8 @@ public class UIController : MonoBehaviour
         citizenPanelHelper.cancelBtn.onClick.AddListener(() => ToggleCitizenInteractionPanel(false));
         citizenPanelHelper.foodDecreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateFood(-1));
         citizenPanelHelper.foodIncreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateFood(1));
-        citizenPanelHelper.sleepDecreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateSleep(-1));
-        citizenPanelHelper.sleepIncreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateSleep(1));
+        citizenPanelHelper.sleepDecreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateSleep(-5));
+        citizenPanelHelper.sleepIncreaseBtn.onClick.AddListener(() => citizenPanelHelper.UpdateSleep(5));
 
         structPanelHelper.upgradeBtn.onClick.AddListener(() =>
         {
@@ -78,6 +82,9 @@ public class UIController : MonoBehaviour
 
         openChallengeMenuBtn.onClick.AddListener(() => ToggleChallengesPanel(true));
         challengePanelHelper.cancelBtn.onClick.AddListener(() => ToggleChallengesPanel(false));
+
+        openCitizenListMenuBtn.onClick.AddListener(() => ToggleCitizenListPanel(true));
+        citizenListPanelHelper.cancelBtn.onClick.AddListener(() => ToggleCitizenListPanel(false));
     }
 
     public void ToggleCitizenInteractionPanel(bool toggle, CitizenData citizenData = null)
@@ -88,6 +95,7 @@ public class UIController : MonoBehaviour
             ToggleBuildPanel(false);
             ToggleStructureInteractionPanel(false);
             ToggleChallengesPanel(false);
+            ToggleCitizenListPanel(false);
             citizenPanelHelper.DisplayCitizenMenu(citizenData);
         }
         else citizenPanelHelper.Hide();
@@ -110,6 +118,7 @@ public class UIController : MonoBehaviour
             ToggleCancelConfirmPanel(false);
             ToggleStructureInteractionPanel(false);
             ToggleChallengesPanel(false);
+            ToggleCitizenListPanel(false);
         }
         buildingMenuPnl.SetActive(toggle);
     }
@@ -122,12 +131,13 @@ public class UIController : MonoBehaviour
             ToggleCancelConfirmPanel(false);
             ToggleBuildPanel(false);
             ToggleChallengesPanel(false);
+            ToggleCitizenListPanel(false);
             structPanelHelper.DisplayStructureInfo(structure);
         }
         else structPanelHelper.Hide();
     }
 
-    private void ToggleChallengesPanel(bool toggle)
+    public void ToggleChallengesPanel(bool toggle)
     {
         if (toggle)
         {
@@ -135,14 +145,24 @@ public class UIController : MonoBehaviour
             ToggleCancelConfirmPanel(false);
             ToggleBuildPanel(false);
             ToggleStructureInteractionPanel(false);
+            ToggleCitizenListPanel(false);
             challengePanelHelper.DisplayChallengesMenu();
         }
         else challengePanelHelper.Hide();
     }
 
-    public void ADisplayStructureInfo(Structure structure)
+    public void ToggleCitizenListPanel(bool toggle)
     {
-        structPanelHelper.DisplayStructureInfo(structure);
+        if (toggle)
+        {
+            ToggleCitizenInteractionPanel(false);
+            ToggleCancelConfirmPanel(false);
+            ToggleBuildPanel(false);
+            ToggleStructureInteractionPanel(false);
+            ToggleChallengesPanel(false);
+            citizenListPanelHelper.DisplayCitizensMenu();
+        }
+        else citizenListPanelHelper.Hide();
     }
 
     private void OnDemolishHandler()
@@ -154,12 +174,12 @@ public class UIController : MonoBehaviour
 
     private void PrepareBuildMenu()
     {
-        CreateButtonsInPanel(resourceGenStructsPnl.transform, structureRepository.GetResourceGenStructNames(), OnBuildSingleStructureCallback);
-        CreateButtonsInPanel(roadStructsPnl.transform, new List<string>() { structureRepository.GetRoadStructName() }, OnBuildRoadCallback);
-        CreateButtonsInPanel(residentialStructsPnl.transform, new List<string>() { structureRepository.GetResidentialStructName() }, OnBuildResidentialCallback);
+        CreateButtonsInPanel(resourceGenStructsPnl.transform, structureRepository.GetResourceGenStructNames(), OnBuildSingleStructureCallback, StructureType.ResourceGenStructure);
+        CreateButtonsInPanel(roadStructsPnl.transform, new List<string>() { structureRepository.GetRoadStructName() }, OnBuildRoadCallback, StructureType.RoadStructure);
+        CreateButtonsInPanel(residentialStructsPnl.transform, new List<string>() { structureRepository.GetResidentialStructName() }, OnBuildResidentialCallback, StructureType.ResidentialStructure);
     }
 
-    private void CreateButtonsInPanel(Transform panelTransform, List<string> dataToShow, Action<string> callback)
+    private void CreateButtonsInPanel(Transform panelTransform, List<string> dataToShow, Action<string> callback, StructureType structureType)
     {
         int diff = dataToShow.Count - panelTransform.childCount;
         for (int i = 0; i < diff; i++)
@@ -174,6 +194,7 @@ public class UIController : MonoBehaviour
             {
                 button.GetComponentInChildren<TextMeshProUGUI>().text = dataToShow[i];
                 button.onClick.AddListener(() => callback(button.GetComponentInChildren<TextMeshProUGUI>().text));
+                panelTransform.GetChild(i).GetComponent<HoverTip>().tipToShow = structureRepository.GetStructureByName(dataToShow[i], structureType).buildCost.ToString();
             }
         }
     }
@@ -215,18 +236,15 @@ public class UIController : MonoBehaviour
         OnCancelActionHandler?.Invoke();
     }
 
-    public void UpdateResourceValues(Cost cost)
+    public void UpdateResourceValues(Cost cost, Cost previousCost, float happiness)
     {
-        goldAmountTxt.text = cost.gold.ToString();
-        foodAmountTxt.text = cost.food.ToString();
-        woodAmountTxt.text = cost.wood.ToString();
-        stoneAmountTxt.text = cost.stone.ToString();
-        metalAmountTxt.text = cost.metal.ToString();
-    }
-
-    public void HideStructureInfo()
-    {
-        structPanelHelper.Hide();
+        goldAmountTxt.text = Math.Round(cost.gold, 1) + " (" + Math.Round(cost.gold - previousCost.gold, 1) + ")";
+        foodAmountTxt.text = Math.Round(cost.food, 1) + " (" + Math.Round(cost.food - previousCost.food, 1) + ")";
+        woodAmountTxt.text = Math.Round(cost.wood, 1) + " (" + Math.Round(cost.wood - previousCost.wood, 1) + ")";
+        stoneAmountTxt.text = Math.Round(cost.stone, 1) + " (" + Math.Round(cost.stone - previousCost.stone, 1) + ")";
+        metalAmountTxt.text = Math.Round(cost.metal, 1) + " (" + Math.Round(cost.metal - previousCost.metal, 1) + ")"; ;
+        happinessAmountTxt.text = Math.Round(happiness) + "%";
+        citizenSpawnTimeTxt.text = Math.Round(PopulationManagement.Instance.GetTimeUntilNewCitizen()) + " sec";
     }
 
     public void UpdateDebugDisplay(string playerState)
