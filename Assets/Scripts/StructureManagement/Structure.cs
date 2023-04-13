@@ -72,12 +72,12 @@ public class Structure : MonoBehaviour
 
     public void AddCitizen(GameObject citizen)
     {
-        citizens.Add(citizen, false);
+        Citizens.Add(citizen, false);
     }
 
     public virtual void RemoveCitizen(GameObject citizen)
     {
-        citizens.Remove(citizen);
+        Citizens.Remove(citizen);
     }
     public bool HasCapacity()
     {

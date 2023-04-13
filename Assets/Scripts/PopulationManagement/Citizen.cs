@@ -65,7 +65,6 @@ public class Citizen : MonoBehaviour
                 state = State.Roaming;
                 break;
             case State.Roaming:
-                print("Beginning to roam");
                 if (Vector3.Distance(this.transform.position, target) < 1.0f)
                 {
                     Vector3 destination;
@@ -265,9 +264,7 @@ public class Citizen : MonoBehaviour
         CancelInvoke();
         StopAllCoroutines();
         if (workBuilding != null)
-            if (workBuilding.CompareTag("ResGenStructure"))
-                workBuilding.GetComponent<WorkableStructure>().RemoveCitizen(this.gameObject);
-            else workBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
+            workBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
         if (houseBuilding != null)
             houseBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
         GameManager.Instance.uiController.citizenListPanelHelper.DestroyCitizenEntry(this);

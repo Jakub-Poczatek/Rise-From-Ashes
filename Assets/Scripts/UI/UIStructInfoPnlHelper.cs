@@ -49,6 +49,8 @@ public class UIStructInfoPnlHelper : MonoBehaviour
         structureName.text = structure.StructureName;
         structureLevel.text = "Level " + structure.StructureLevel;
         citizenListLbl.text = "List of Citizens " + structure.Citizens.Count + "/" + structure.MaxCitizenCapacity;
+        HideCitizenList();
+        ClearButtonListeners();
         DisplayCitizenList(structure);
 
         if (structure.GetType() == typeof(WorkableStructure))
@@ -74,8 +76,19 @@ public class UIStructInfoPnlHelper : MonoBehaviour
             int index = i;
             citizenButtons[i].SetActive(true);
             citizenButtons[i].GetComponentInChildren<TMP_Text>().text = structure.Citizens.ElementAt(i).Key.GetComponent<Citizen>().citizenData.name;
+            if (structure.Citizens.ElementAt(i).Value)
+                citizenButtons[i].GetComponentInChildren<Button>().GetComponent<Image>().color = new Color(0.0078f, 0.3922f, 0.2510f);
+            else citizenButtons[i].GetComponentInChildren<Button>().GetComponent<Image>().color = new Color(0.3922f, 0.0078f, 0.1490f);
             citizenButtons[i].GetComponentInChildren<Button>().onClick.AddListener(() => 
-                LocateCitizen(structure.Citizens.ElementAt(index).Key.GetComponent<Citizen>()));
+                LocateCitizen(structure.Citizens.ElementAtOrDefault(index).Key.GetComponent<Citizen>()));
+        }
+    }
+
+    private void ClearButtonListeners()
+    {
+        foreach (GameObject cb in citizenButtons)
+        {
+            cb.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
         }
     }
 

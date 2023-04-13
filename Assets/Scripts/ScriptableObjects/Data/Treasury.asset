@@ -16,10 +16,10 @@ MonoBehaviour:
   prefab: {fileID: 5044072459351066130, guid: 347768c8844747845b2495c04c95f861, type: 3}
   buildCost:
     gold: 0
-    food: 25
+    food: 0
     wood: 25
-    stone: 20
-    metal: 25
+    stone: 75
+    metal: 15
   maintenanceGoldCost: 0
   maxCitizenCapacity: 1
   resourceGenAmount: 2

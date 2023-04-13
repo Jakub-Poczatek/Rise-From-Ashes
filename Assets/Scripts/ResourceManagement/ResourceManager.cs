@@ -230,7 +230,6 @@ public class ResourceManager : MonoBehaviour
     {
         foreach (GameObject c in PopulationManagement.Instance.Citizens)
         {
-            print(c.GetComponent<Citizen>().citizenData.name);
             c.GetComponent<Citizen>().citizenData.Health -= Random.Range(0f, 5f);
             if (c.GetComponent<Citizen>().citizenData.Health <= 0)
             {

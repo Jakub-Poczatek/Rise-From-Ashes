@@ -40,20 +40,23 @@ public class WorkableStructure : Structure
     {
         Citizens[worker] = true;
         workersProdRate[worker] = GetWorkerLevelBonus(worker);
-        genAmount += workersProdRate[worker];
+        if(workersProdRate.ContainsKey(worker))
+            genAmount += workersProdRate[worker];
     }
 
     public void StopWorking(GameObject worker)
     {
         Citizens[worker] = false;
-        genAmount -= workersProdRate[worker];
+        if(workersProdRate.ContainsKey(worker))
+            genAmount -= workersProdRate[worker];
     }
 
     public override void RemoveCitizen(GameObject citizen)
     {
-        base.RemoveCitizen(citizen);
-        genAmount -= workersProdRate[citizen];
+        if (Citizens[citizen])
+            genAmount -= workersProdRate[citizen];
         workersProdRate.Remove(citizen);
+        base.RemoveCitizen(citizen);
     }
 
     private float GetWorkerLevelBonus(GameObject worker)
@@ -62,9 +65,9 @@ public class WorkableStructure : Structure
         switch (resourceType)
         {
             case ResourceType.Gold:
-                return baseGenAmount + workerSkills.Gold.productionLevel;
+                return (baseGenAmount) + workerSkills.Gold.productionLevel;
             case ResourceType.Food:
-                return baseGenAmount + workerSkills.Food.productionLevel;
+                return baseGenAmount * workerSkills.Food.productionLevel;
             case ResourceType.Wood:
                 return baseGenAmount + workerSkills.Wood.productionLevel;
             case ResourceType.Stone:

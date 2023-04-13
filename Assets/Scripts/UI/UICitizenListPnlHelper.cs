@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -55,9 +54,10 @@ public class UICitizenListPnlHelper : MonoBehaviour
         citizenGO.transform.Find("CitizenTitle").GetComponent<TMP_Text>().text =
             citizen.citizenData.name + " - " + citizen.citizenData.occupation;
         citizenGO.transform.Find("CitizenDetails").GetComponent<TMP_Text>().text =
+            "Health: " + Mathf.Round(citizen.citizenData.Health) + "    " +
             "Happiness: " + citizen.citizenData.Happiness + "    " +
             "Food: " + citizen.citizenData.Food + "    " +
-            "Work - Rest Ratio: " + citizen.citizenData.WorkRestRatio.Item1 + ":" + citizen.citizenData.WorkRestRatio.Item2;
+            "Ratio: " + citizen.citizenData.WorkRestRatio.Item1 + ":" + citizen.citizenData.WorkRestRatio.Item2;
         citizenGO.transform.Find("HomeStatus").GetComponent<Toggle>().isOn = citizen.HouseBuilding != null;
         citizenGO.transform.Find("LocateBtn").GetComponent<Button>()
                 .onClick.AddListener(() => LocateCitizen(citizen));
@@ -83,7 +83,8 @@ public class UICitizenListPnlHelper : MonoBehaviour
 
     public void DestroyCitizenEntry(Citizen citizen)
     {
-        Destroy(citizenList[citizen]);
+        if(citizenList.ContainsKey(citizen))
+            Destroy(citizenList[citizen]);
         citizenList.Remove(citizen);
     }
 }
