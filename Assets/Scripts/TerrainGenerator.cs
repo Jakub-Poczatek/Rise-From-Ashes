@@ -12,8 +12,9 @@ public class TerrainGenerator : MonoBehaviour
     public Gradient gradient; 
     public float offsetX;
     public float offsetZ;
-    public Area flat, plains;
+    public Area flat, plains, hills;
     public GameObject[] trees;
+    public GameObject grass;
     
     private float minHeight = float.MaxValue;
     private float maxHeight = float.MinValue;
@@ -32,10 +33,13 @@ public class TerrainGenerator : MonoBehaviour
     {
         StartUpMeshGeneration();
         StartUpTrees();
+        StartUpGrass();
     }
 
     private void StartUpTrees()
     {
+        GameObject parent = new GameObject("TreeParent");
+        parent.transform.SetParent(transform.parent);
         Vector3 position;
         RaycastHit hit;
         bool foundPos = false;
@@ -57,8 +61,40 @@ public class TerrainGenerator : MonoBehaviour
                 }
             } while (!foundPos);
             print("Succeeded a cast: " + hit.collider.gameObject.name);
-            position.y = vertices[Mathf.RoundToInt((position.x+100) + (xSize * (position.z+100)))].y - 1;
-            Instantiate(trees[Random.Range(0, trees.Length)], position, Quaternion.identity);
+            position.y = vertices[Mathf.RoundToInt((position.x+100) + (xSize * (position.z+100)))].y;
+            GameObject tree = Instantiate(trees[Random.Range(0, trees.Length)], position, Quaternion.identity);
+            tree.isStatic = true;
+            tree.transform.SetParent(parent.transform);
+        }
+    }
+
+    private void StartUpGrass()
+    {
+        GameObject parent = new GameObject("GrassParent");
+        parent.transform.SetParent(transform.parent);
+        Vector3 position;
+        RaycastHit hit;
+        bool foundPos = false;
+        for (int z = -100; z < zSize-100; z++)
+        {
+            for (int x = -100; x < xSize-100; x++)
+            {
+                position = new Vector3(x, 50, z);
+                Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity);
+                try
+                {
+                    if (hit.collider.gameObject.CompareTag("Terrain") && Random.Range(0, 5) == 1)
+                    {
+                        position.y = vertices[(x + 100) + (xSize * (z + 100))].y;
+                        GameObject g = Instantiate(grass, position, Quaternion.identity);
+                        g.isStatic = true;
+                        g.transform.SetParent(parent.transform);
+                    }
+                } catch (System.Exception)
+                {
+                    continue;
+                }
+            }
         }
     }
 
@@ -75,7 +111,7 @@ public class TerrainGenerator : MonoBehaviour
         areasToGenerate = new List<Area>();
         areas = new Area[]
         {
-            flat, plains
+            flat, plains, hills
         };
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
@@ -108,12 +144,12 @@ public class TerrainGenerator : MonoBehaviour
                     {
                         tempArea = flat;
                     }
-                    else if (z >= citySectorMin - (sectionSize * 2) && z <= citySectorMax + (sectionSize * 2) && x >= citySectorMin - (sectionSize * 2) && x <= citySectorMax + (sectionSize * 2))
+                    else if (z >= citySectorMin - (sectionSize * 1) && z <= citySectorMax + (sectionSize * 1) && x >= citySectorMin - (sectionSize * 1) && x <= citySectorMax + (sectionSize * 1))
                     {
                         tempArea = plains;
                     }
                     else
-                        tempArea = plains;
+                        tempArea = areas[Random.Range(1, 3)];
 
                     areasToGenerate.Add(tempArea);
                     CreateSection(x, z, tempArea);
