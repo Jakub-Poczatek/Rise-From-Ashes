@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3b260ea8bcf7aed4488b174872d4d556
+guid: a71869527500afe43bbd83318d77bc56
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: LP_bark.001
-    second: {fileID: 2100000, guid: d556dde65a7e6b64c9442373e757ecb9, type: 2}
+      name: BricksHighScale
+    second: {fileID: 2100000, guid: c06cc0e654e1cab448b6ca431b5fd9e5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: LP_wood.001
-    second: {fileID: 2100000, guid: 76bcc5d77d09b1e49b1d3dcca7e5e3a9, type: 2}
+      name: CastleBricks
+    second: {fileID: 2100000, guid: 235e41d38ba7b7e4b8900ec61bdb5abe, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -45,7 +45,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 2
+    globalScale: 0.075
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -99,7 +99,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 2
+    globalScale: 0.075
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

@@ -1,4 +1,5 @@
 using Codice.Client.Common.GameUI;
+using NSubstitute.Routing.Handlers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class TerrainGenerator : MonoBehaviour
     public float offsetX;
     public float offsetZ;
     public Area flat, plains;
+    public GameObject[] trees;
     
     private float minHeight = float.MaxValue;
     private float maxHeight = float.MinValue;
@@ -19,6 +21,7 @@ public class TerrainGenerator : MonoBehaviour
     private Vector3[] vertices;
     private int[] triangles;
     private Color[] colors;
+    private Vector2[] uvs;
     private Area[] areas;
     private List<Area> areasToGenerate;
     private bool startUpGeneration = true;
@@ -28,6 +31,59 @@ public class TerrainGenerator : MonoBehaviour
     void Start()
     {
         StartUpMeshGeneration();
+        StartUpTrees();
+    }
+
+    private void StartUpTrees()
+    {
+        Vector3 position;
+        RaycastHit hit;
+        for (int i = 0; i < 250; i++)
+        {
+            bool foundPos;
+            do
+            {
+                position = new Vector3(Random.Range(-75, xSize - 75), 50, Random.Range(-75, xSize - 75));
+                Physics.Raycast(position, Vector3.down, out hit, 99);
+                try
+                {
+                    print("Trying a cast at this position: " + position + "\nFound something at this y: " + hit.point.y + "\nName of found GO: " + hit.collider.gameObject.name);
+                    foundPos = hit.collider.gameObject.CompareTag("Terrain");
+                }
+                catch (System.Exception)
+                {
+                    print("Failed a cast at this position: " + position + "\nFound something at this y: " + hit.point.y);
+                    foundPos = false;
+                }
+            } while (!foundPos);
+            print("Succeeded a cast: " + hit.collider.gameObject.name);
+            position.y = hit.point.y-1;
+            Instantiate(trees[Random.Range(0, trees.Length)], position, Quaternion.identity);
+        }
+    }
+
+    /*private void Update()
+    {
+        minHeight = float.MaxValue;
+        maxHeight = float.MinValue;
+        CreateMesh();
+        UpdateMesh();
+    }*/
+
+    private void StartUpMeshGeneration()
+    {
+        areasToGenerate = new List<Area>();
+        areas = new Area[]
+        {
+            flat, plains
+        };
+        mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+        offsetX = Random.Range(-100000, 100000);
+        offsetZ = Random.Range(-100000, 100000);
+        CreateMesh();
+        UpdateMesh();
+        startUpGeneration = false;
     }
 
     private void CreateMesh()
@@ -35,6 +91,7 @@ public class TerrainGenerator : MonoBehaviour
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
         triangles = new int[xSize * zSize * 6];
         colors = new Color[vertices.Length];
+        uvs = new Vector2[vertices.Length];
         int citySectorMin = Mathf.CeilToInt(xSize * 0.40f);
         int citySectorMax = Mathf.CeilToInt(xSize * 0.60f);
 
@@ -93,6 +150,14 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
+                uvs[x + (xSize * z)] = new Vector2((float) x / xSize,(float) z / zSize);
+            }
+        }
+
+        for (int z = 0; z <= zSize; z++)
+        {
+            for (int x = 0; x <= xSize; x++)
+            {
                 float height = Mathf.InverseLerp(minHeight, maxHeight, vertices[x + (xSize * z)].y);
                 colors[x + (xSize * z)] = gradient.Evaluate(height);
             }
@@ -119,8 +184,9 @@ public class TerrainGenerator : MonoBehaviour
     {
         float xPoint = x * area.perlinTilling + offsetX;
         float zPoint = z * area.perlinTilling + offsetZ;
-        float noise = Mathf.PerlinNoise(xPoint, zPoint) * area.perlinMultiplier;
-        noise = Mathf.Clamp01(noise) * area.height;
+        float noise = Mathf.PerlinNoise(xPoint, zPoint);
+        noise = (2 * noise - 1) * area.perlinMultiplier;
+        //noise = Mathf.Clamp(noise, -1, 1) * area.height;
         return noise;
             
     }
@@ -130,37 +196,15 @@ public class TerrainGenerator : MonoBehaviour
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+        mesh.uv = uvs;
         mesh.colors = colors;
         mesh.RecalculateNormals();
-    }
-
-    private void StartUpMeshGeneration()
-    {
-        areasToGenerate = new List<Area>();
-        areas = new Area[]
-        {
-            flat, plains
-        };
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
-        offsetX = Random.Range(-100000, 100000);
-        offsetZ = Random.Range(-100000, 100000);
-        CreateMesh();
-        UpdateMesh();
-        startUpGeneration = false;
+        GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 }
 
 [System.Serializable]
 public class Area
 {
-    public float perlinTilling, perlinMultiplier, height;
+    public float perlinTilling, perlinMultiplier;
 }
-
-/*private void Update()
-    {
-        *//*minHeight = float.MaxValue;
-        maxHeight = float.MinValue;
-        CreateMesh();
-        UpdateMesh();*//*
-    }*/

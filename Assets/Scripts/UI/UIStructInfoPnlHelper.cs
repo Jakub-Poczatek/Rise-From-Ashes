@@ -25,7 +25,7 @@ public class UIStructInfoPnlHelper : MonoBehaviour
         for (int i = 0; i < citizenButtons.Length; i++)
         {
             citizenButtons[i] = Instantiate(citizenList.transform.GetChild(0).gameObject);
-            citizenButtons[i].transform.parent = citizenList.transform;
+            citizenButtons[i].transform.SetParent(citizenList.transform);
             citizenButtons[i].SetActive(false);
         }
         Destroy(citizenList.transform.GetChild(0).gameObject);
