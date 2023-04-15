@@ -14,6 +14,8 @@ public class PlayerSelectionState : PlayerState
         Physics.Raycast(cameraRay.origin, cameraRay.direction, out hit, Mathf.Infinity);
         GameObject target = hit.collider.transform.parent.gameObject;
 
+        Debug.Log("Hit this gameObject: " + hit.collider.transform.parent.gameObject.name);
+
         switch (target.tag)
         {
             case "Citizen":

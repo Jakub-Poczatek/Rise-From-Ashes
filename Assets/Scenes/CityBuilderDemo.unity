@@ -1454,7 +1454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1806475995423369720, guid: 336d05e98c0aec84fb763ebc6522618b, type: 3}
       propertyPath: plains.perlinMultiplier
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1806475995423369720, guid: 336d05e98c0aec84fb763ebc6522618b, type: 3}
       propertyPath: mountain.perlinMultiplier
@@ -1486,7 +1486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5226689254560494412, guid: 336d05e98c0aec84fb763ebc6522618b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5226689254560494412, guid: 336d05e98c0aec84fb763ebc6522618b, type: 3}
       propertyPath: m_LocalPosition.z

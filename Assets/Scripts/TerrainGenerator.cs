@@ -38,9 +38,9 @@ public class TerrainGenerator : MonoBehaviour
     {
         Vector3 position;
         RaycastHit hit;
+        bool foundPos = false;
         for (int i = 0; i < 250; i++)
         {
-            bool foundPos;
             do
             {
                 position = new Vector3(Random.Range(-75, xSize - 75), 50, Random.Range(-75, xSize - 75));
@@ -57,7 +57,7 @@ public class TerrainGenerator : MonoBehaviour
                 }
             } while (!foundPos);
             print("Succeeded a cast: " + hit.collider.gameObject.name);
-            position.y = hit.point.y-1;
+            position.y = vertices[Mathf.RoundToInt((position.x+100) + (xSize * (position.z+100)))].y - 1;
             Instantiate(trees[Random.Range(0, trees.Length)], position, Quaternion.identity);
         }
     }
