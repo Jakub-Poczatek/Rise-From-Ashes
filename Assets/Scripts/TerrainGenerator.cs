@@ -34,6 +34,7 @@ public class TerrainGenerator : MonoBehaviour
         StartUpMeshGeneration();
         StartUpTrees();
         StartUpGrass();
+        NavMeshManager.Instance.Rebake();
     }
 
     private void StartUpTrees()
@@ -51,16 +52,16 @@ public class TerrainGenerator : MonoBehaviour
                 Physics.Raycast(position, Vector3.down, out hit, 99);
                 try
                 {
-                    print("Trying a cast at this position: " + position + "\nFound something at this y: " + hit.point.y + "\nName of found GO: " + hit.collider.gameObject.name);
+                    //print("Trying a cast at this position: " + position + "\nFound something at this y: " + hit.point.y + "\nName of found GO: " + hit.collider.gameObject.name);
                     foundPos = hit.collider.gameObject.CompareTag("Terrain");
                 }
                 catch (System.Exception)
                 {
-                    print("Failed a cast at this position: " + position + "\nFound something at this y: " + hit.point.y);
+                    //print("Failed a cast at this position: " + position + "\nFound something at this y: " + hit.point.y);
                     foundPos = false;
                 }
             } while (!foundPos);
-            print("Succeeded a cast: " + hit.collider.gameObject.name);
+            //print("Succeeded a cast: " + hit.collider.gameObject.name);
             position.y = vertices[Mathf.RoundToInt((position.x+100) + (xSize * (position.z+100)))].y;
             GameObject tree = Instantiate(trees[Random.Range(0, trees.Length)], position, Quaternion.identity);
             tree.isStatic = true;
@@ -74,7 +75,6 @@ public class TerrainGenerator : MonoBehaviour
         parent.transform.SetParent(transform.parent);
         Vector3 position;
         RaycastHit hit;
-        bool foundPos = false;
         for (int z = -100; z < zSize-100; z++)
         {
             for (int x = -100; x < xSize-100; x++)
