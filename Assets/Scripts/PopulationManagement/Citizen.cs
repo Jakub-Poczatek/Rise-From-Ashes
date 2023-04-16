@@ -16,6 +16,7 @@ public class Citizen : MonoBehaviour
     private bool isWorking = false;
     private bool stateRunning = false;
     public CitizenData citizenData;
+    public GameObject[] models;
 
     private readonly int baseWorkRestSplit = 50;
     private readonly int baseFood = 5;
@@ -25,6 +26,12 @@ public class Citizen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject model = Instantiate(models[Random.Range(0, models.Length)]);
+        Destroy(transform.GetChild(0).gameObject);
+        model.transform.SetParent(transform);
+        print(model.transform.position);
+        model.transform.localPosition = new Vector3(0, 0, 0);
+        print(model.transform.position);
         CreateCitizenData();
         anim = this.GetComponent<Animator>();
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
