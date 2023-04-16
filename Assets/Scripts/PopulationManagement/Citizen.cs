@@ -15,6 +15,7 @@ public class Citizen : MonoBehaviour
     private float workingTime = 100f;
     private bool isWorking = false;
     private bool stateRunning = false;
+    private GameObject model;
     public CitizenData citizenData;
     public GameObject[] models;
 
@@ -26,7 +27,7 @@ public class Citizen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject model = Instantiate(models[Random.Range(0, models.Length)]);
+        model = Instantiate(models[Random.Range(0, models.Length)]);
         Destroy(transform.GetChild(0).gameObject);
         model.transform.SetParent(transform);
         model.transform.localPosition = new Vector3(0, 0, 0);
@@ -204,7 +205,11 @@ public class Citizen : MonoBehaviour
 
     private void CreateCitizenData()
     {
-        string firstName = NameData.firstNames[Random.Range(0, NameData.firstNames.Length)];
+        string firstName;
+        if (model.name.Contains("Male"))
+            firstName = NameData.firstNamesMale[Random.Range(0, NameData.firstNamesMale.Length)];
+        else
+            firstName = NameData.firstNamesFemale[Random.Range(0, NameData.firstNamesFemale.Length)];
         string lastName = NameData.lastNames[Random.Range(0, NameData.lastNames.Length)];
         Skills skills = new();
         citizenData = new(
