@@ -11,8 +11,11 @@ public class PlayerSelectionState : PlayerState
     {
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        Physics.Raycast(cameraRay.origin, cameraRay.direction, out hit, Mathf.Infinity);
+        int layerMask = ~(1 << LayerMask.NameToLayer("Terrain"));
+        Physics.Raycast(cameraRay.origin, cameraRay.direction, out hit, Mathf.Infinity, layerMask);
         GameObject target = hit.collider.transform.parent.gameObject;
+
+        Debug.Log("Hit this gameObject: " + hit.collider.transform.parent.gameObject.name);
 
         switch (target.tag)
         {
