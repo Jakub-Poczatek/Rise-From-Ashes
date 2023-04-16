@@ -29,9 +29,7 @@ public class Citizen : MonoBehaviour
         GameObject model = Instantiate(models[Random.Range(0, models.Length)]);
         Destroy(transform.GetChild(0).gameObject);
         model.transform.SetParent(transform);
-        print(model.transform.position);
         model.transform.localPosition = new Vector3(0, 0, 0);
-        print(model.transform.position);
         CreateCitizenData();
         anim = this.GetComponent<Animator>();
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
