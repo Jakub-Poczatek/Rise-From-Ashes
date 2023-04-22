@@ -251,7 +251,8 @@ public class UIController : MonoBehaviour
         woodAmountTxt.text = Math.Round(cost.wood, 1) + " (" + (Math.Round(cost.wood - previousCost.wood, 1) > 0 ? "+" : "") + Math.Round(cost.wood - previousCost.wood, 1) + ")";
         stoneAmountTxt.text = Math.Round(cost.stone, 1) + " (" + (Math.Round(cost.stone - previousCost.stone, 1) > 0 ? "+" : "") + Math.Round(cost.stone - previousCost.stone, 1) + ")";
         metalAmountTxt.text = Math.Round(cost.metal, 1) + " (" + (Math.Round(cost.metal - previousCost.metal, 1) > 0 ? "+" : "") + Math.Round(cost.metal - previousCost.metal, 1) + ")"; ;
-        happinessAmountTxt.text = Math.Round(happiness) + "%";
+        int citizenCount = PopulationManagement.Instance.Citizens.Count;
+        happinessAmountTxt.text = Math.Round(happiness) + "% (" + citizenCount + ")";
 
         if (happiness > 60)
             happinessImage.sprite = happyIcon;
