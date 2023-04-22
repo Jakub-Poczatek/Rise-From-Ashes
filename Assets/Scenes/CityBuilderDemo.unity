@@ -1796,11 +1796,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046acd466ce178644b2133cbee94e2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialGold: 500
-  initialFood: 1000
-  initialWood: 500
-  initialStone: 500
-  initialMetal: 500
+  initialGold: 5500
+  initialFood: 4561
+  initialWood: 3133
+  initialStone: 3135
+  initialMetal: 1534
   resourceCalculationInterval: 1
   maxCitizenCapacity: 0
   currentCitizenCapacity: 0

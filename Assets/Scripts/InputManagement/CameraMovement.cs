@@ -58,8 +58,10 @@ public class CameraMovement : MonoBehaviour
             angleCounter += 1 * Time.deltaTime * rotationSpeed;
             if (angleCounter >= Mathf.Abs(rotateAngle))
             {
+                float yRotation = transform.rotation.eulerAngles.y;
+                float roundedYRotation = Mathf.Round(yRotation / 45f) * 45f;
                 transform.rotation = 
-                    Quaternion.Euler(transform.rotation.eulerAngles.x, Mathf.Round(transform.rotation.eulerAngles.y), transform.rotation.eulerAngles.z);
+                    Quaternion.Euler(transform.rotation.eulerAngles.x, roundedYRotation, transform.rotation.eulerAngles.z);
                 rotateCamera = false;
                 isRotating = false;
             }
