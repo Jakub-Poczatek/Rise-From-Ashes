@@ -216,9 +216,9 @@ public class Citizen : MonoBehaviour
             firstName + " " + lastName,
             Occupation.Citizen,
             100,
-            5,
+            1,
             (50, 50),
-            50,
+            30,
             500,
             skills,
             this

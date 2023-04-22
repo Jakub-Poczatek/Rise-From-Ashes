@@ -33,7 +33,7 @@ public class CitizenData
         set
         {
             food = value;
-            if(value < 0) food = 0;
+            if(value < 1) food = 1;
             if(value > 10) food = 10;
         }
     }
