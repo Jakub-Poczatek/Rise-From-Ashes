@@ -43,6 +43,7 @@ public class CitizenData
         set
         {
             health = value;
+            if (health > 100) health = 100;
             if (health <= 0 && parentCitizen != null) parentCitizen.Die();
         }
     }

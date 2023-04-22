@@ -22,7 +22,8 @@ public class ResourceManager : MonoBehaviour
 
     private Cost previousCost;
     private float avgHappiness = 0;
-    private Cost passiveResourceIncome = new(.5f, 1f, 0.5f, 0.5f, 0.5f); 
+    private Cost passiveResourceIncome = new(.5f, 1f, 0.5f, 0.5f, 0.5f);
+    private bool citizensAreHurt = false;
 
     private void Awake()
     {
@@ -162,6 +163,8 @@ public class ResourceManager : MonoBehaviour
 
         if (foodHelper.Resource <= 0) StarveCitizens();
 
+        if (foodHelper.Resource > 0 && citizensAreHurt) HealCitizens();
+
         float happinessCounter = 0;
         foreach (GameObject c in PopulationManagement.Instance.Citizens)
         {
@@ -235,6 +238,20 @@ public class ResourceManager : MonoBehaviour
             {
                 PopulationManagement.Instance.Citizens.Remove(c);
                 break;
+            }
+        }
+        citizensAreHurt = true;
+    }
+
+    private void HealCitizens()
+    {
+        citizensAreHurt = false;
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            if (c.GetComponent<Citizen>().citizenData.Health < 100)
+            {
+                c.GetComponent<Citizen>().citizenData.Health++;
+                citizensAreHurt = true;
             }
         }
     }
