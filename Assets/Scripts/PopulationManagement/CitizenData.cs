@@ -79,6 +79,7 @@ public enum Occupation
     Citizen,
     Merchant,
     Farmer,
-    Miner,
-    Logger
+    Logger,
+    Stonemason,
+    Miner
 }

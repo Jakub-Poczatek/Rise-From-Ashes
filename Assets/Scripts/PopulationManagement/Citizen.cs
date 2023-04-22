@@ -193,7 +193,7 @@ public class Citizen : MonoBehaviour
                 citizenData.occupation = Occupation.Logger;
                 break;
             case ResourceType.Stone:
-                citizenData.occupation = Occupation.Miner;
+                citizenData.occupation = Occupation.Stonemason;
                 break;
             case ResourceType.Metal:
                 citizenData.occupation = Occupation.Miner;
