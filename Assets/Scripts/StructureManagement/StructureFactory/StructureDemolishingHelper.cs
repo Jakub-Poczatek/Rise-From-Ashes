@@ -39,7 +39,7 @@ public class StructureDemolishingHelper : StructureModificationHelper
                 kvp.Value.GetComponent<Structure>().BaseData.buildCost / 2);
             if (kvp.Value.name.Contains("House"))
             {
-                resourceManager.MaxCitizenCapacity-= kvp.Value.GetComponent<Structure>().Citizens.Count;
+                resourceManager.MaxCitizenCapacity-= kvp.Value.GetComponent<Structure>().MaxCitizenCapacity;
             }
         }
         this.placementManager.DestroyDisplayedStructures(structuresToBeModified.Values);

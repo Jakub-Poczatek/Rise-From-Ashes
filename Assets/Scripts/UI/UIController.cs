@@ -15,6 +15,8 @@ public class UIController : MonoBehaviour
     private Action OnConfirmActionHandler;
     private Action OnCitizenAssignHandler;
 
+    private Sprite happyIcon, neutralIcon, sadIcon;
+
     public Button cancelActionBtn;
     public Button openBuildMenuBtn;
     public Button demolishBtn;
@@ -37,6 +39,8 @@ public class UIController : MonoBehaviour
     public TMP_Text happinessAmountTxt;
     public TMP_Text citizenSpawnTimeTxt;
 
+    public Image happinessImage;
+
     public UIStructInfoPnlHelper structPanelHelper;
     public UICitizenInfoPnlHelper citizenPanelHelper;
     public UIDebugPnlHelper debugPanelHelper;
@@ -54,6 +58,10 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        happyIcon = Resources.Load<Sprite>("happy_icon");
+        neutralIcon = Resources.Load<Sprite>("neutral_icon");
+        sadIcon = Resources.Load<Sprite>("sad_icon");
+
         cancelConfirmActionPnl.SetActive(false);
         PrepareBuildMenu();
         buildingMenuPnl.SetActive(false);
@@ -244,6 +252,14 @@ public class UIController : MonoBehaviour
         stoneAmountTxt.text = Math.Round(cost.stone, 1) + " (" + Math.Round(cost.stone - previousCost.stone, 1) + ")";
         metalAmountTxt.text = Math.Round(cost.metal, 1) + " (" + Math.Round(cost.metal - previousCost.metal, 1) + ")"; ;
         happinessAmountTxt.text = Math.Round(happiness) + "%";
+
+        if (happiness > 60)
+            happinessImage.sprite = happyIcon;
+        else if (happiness > 40)
+            happinessImage.sprite = neutralIcon;
+        else
+            happinessImage.sprite = sadIcon;
+
         citizenSpawnTimeTxt.text = Math.Round(PopulationManagement.Instance.GetTimeUntilNewCitizen()) + " sec";
     }
 
