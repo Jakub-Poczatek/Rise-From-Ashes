@@ -24,6 +24,7 @@ public class ResourceManager : MonoBehaviour
     private float avgHappiness = 0;
     private Cost passiveResourceIncome = new(.5f, 1f, 0.5f, 0.5f, 0.5f);
     private bool citizensAreHurt = false;
+    private float difficulty;
 
     private void Awake()
     {
@@ -34,6 +35,8 @@ public class ResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        difficulty = PlayerPrefs.GetFloat("difficulty");
+
         goldHelper = new GoldHelper(initialGold);
         foodHelper = new BasicResourceHelper(initialFood);
         woodHelper = new BasicResourceHelper(initialWood);
@@ -147,7 +150,7 @@ public class ResourceManager : MonoBehaviour
             woodHelper.Resource,
             stoneHelper.Resource,
             metalHelper.Resource
-            );
+            ) * difficulty;
 
         //IEnumerable<StructureBase> structures = buildingManager.GetAllStructuresData();
         IEnumerable<GameObject> structures = BuildingManager.Instance.GetAllStructures();
@@ -226,7 +229,7 @@ public class ResourceManager : MonoBehaviour
             woodHelper.Resource,
             stoneHelper.Resource,
             metalHelper.Resource
-            ), previousCost, avgHappiness);
+            ) * difficulty, previousCost, avgHappiness);
     }
 
     private void StarveCitizens()

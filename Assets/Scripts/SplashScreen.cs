@@ -23,6 +23,11 @@ public class SplashScreen : MonoBehaviour
         masterVolume.onValueChanged.AddListener(ChangeMasterVolume);
         musicVolume.onValueChanged.AddListener(ChangeMusicVolume);
         sfxVolume.onValueChanged.AddListener(ChangeSFXVolume);
+
+        ChangeGameSpeed(1);
+        ChangeMasterVolume(-10);
+        ChangeMusicVolume(-10);
+        ChangeSFXVolume(-10);
     }
 
     private void Play()
