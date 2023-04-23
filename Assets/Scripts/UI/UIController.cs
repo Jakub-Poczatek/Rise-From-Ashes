@@ -173,6 +173,16 @@ public class UIController : MonoBehaviour
         else citizenListPanelHelper.Hide();
     }
 
+    public void DisableAllPanels()
+    {
+        ToggleCitizenInteractionPanel(false);
+        ToggleCancelConfirmPanel(false);
+        ToggleBuildPanel(false);
+        ToggleStructureInteractionPanel(false);
+        ToggleChallengesPanel(false);
+        ToggleCitizenListPanel(false);
+    }
+
     private void OnDemolishHandler()
     {
         OnDemolishActionHandler?.Invoke();
