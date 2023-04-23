@@ -55,4 +55,9 @@ public class AudioManager : MonoBehaviour
         }
         return music;
     }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        sfxSource.PlayOneShot(clip);
+    }
 }

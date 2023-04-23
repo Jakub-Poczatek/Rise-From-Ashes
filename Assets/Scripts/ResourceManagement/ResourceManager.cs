@@ -94,6 +94,7 @@ public class ResourceManager : MonoBehaviour
     {
         if (CanIAffordIt(cost))
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.purchase);
             SpendResources(cost);
             return true;
         }

@@ -14,6 +14,7 @@ public class PlayerCitizenAssignState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
+        base.OnInputPointerDown(position);
         GameObject structure = BuildingManager.Instance.GetStructureFromGrid(position);
         if (structure != null)
         {

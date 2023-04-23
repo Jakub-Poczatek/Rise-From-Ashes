@@ -29,6 +29,7 @@ public class UIChallengePnlHelper : MonoBehaviour
 
     private void ClaimReward(KeyValuePair<Challenge, GameObject> kvp)
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.claim);
         ResourceManager.Instance.EarnResources(kvp.Key.reward);
         challenges.Remove(kvp.Key);
         Destroy(kvp.Value);

@@ -284,6 +284,7 @@ public class Citizen : MonoBehaviour
 
     public void Die()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.death);
         ResetBehaviour();
         if (workBuilding != null)
             workBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);

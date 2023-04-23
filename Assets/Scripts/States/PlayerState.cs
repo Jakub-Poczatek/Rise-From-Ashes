@@ -14,7 +14,9 @@ public abstract class PlayerState
     }
 
     public virtual void OnInputPointerDown(Vector3 position)
-    {}
+    {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.click);
+    }
 
     public virtual void OnInputPointerChange(Vector3 position)
     {
