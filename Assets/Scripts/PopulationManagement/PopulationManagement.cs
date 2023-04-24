@@ -11,6 +11,7 @@ public class PopulationManagement : MonoBehaviour
     private List<GameObject> citizens;
     public GameObject townHall;
     private ResourceManager resourceManager;
+    private float difficulty;
 
     public static PopulationManagement Instance { get; private set; }
 
@@ -20,6 +21,7 @@ public class PopulationManagement : MonoBehaviour
 
     private void Awake()
     {
+        difficulty = PlayerPrefs.GetFloat("difficulty");
         citizens = new List<GameObject>();
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
@@ -36,7 +38,7 @@ public class PopulationManagement : MonoBehaviour
     {
         citizenSpawnRateTimer += Time.deltaTime;
         if(citizens.Count > 0)
-            citizenSpawnRate = (baseCitizenSpawnRate * citizens.Count / (ResourceManager.Instance.AvgHappiness*2)) * 1000;
+            citizenSpawnRate = ((baseCitizenSpawnRate * citizens.Count / (ResourceManager.Instance.AvgHappiness*2)) * 1000) / difficulty;
         else citizenSpawnRate = 0;
         if(citizenSpawnRateTimer > citizenSpawnRate)
         {
