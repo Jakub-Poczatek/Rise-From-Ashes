@@ -57,14 +57,14 @@ public class Structure : MonoBehaviour
         maxCitizenCapacity = baseData.maxCitizenCapacity;
         structureLevel = 1;
         citizens = new Dictionary<GameObject, bool>();
-        upgradeCost = BaseData.buildCost * 1.5f;
+        upgradeCost = BaseData.buildCost * 2.5f;
     }
 
     public virtual void Upgrade()
     {
         if (structureLevel < 5 && ResourceManager.Instance.Purchase(upgradeCost))
         {
-            upgradeCost *= 1.5f;
+            upgradeCost *= 2.5f;
             structureLevel += 1;
             MaxCitizenCapacity++;
         }
