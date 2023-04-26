@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIChallengePnlHelper : MonoBehaviour
@@ -29,9 +30,11 @@ public class UIChallengePnlHelper : MonoBehaviour
 
     private void ClaimReward(KeyValuePair<Challenge, GameObject> kvp)
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.claim);
         ResourceManager.Instance.EarnResources(kvp.Key.reward);
         challenges.Remove(kvp.Key);
         Destroy(kvp.Value);
+        CheckCompletion();
     }
 
     public void DisplayChallengesMenu()
@@ -62,6 +65,14 @@ public class UIChallengePnlHelper : MonoBehaviour
             challenge.transform.Find("ChallengeName").GetComponent<TMP_Text>().text = c.name;
             challenge.transform.Find("ChallengeMessage").GetComponent<TMP_Text>().text = c.message;
             challenges.Add(c, challenge);
+        }
+    }
+
+    private void CheckCompletion()
+    {
+        if(challenges.Count <= 0)
+        {
+            SceneManager.LoadScene("Credits");
         }
     }
 }

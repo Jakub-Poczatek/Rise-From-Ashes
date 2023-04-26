@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/CityBuilderDemo.unity
+    path: Assets/Scenes/MainMenu.unity
+    guid: b9b1e90a7414fbb4b9963f73ffe17592
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
     guid: 06ab594278622db49a3119d932304a1e
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 741d2c50af8a4aa4fac5daf1fc3136ea
+  - enabled: 1
+    path: Assets/Scenes/EndScreen.unity
+    guid: 13e6cdbc04beb5e40ab2630176019710
   m_configObjects: {}

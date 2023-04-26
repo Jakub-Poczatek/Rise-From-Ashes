@@ -173,6 +173,16 @@ public class UIController : MonoBehaviour
         else citizenListPanelHelper.Hide();
     }
 
+    public void DisableAllPanels()
+    {
+        ToggleCitizenInteractionPanel(false);
+        ToggleCancelConfirmPanel(false);
+        ToggleBuildPanel(false);
+        ToggleStructureInteractionPanel(false);
+        ToggleChallengesPanel(false);
+        ToggleCitizenListPanel(false);
+    }
+
     private void OnDemolishHandler()
     {
         OnDemolishActionHandler?.Invoke();
@@ -246,12 +256,13 @@ public class UIController : MonoBehaviour
 
     public void UpdateResourceValues(Cost cost, Cost previousCost, float happiness)
     {
-        goldAmountTxt.text = Math.Round(cost.gold, 1) + " (" + Math.Round(cost.gold - previousCost.gold, 1) + ")";
-        foodAmountTxt.text = Math.Round(cost.food, 1) + " (" + Math.Round(cost.food - previousCost.food, 1) + ")";
-        woodAmountTxt.text = Math.Round(cost.wood, 1) + " (" + Math.Round(cost.wood - previousCost.wood, 1) + ")";
-        stoneAmountTxt.text = Math.Round(cost.stone, 1) + " (" + Math.Round(cost.stone - previousCost.stone, 1) + ")";
-        metalAmountTxt.text = Math.Round(cost.metal, 1) + " (" + Math.Round(cost.metal - previousCost.metal, 1) + ")"; ;
-        happinessAmountTxt.text = Math.Round(happiness) + "%";
+        goldAmountTxt.text = Math.Round(cost.gold, 1) + " (" + (Math.Round(cost.gold - previousCost.gold, 1) > 0 ? "+" : "") + Math.Round(cost.gold - previousCost.gold, 1) + ")";
+        foodAmountTxt.text = Math.Round(cost.food, 1) + " (" + (Math.Round(cost.food - previousCost.food, 1) > 0 ? "+" : "") + Math.Round(cost.food - previousCost.food, 1) + ")";
+        woodAmountTxt.text = Math.Round(cost.wood, 1) + " (" + (Math.Round(cost.wood - previousCost.wood, 1) > 0 ? "+" : "") + Math.Round(cost.wood - previousCost.wood, 1) + ")";
+        stoneAmountTxt.text = Math.Round(cost.stone, 1) + " (" + (Math.Round(cost.stone - previousCost.stone, 1) > 0 ? "+" : "") + Math.Round(cost.stone - previousCost.stone, 1) + ")";
+        metalAmountTxt.text = Math.Round(cost.metal, 1) + " (" + (Math.Round(cost.metal - previousCost.metal, 1) > 0 ? "+" : "") + Math.Round(cost.metal - previousCost.metal, 1) + ")"; ;
+        int citizenCount = PopulationManagement.Instance.Citizens.Count;
+        happinessAmountTxt.text = Math.Round(happiness) + "% (" + citizenCount + ")";
 
         if (happiness > 60)
             happinessImage.sprite = happyIcon;

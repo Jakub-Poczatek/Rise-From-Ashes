@@ -9,7 +9,7 @@ public class Citizen : MonoBehaviour
     private AnimatorStateInfo info;
     private NavMeshAgent agent;
     private Vector3 target;
-    private State state = State.Idle;
+    private State state = State.Roaming;
     private GameObject workBuilding;
     private GameObject houseBuilding = null;
     private float workingTime = 100f;
@@ -24,33 +24,33 @@ public class Citizen : MonoBehaviour
 
     public GameObject HouseBuilding { get => houseBuilding; set => houseBuilding = value; }
 
+    private void Awake()
+    {
+        model = Instantiate(models[Random.Range(0, models.Length)]);
+        model.transform.SetParent(transform);
+        model.transform.localPosition = new Vector3(0, 0, 0);
+        Destroy(transform.GetChild(0).gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        model = Instantiate(models[Random.Range(0, models.Length)]);
-        Destroy(transform.GetChild(0).gameObject);
-        model.transform.SetParent(transform);
-        model.transform.localPosition = new Vector3(0, 0, 0);
         CreateCitizenData();
-        anim = this.GetComponent<Animator>();
         target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         agent = this.GetComponent<NavMeshAgent>();
+        anim = this.GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(anim == null)
+            anim = GetComponentInChildren<Animator>();
         info = anim.GetCurrentAnimatorStateInfo(0);
 
         if (state == State.Working && workBuilding == null)
         {
-            CancelInvoke();
-            StopAllCoroutines();
-            target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-            transform.localScale = Vector3.one;
-            citizenData.occupation = Occupation.Citizen;
-            state = State.Roaming;
-            anim.SetTrigger("triggerRoaming");
+            ResetBehaviour();
             stateRunning = false;
         }
 
@@ -65,11 +65,6 @@ public class Citizen : MonoBehaviour
     {
         switch (state)
         {
-            case State.Idle:
-                yield return new WaitForSeconds(0.1f);
-                anim.SetTrigger("triggerRoaming");
-                state = State.Roaming;
-                break;
             case State.Roaming:
                 if (Vector3.Distance(this.transform.position, target) < 1.0f)
                 {
@@ -88,26 +83,43 @@ public class Citizen : MonoBehaviour
                 }
                 break;
             case State.Working:
-                if (Vector3.Distance(this.transform.position, target) < 1.0f) {
+                if (Vector3.Distance(this.transform.position, target) < 0.5f) {
                     if (info.IsName("TravelToWork"))
                     {
-                        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                        agent.enabled = false;
+                        transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+                        transform.GetComponentInChildren<CapsuleCollider>().enabled = false;
                         anim.SetBool("isWorking", true);
+                        anim.SetBool("isTravellingWork", false);
+
                         workBuilding.GetComponent<WorkableStructure>().StartWorking(this.gameObject);
                         InvokeRepeating(nameof(UpdateExperience), 0, 1);
                         yield return new WaitForSeconds(citizenData.WorkRestRatio.Item1);
                         CancelInvoke(nameof(UpdateExperience));
                         workBuilding.GetComponent<WorkableStructure>().StopWorking(this.gameObject);
+
+                        agent.enabled = true;
+                        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        transform.GetComponentInChildren<CapsuleCollider>().enabled = true;
                         anim.SetBool("isWorking", false);
-                        transform.localScale = Vector3.one;
+                        anim.SetBool("isTravellingHome", true);
                         target = houseBuilding.transform.position;
                     }
-                    else
+                    else if (info.IsName("TravelToHome"))
                     {
-                        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                        agent.enabled = false;
+                        transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+                        transform.GetComponentInChildren<CapsuleCollider>().enabled = false;
+                        anim.SetBool("isResting", true);
+                        anim.SetBool("isTravellingHome", false);
+
                         yield return new WaitForSeconds(citizenData.WorkRestRatio.Item2);
-                        anim.SetTrigger("triggerWorking");
-                        transform.localScale = Vector3.one;
+
+                        agent.enabled = true;
+                        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        transform.GetComponentInChildren<CapsuleCollider>().enabled = true;
+                        anim.SetBool("isResting", false);
+                        anim.SetBool("isTravellingWork", true);
                         target = workBuilding.transform.position;
                     }
                     agent.SetDestination(target);
@@ -123,6 +135,7 @@ public class Citizen : MonoBehaviour
     {
         if (building.GetComponent<WorkableStructure>().HasCapacity())
         {
+            ResetBehaviour();
 
             // Remove previous workplace
             if (workBuilding != null)
@@ -132,7 +145,8 @@ public class Citizen : MonoBehaviour
 
             workBuilding = building;
             target = workBuilding.transform.position;
-            anim.SetTrigger("triggerWorking");
+            anim.SetBool("isUnemployed", false);
+            anim.SetBool("isTravellingWork", true);
             state = State.Working;
             agent.SetDestination(target);
             workBuilding.GetComponent<WorkableStructure>().AddCitizen(this.gameObject);
@@ -164,19 +178,18 @@ public class Citizen : MonoBehaviour
         }
     }
 
+    private enum State
+    {
+        Roaming,
+        Working
+    }
+
     public void UpdateHappiness()
     {
         citizenData.Happiness =
             50 +
             (baseWorkRestSplit - citizenData.WorkRestRatio.Item1) +
             ((citizenData.Food - baseFood) * 5);
-    }
-
-    private enum State
-    {
-        Idle,
-        Roaming,
-        Working
     }
 
     private void AssignNewOccupation(ResourceType resourceType)
@@ -193,7 +206,7 @@ public class Citizen : MonoBehaviour
                 citizenData.occupation = Occupation.Logger;
                 break;
             case ResourceType.Stone:
-                citizenData.occupation = Occupation.Miner;
+                citizenData.occupation = Occupation.Stonemason;
                 break;
             case ResourceType.Metal:
                 citizenData.occupation = Occupation.Miner;
@@ -216,9 +229,9 @@ public class Citizen : MonoBehaviour
             firstName + " " + lastName,
             Occupation.Citizen,
             100,
-            5,
+            1,
             (50, 50),
-            50,
+            30,
             500,
             skills,
             this
@@ -271,8 +284,8 @@ public class Citizen : MonoBehaviour
 
     public void Die()
     {
-        CancelInvoke();
-        StopAllCoroutines();
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.death);
+        ResetBehaviour();
         if (workBuilding != null)
             workBuilding.GetComponent<Structure>().RemoveCitizen(this.gameObject);
         if (houseBuilding != null)
@@ -280,6 +293,21 @@ public class Citizen : MonoBehaviour
         GameManager.Instance.uiController.citizenListPanelHelper.DestroyCitizenEntry(this);
         ResourceManager.Instance.CurrentCitizenCapacity--;
         Destroy(this.gameObject);
+    }
+
+    private void ResetBehaviour()
+    {
+        CancelInvoke();
+        StopAllCoroutines();
+        target = new(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        transform.localScale = Vector3.one;
+        citizenData.occupation = Occupation.Citizen;
+        state = State.Roaming;
+        anim.SetBool("isUnemployed", true);
+        anim.SetBool("isTravellingWork", false);
+        anim.SetBool("isWorking", false);
+        anim.SetBool("isResting", false);
+        anim.SetBool("isTravellingHome", false);
     }
 }
 

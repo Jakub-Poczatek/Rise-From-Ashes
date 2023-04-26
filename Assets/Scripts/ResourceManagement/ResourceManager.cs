@@ -22,7 +22,9 @@ public class ResourceManager : MonoBehaviour
 
     private Cost previousCost;
     private float avgHappiness = 0;
-    private Cost passiveResourceIncome = new(.5f, 1f, 0.5f, 0.5f, 0.5f); 
+    private Cost passiveResourceIncome = new(.5f, 1f, 0.5f, 0.5f, 0.5f);
+    private bool citizensAreHurt = false;
+    private float difficulty;
 
     private void Awake()
     {
@@ -33,6 +35,8 @@ public class ResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        difficulty = PlayerPrefs.GetFloat("difficulty");
+
         goldHelper = new GoldHelper(initialGold);
         foodHelper = new BasicResourceHelper(initialFood);
         woodHelper = new BasicResourceHelper(initialWood);
@@ -90,6 +94,7 @@ public class ResourceManager : MonoBehaviour
     {
         if (CanIAffordIt(cost))
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.purchase);
             SpendResources(cost);
             return true;
         }
@@ -146,7 +151,7 @@ public class ResourceManager : MonoBehaviour
             woodHelper.Resource,
             stoneHelper.Resource,
             metalHelper.Resource
-            );
+            ) * difficulty;
 
         //IEnumerable<StructureBase> structures = buildingManager.GetAllStructuresData();
         IEnumerable<GameObject> structures = BuildingManager.Instance.GetAllStructures();
@@ -161,6 +166,8 @@ public class ResourceManager : MonoBehaviour
         }
 
         if (foodHelper.Resource <= 0) StarveCitizens();
+
+        if (foodHelper.Resource > 0 && citizensAreHurt) HealCitizens();
 
         float happinessCounter = 0;
         foreach (GameObject c in PopulationManagement.Instance.Citizens)
@@ -223,7 +230,7 @@ public class ResourceManager : MonoBehaviour
             woodHelper.Resource,
             stoneHelper.Resource,
             metalHelper.Resource
-            ), previousCost, avgHappiness);
+            ) * difficulty, previousCost, avgHappiness);
     }
 
     private void StarveCitizens()
@@ -235,6 +242,20 @@ public class ResourceManager : MonoBehaviour
             {
                 PopulationManagement.Instance.Citizens.Remove(c);
                 break;
+            }
+        }
+        citizensAreHurt = true;
+    }
+
+    private void HealCitizens()
+    {
+        citizensAreHurt = false;
+        foreach (GameObject c in PopulationManagement.Instance.Citizens)
+        {
+            if (c.GetComponent<Citizen>().citizenData.Health < 100)
+            {
+                c.GetComponent<Citizen>().citizenData.Health++;
+                citizensAreHurt = true;
             }
         }
     }

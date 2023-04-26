@@ -33,7 +33,7 @@ public class CitizenData
         set
         {
             food = value;
-            if(value < 0) food = 0;
+            if(value < 1) food = 1;
             if(value > 10) food = 10;
         }
     }
@@ -43,6 +43,7 @@ public class CitizenData
         set
         {
             health = value;
+            if (health > 100) health = 100;
             if (health <= 0 && parentCitizen != null) parentCitizen.Die();
         }
     }
@@ -78,6 +79,7 @@ public enum Occupation
     Citizen,
     Merchant,
     Farmer,
-    Miner,
-    Logger
+    Logger,
+    Stonemason,
+    Miner
 }

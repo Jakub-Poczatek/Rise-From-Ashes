@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2972289436667392420}
   - component: {fileID: 7368374245837029753}
   - component: {fileID: -422943946192531258}
-  - component: {fileID: -8095733950040538462}
   m_Layer: 12
   m_Name: Citizen
   m_TagString: Citizen
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1668881108834762931}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &7368374245837029753
 NavMeshAgent:
@@ -79,26 +78,6 @@ MonoBehaviour:
   - {fileID: 3164390664309657693, guid: 54b26e20370844744a501fd439026c97, type: 3}
   - {fileID: 8475745896223286026, guid: 438345d8d827f884d87f8d3f18bc96de, type: 3}
   - {fileID: 1402767319211084741, guid: e307901ae06d49e43b61d554be07ce06, type: 3}
---- !u!95 &-8095733950040538462
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3142739486678288549}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c1aeac1448616874f922bd07c12acfc5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &3667504092743019385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,6 +86,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2972289436667392420}
     m_Modifications:
+    - target: {fileID: 1510775867314539119, guid: a0cb3b35b5fb2564983f2275ffa69733, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313103930903140704, guid: a0cb3b35b5fb2564983f2275ffa69733, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2366074973327655068, guid: a0cb3b35b5fb2564983f2275ffa69733, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -172,6 +159,10 @@ PrefabInstance:
       value: Model
       objectReference: {fileID: 0}
     - target: {fileID: 3352729402885124464, guid: a0cb3b35b5fb2564983f2275ffa69733, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249300846917973831, guid: a0cb3b35b5fb2564983f2275ffa69733, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

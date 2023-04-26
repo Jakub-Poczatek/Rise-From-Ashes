@@ -9,6 +9,7 @@ public class PlayerSelectionState : PlayerState
 
     public override void OnInputPointerDown(Vector3 position)
     {
+        base.OnInputPointerDown(position);
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         int layerMask = ~(1 << LayerMask.NameToLayer("Terrain"));
